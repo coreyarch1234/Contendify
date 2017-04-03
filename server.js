@@ -23,6 +23,13 @@ var cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
 
+//Home Route
+app.get('/', function(req, res){
+    res.render('home');
+});
+
+
+
 //DEPLOY
 app.listen(process.env.PORT || 3000, function(){
 

@@ -1,1 +1,35 @@
-<h1>Hello</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contendify</title>
+    <meta charset="utf-8">
+    <!-- VENDOR STYLES -->
+    <link rel="stylesheet" href="/vendor/bootstrap/dist/css/bootstrap.min.css">
+    <!-- MY STYLES -->
+    <link rel="stylesheet" href="/styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:700" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-custom">
+        <a class="navbar-brand custom" href="/">CONTENDIFY</a>
+          <div class="container-fluid">
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                  <ul class="nav navbar-nav navbar-right">
+                    <li id="login-button"><a  href="/login">Login</a></li>
+                    <li id="logout-button"><a  href="#" >Logout</a></li>
+                    <li id="signup-button" class="dropdown" >
+                      <a href="/signup" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sign up <span ></span></a>
+                    </li>
+                  </ul>
+                </div><!-- /.navbar-collapse -->
+              </div><!-- /.container-fluid -->
+         </nav>
+     </header>
+        <div class="container-fluid">
+            {{{body}}}
+        </div>
+
+</body>
+</html>
