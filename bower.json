@@ -1,0 +1,23 @@
+{
+  "name": "contendify",
+  "description": "contendify template",
+  "main": "server.js",
+  "authors": [
+    "coreyarch1234 <harrilal@mit.edu>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/coreyarch1234/contendify",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/vendor/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.1.1",
+    "js-cookie": "^2.1.3"
+  }
+}
