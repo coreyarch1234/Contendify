@@ -31,6 +31,10 @@ app.get('/', function(req, res){
     res.render('home');
 });
 
+// Games Routes
+var games = require('./controllers/games')
+app.use('/games', games)
+
 io.on('connection', function(socket) {
   console.log('a user connected');
 
