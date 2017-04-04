@@ -36,18 +36,19 @@ var games = require('./controllers/games')
 app.use('/games', games)
 
 io.on('connection', function(socket) {
-  console.log('a user connected');
-
-  socket.on('chat message', function(msg){
-    console.log('message: ' + msg);
-    io.emit('chat message', msg);
+  // console.log('a user connected');
+  socket.on('newGame', function(){
+      console.log('a new game created');
   });
-
-  socket.on('disconnect', function(){
-    console.log('user disconnected');
-  });
+  // socket.on('chat message', function(msg){
+  //   console.log('message: ' + msg);
+  //   io.emit('chat message', msg);
+  // });
+  //
+  // socket.on('disconnect', function(){
+  //   console.log('user disconnected');
+  // });
 });
-
 
 //DEPLOY
 httpServer.listen(process.env.PORT || 3000, function() {

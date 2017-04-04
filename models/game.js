@@ -5,7 +5,7 @@ var GameSchema = new Schema({
   createdAt            : { type: Date, default: Date() },
   updatedAt            : { type: Date, default: Date() },
   gameName             : { type: String, unique: true, required: true },
-  gameNumber           : { type: Number, unique: true, required: true },
+  gameNumber           : { type: Number, unique: true, required: false },
   userCountMax         : { type: Number, default: 5 }
 })
 

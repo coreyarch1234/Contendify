@@ -14,7 +14,7 @@ router.get('/', function(req, res) {
 
 // NEW of Game
 router.get('/new', function(req, res) {
-  res.render('new-game')
+  res.render('game-new')
 })
 
 // CREATE of Game
@@ -29,7 +29,7 @@ router.post('/', function(req, res) {
 
 // SHOW Game
 router.get('/:name', function(req, res) {
-  res.render('new-game')
+  // res.render('new-game')
 })
 
 module.exports = router
