@@ -1,11 +1,19 @@
-<div class="col-sm-12">
-    <legend>New Game</legend>
-        <div class="">
-            <input class="newGame" type="text" placeholder= "Name of Game" /></br>
-        </div>
-        <button class="btn btn-primary btn-responsive  button-create" id="createGame">Create Game</button>
-</div>
-
 <script>
+    var gameNum = parseInt(Math.random() * 10000)
     var socket = io();
 </script>
+<div class="col-sm-12">
+    <legend>New Game</legend>
+        <form id='createGame'>
+            <div class="form-group">
+                <input class="" type="text" placeholder= "Game Name" name="gameName" />
+                <input class="" type="hidden" name="gameNumber" value="'gameNum'" />
+            </div>
+            <button class="btn btn-primary btn-responsive  button-create" type='submit'>Save</button>
+        </form>
+</div>
+
+<!-- <script>
+    var gameNum = randomGameNumber();
+    var socket = io();
+</script> -->

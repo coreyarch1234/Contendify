@@ -37,8 +37,11 @@ app.use('/games', games)
 
 io.on('connection', function(socket) {
   // console.log('a user connected');
-  socket.on('newGame', function(){
-      console.log('a new game created');
+  // socket.on('newGame', function(){
+  //     console.log('a new game created');
+  // });
+  socket.on('HELLO2', function(){
+      console.log('Game Name Received');
   });
   // socket.on('chat message', function(msg){
   //   console.log('message: ' + msg);

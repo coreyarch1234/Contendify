@@ -19,17 +19,24 @@ router.get('/new', function(req, res) {
 
 // CREATE of Game
 router.post('/', function(req, res) {
-  var game = new Game(req.body)
-  console.log(game)
+  var game = new Game(req.body) //Just contains the gameName
+  var gameName = game.gameName
+  console.log(gameName)
   game.save(function (err, game) {
     if (err) return console.error(err)
-    res.send({ redirectUrl: '/games' })
+    console.log('saved!!')
+    res.send(game)
   })
 })
 
 // SHOW Game
-router.get('/:name', function(req, res) {
-  // res.render('new-game')
-})
+router.get('/:gameName', function(req, res) {
+    // var gameNum = randomGameNumber();
+    Game.find({gameName:req.params.gameName}).exec(function(err, game){
+            console.log("hello worldldldl");
+            console.log(game);
+            res.render('game-room', {game: game});
+        });
+});
 
 module.exports = router

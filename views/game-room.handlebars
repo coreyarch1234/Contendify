@@ -1,9 +1,6 @@
-<!-- <div class="col-sm-12">
-    <legend>New Game</legend>
-    <form id='create'>
-        <div class="form-group">
-            <input class="newGame" type="text" placeholder= "Name of Game" name="" /></br>
-        </div>
-        <button class="btn btn-primary btn-responsive  button-create" id='createGame' type='submit'>Create Game</button>
-    </form>
-</div> -->
+<div class="col-sm-12">
+    <legend>Game Room</legend>
+    {{#each game}}
+        <h1>Title: {{this.gameName}}</h1>
+    {{/each}}
+</div>

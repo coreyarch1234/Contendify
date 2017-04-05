@@ -4,8 +4,8 @@ var mongoose = require('mongoose'),
 var GameSchema = new Schema({
   createdAt            : { type: Date, default: Date() },
   updatedAt            : { type: Date, default: Date() },
-  gameName             : { type: String, unique: true, required: true },
-  gameNumber           : { type: Number, unique: true, required: false },
+  // gameName             : { type: String, unique: true, required: true },
+  gameNumber           : { type: Number, required: true },
   userCountMax         : { type: Number, default: 5 }
 })
 
