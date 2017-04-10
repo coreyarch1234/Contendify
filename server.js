@@ -35,19 +35,21 @@ app.get('/', function(req, res){
 var games = require('./controllers/games')
 app.use('/games', games)
 
-io.on('connection', function(socket) {
-  // console.log('a user connected');
-  // socket.on('newGame', function(){
-  //     console.log('a new game created');
-  // });
-  socket.on('HELLO2', function(){
-      console.log('Game Name Received');
-  });
-  // socket.on('chat message', function(msg){
-  //   console.log('message: ' + msg);
-  //   io.emit('chat message', msg);
-  // });
-  //
+io.sockets.on('connection', function(socket) {
+    //User connected
+    console.log('a user connected');
+     //User sent specific message in gameName
+     socket.on('cat', function(data){
+         console.log('Event \'hgjnmbdslurkjsd\' has been received.');
+         console.log('data:');
+         console.log(data);
+     });
+
+
+   //  socket.on('new game', function(data) {
+   //      console.log('FHFHFHFHFHFHreceived new message')
+   //      io.emit('newer game', {msg: apple});
+   // });
   // socket.on('disconnect', function(){
   //   console.log('user disconnected');
   // });
