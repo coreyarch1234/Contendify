@@ -40,9 +40,7 @@ io.sockets.on('connection', function(socket) {
     console.log('a user connected');
      //User sent specific message in gameName
      socket.on('cat', function(data){
-         console.log('Event \'hgjnmbdslurkjsd\' has been received.');
-         console.log('data:');
-         console.log(data);
+        //  console.log(data.message);
      });
 
 
