@@ -4,9 +4,10 @@ var mongoose = require('mongoose'),
 var GameSchema = new Schema({
   createdAt            : { type: Date, default: Date() },
   updatedAt            : { type: Date, default: Date() },
-  gameName             : { type: String, unique: true, required: true },
-  gameNumber           : { type: Number, unique: true, required: true },
+  gameName             : { type: String, unique: false, required: true },
   userCountMax         : { type: Number, default: 5 }
 })
 
 module.exports = mongoose.model('Game', GameSchema)
+
+// gameNumber           : { type: Number, required: true },

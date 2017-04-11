@@ -1,12 +1,21 @@
+<!-- <script>
+    $(function(){
+        var socket = io.connect();
+        socket.emit('new game')
+        console.log('hahahahahahah')
+
+        socket.on('newer game', function(data) {
+            console.log(data.msg)
+            console.log('hello')
+        // window.location.href = "/games/new";
+
+       });
+    });
+</script> -->
+
 <div class="col-sm-12">
-    <legend>Make A Competition</legend>
-    <form id='new-competition'>
-        <div class="form-group">
-            <input class="" type="text" placeholder= "Competition Title" name="title" /></br>
-            <input  class="" type="text" placeholder= "Grade Level" name="grade" /></br>
-            <input  class="" type="text" placeholder= "Topic" name="topic" /></br>
-            <input  class="" type="text" placeholder= "Question Count" name="questionCount"/>
-        </div>
-        <button class="btn btn-primary btn-responsive  button-create" type='submit'>Save</button>
-    </form>
+    <legend>Game Room</legend>
+    {{#each game}}
+        <h1>Title: {{this.gameName}}</h1>
+    {{/each}}
 </div>

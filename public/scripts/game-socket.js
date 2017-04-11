@@ -1,21 +1,34 @@
+
 $(function () {
-   var socket = io();
-   $('form').submit(function(){
-     socket.emit('chat message', $('#m').val());
-     $('#m').val('');
-     return false;
-   });
+    //Generate random Number
+    function randomGameNumber(){
+        var gameNumber = parseInt(Math.random() * 10000)
+        return gameNumber
+    };
 
-   socket.on('chat message', function(msg) {
-      $('#messages').append($('<li>').text(msg));
+    //Create Competition
+    $('#createGame').submit(function(e){
+        e.preventDefault();
+        var game = $(this).serialize();
+        // var gameNumber = randomGameNumber();
+        // console.log(game);
+        $.ajax({
+           url: '/games',
+           data: game,
+           fail: function() {
+              alert(error.message);
+           },
+           dataType: 'json',
+           success: function(data) {
+            //    console.log(data)
+               window.location.href = "/games/" + data.gameName;
+               console.log('Redirected to game, socket will now be created for this game...');
+            //    tell server to make nsp socket for this game
+               socket.emit(data.gameName, data);
+               socket.emit('apple', data);
+
+           },
+           type: 'POST'
+        });
     });
-
-    // $(document).on('click', #create, function(){
-    //     var gameName = $('.newGame').val(); //Get the input game name
-    //     if(gameName!= ''){
-    //         var gameNumber = parseInt(Math.random() * 10000)
-    //         socket.emit('newGame', {gameName: gameName, gameNumber: gameNumber});
-    //         $('.newGame').val(''); //clear out the value
-    //     }
-    // });
- });
+});
