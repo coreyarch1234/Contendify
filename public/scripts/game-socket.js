@@ -32,7 +32,6 @@ $(function () {
 //Current Task
 // On game page, show question text and options text.
 // When a user clicks on an option, grab the option text and the socket id.
-// addl'
 // Emit the socket id and the option text to server and compare with actual answer.
 // If they got it right, update view with "correct text" and if they got it wrong, update with "wrong text"
 //
@@ -46,8 +45,8 @@ $(function () {
   1) Find a place to store question and options text
   2) Make it possible to grab socket id and options text once a user clicks on an options
   3) Emit socket id and options text to server
-  4)create max user count and increment as people answer
-  5) Update view accordingly 
+  // 4) create max user count and increment as people answer
+  4) Update view accordingly
 
 
 
