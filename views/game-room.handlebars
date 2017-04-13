@@ -1,21 +1,21 @@
-<!-- <script>
-    $(function(){
-        var socket = io.connect();
-        socket.emit('new game')
-        console.log('hahahahahahah')
-
-        socket.on('newer game', function(data) {
-            console.log(data.msg)
-            console.log('hello')
-        // window.location.href = "/games/new";
-
-       });
-    });
-</script> -->
-
+<!-- Display question and answer options. When a user clicks on an answer, catch socket id of user and answer text
+to compare with answer. -->
 <div class="col-sm-12">
-    <legend>Game Room</legend>
-    {{#each game}}
-        <h1>Title: {{this.gameName}}</h1>
-    {{/each}}
+    <!-- <form>
+        <select id="selectOption" size="4">
+          <option id="optionOne"></option>
+          <option id="optionTwo">Orange</option>
+          <option id="optionThree">Pineapple</option>
+          <option id="optionFour">Banana</option>
+        </select>
+    </form> -->
+    <p>
+    <!-- When $a \ne 0$, there are two solutions to \(ax^2 + bx + c = 0\) and they are
+    $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$ -->
+    \(ax^2 + 5\)
+    \(ax^2\)
+    $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
+    </p>
+    <h1 id="optionOne">Hello </h1>
+<!-- <button onclick="myFunction()">Try it</button> -->
 </div>
