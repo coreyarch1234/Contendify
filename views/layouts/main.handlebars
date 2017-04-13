@@ -20,12 +20,13 @@
     <!-- Sockets  -->
     <script src="/socket.io/socket.io.js"></script>
     <!-- Scripts -->
-    <!-- <script type="text/javascript" src="/scripts/script.js"></script> -->
     <script type="text/javascript" src="/scripts/game-socket.js"> </script>
-    <!-- Katex -->
+    <script type="text/javascript" src="/scripts/math.js"> </script>
+
+    <!-- MathJax -->
     <script type="text/javascript" async
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML">
-</script>
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
 <body>
     <header>
         <nav class="navbar navbar-custom">
@@ -48,13 +49,6 @@
           <form action="">
           </form>
             {{{body}}}
-            <!-- <p>
-            When $a \ne 0$, there are two solutions to \(ax^2 + bx + c = 0\) and they are
-            $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
-            \(ax^2 + 5\)
-            \(ax^2\)
-            $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
-            </p> -->
          </div>
 
         <script>

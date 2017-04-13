@@ -36,21 +36,17 @@ var games = require('./controllers/games')
 app.use('/games', games)
 
 io.sockets.on('connection', function(socket) {
-    //User connected
-    console.log('a user connected');
+
      //User sent specific message in gameName
      socket.on('corey', function(data){
          console.log(data.message);
      });
+     socket.on('answered', function(data, callback){
+        // console.log(text);
+        
+        callback('Correct Answer');
+    })
 
-
-   //  socket.on('new game', function(data) {
-   //      console.log('FHFHFHFHFHFHreceived new message')
-   //      io.emit('newer game', {msg: apple});
-   // });
-  // socket.on('disconnect', function(){
-  //   console.log('user disconnected');
-  // });
 });
 
 //DEPLOY

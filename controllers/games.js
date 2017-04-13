@@ -31,10 +31,7 @@ router.post('/', function(req, res) {
 
 // SHOW Game
 router.get('/:gameName', function(req, res) {
-    // var gameNum = randomGameNumber();
     Game.find({gameName:req.params.gameName}).exec(function(err, game){
-            // console.log("hello worldldldl");
-            // console.log(game)
             res.render('game-room', {game: game});
         });
 });

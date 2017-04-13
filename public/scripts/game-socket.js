@@ -1,10 +1,47 @@
 
+
 $(function () {
-    //Option click logic
-    // function myFunction() {
-    //     var x = document.getElementById("mySelect").options.length;
-    //     document.getElementById("demo").innerHTML = "Found " + x + " options in the list.";
-    // }
+    $(document).ready(function(){
+        //Question One
+        questionNumber = "One"
+        optionOneText = getData("One");
+        $("#optionOne").append("<a href='#'>" + "<p>" + "$$x = " + optionOneText + ".$$" + "</p>" + "</a></br>").click(function(){
+            //Grab socket id and option text and emit
+            var id = socket.io.engine.id
+            socket.emit('answered', optionOneText, function(data){
+                console.log(data);
+            });
+
+
+            // console.log(id);
+            // console.log(optionOneText);
+        });
+
+    });
+    // // Option click logic
+    // $("#optionOne").click(function(){
+    //     //Grab socket id and option text and emit
+    //     var optionText = document.getElementById("optionOne").textContent;
+    //     console.log(optionText);
+    //     var id = socket.io.engine.id
+    //     console.log(id)
+    // });
+
+    $("#optionTwo").click(function(){
+        //Grab socket id and option text and emit
+        var optionText = document.getElementById("optionTwo").textContent;
+        console.log(optionText);
+        var id = socket.io.engine.id
+        console.log(id)
+    })
+
+    $("#optionThree").click(function(){
+        //Grab socket id and option text and emit
+        var optionText = document.getElementById("optionThree").textContent;
+        console.log(optionText);
+        var id = socket.io.engine.id
+        console.log(id)
+    })
 
     //Create Competition
     $('#createGame').submit(function(e){
