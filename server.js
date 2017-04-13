@@ -39,8 +39,8 @@ io.sockets.on('connection', function(socket) {
     //User connected
     console.log('a user connected');
      //User sent specific message in gameName
-     socket.on('cat', function(data){
-        //  console.log(data.message);
+     socket.on('corey', function(data){
+         console.log(data.message);
      });
 
 

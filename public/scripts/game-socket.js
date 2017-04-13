@@ -25,7 +25,7 @@ $(function () {
                console.log('Redirected to game, socket will now be created for this game...');
             //    tell server to make nsp socket for this game
                socket.emit(data.gameName, data);
-               socket.emit('apple', data);
+            //    socket.emit('apple', data);
 
            },
            type: 'POST'
