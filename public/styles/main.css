@@ -1,0 +1,149 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+html, body {
+	width: 100%;
+	background-color: #333132;
+	font-family: 'Montserrat';
+  font-size: 1.2em;
+}
+.heading-container {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -20%);
+}
+.title {
+  text-align: center;
+  position: relative;
+  top: 20%;
+}
+.title h1 {
+  font-weight: 700;
+  color: #f1f2f2;
+}
+.underline {
+  border: none;
+  border-top: 3px dashed #39b54a;
+  height: 1px;
+  width: 225px;
+  position:relative;
+  left: 45%;
+  margin-top: -6px;
+  transform: translate(-50%,0%);
+}
+.subtitle {
+  text-align: center;
+  position: relative;
+  top: 20%;
+}
+.subtitle h3 {
+  font-weight: 400;
+  color: #a9abae;
+  font-size: 0.78em;
+  margin-top: 3px;
+}
+.form-container {
+  font-size: 0.5em;
+  padding-top: 10px;
+  color: #f1f2f2;
+}
+.form-input {
+  margin-top: 10px;
+}
+.form-input h3 {
+  letter-spacing: .8px;
+}
+.form-input input {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size:20px;
+    font-family: 'Montserrat';
+    font-weight: 700;
+    text-transform: uppercase;
+}
+.form-input input:focus {
+  outline-color: #39b54a;
+}
+.start-button {
+  margin-top: 10px;
+}
+.start-button input {
+    width: 100%;
+    background-color: #39b54a;
+    color: #f1f2f2;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size:16px;
+    font-family: 'Montserrat';
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+.start-button input:focus {
+  outline-color: #a9abae;
+}
+
+
+/*Loading Screen*/
+#preloader {
+	position: fixed;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	background-color:#333132; /* change if the mask should have another color then white */
+	z-index:99; /* makes sure it stays on top */
+}
+#status {
+	width:400px;
+	height:200px;
+	position:absolute;
+	left:40%; /* centers the loading animation horizontally one the screen */
+	top:30%; /* centers the loading animation vertically one the screen */
+	background-image:url(../img/load.gif); /* path to your loading animation */
+	background-repeat:no-repeat;
+	background-position:center;
+	margin:-100px 0 0 -100px; /* is width and height divided by two */
+}
+.delay {
+	display: none;
+}
+
+
+/*Input Placeholder Text Opacity*/
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+  opacity:  0.5;
+  font-size: 15px;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  opacity:  0.5;
+  font-size: 15px;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+  opacity:  0.5;
+  font-size: 15px;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  opacity:  0.5;
+  font-size: 15px;
+}
+
+
+/*Overriding Default Highlight Color*/
+::selection {
+  background: #39b54a; /* WebKit/Blink Browsers */
+  color: #f1f2f2;
+}
+::-moz-selection {
+  background: #39b54a; /* Gecko Browsers */
+  color: #f1f2f2;
+}
