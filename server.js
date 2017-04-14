@@ -7,6 +7,9 @@ var httpServer = http.createServer(app);
 var io = require('socket.io')(httpServer);
 var port = 3000;
 
+// Custom Imports
+var sockets = require('./sockets');
+
 // Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -37,20 +40,7 @@ app.get('/', function(req, res){
 
 app.use('/games', games);
 
-// Socket Logic
-io.sockets.on('connection', function(socket) {
-
-     //User sent specific message in gameName
-     socket.on('corey', function(data){
-         console.log(data.message);
-     });
-     socket.on('answered', function(data, callback){
-        // console.log(text);
-        
-        callback('Correct Answer');
-    });
-
-});
+sockets(io);
 
 // Deploy
 httpServer.listen(process.env.PORT || port, function() {
