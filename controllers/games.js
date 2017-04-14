@@ -32,8 +32,8 @@ router.post('/', function(req, res) {
 // SHOW Game
 router.get('/:gameName', function(req, res) {
     Game.find({gameName:req.params.gameName}).exec(function(err, game){
-            res.render('show', {game: game});
-        });
-});
+            res.render('show', {game: game})
+        })
+})
 
 module.exports = router
