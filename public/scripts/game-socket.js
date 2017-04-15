@@ -1,3 +1,6 @@
+
+// var Game = require('.../models/game/index.js');
+
 $(function () {
   // $(document).ready(function(){
   //   //Question One
@@ -12,26 +15,28 @@ $(function () {
   //   });
 
     //Create Competition
-$('#createGame').submit(function(e){
-        e.preventDefault()
-        var game = $(this).serialize()
-        console.log(game);
-        $.ajax({
-           url: '/games',
-           data: game,
-           fail: function() {
-              alert(error.message)
-           },
-           dataType: 'json',
-           success: function(data) {
-               console.log(data)
-               window.location.href = "/games/" + data.name;
-               console.log('Redirected to game, socket will now be created for this game...')
-            //    tell server to make nsp socket for this game
-               socket.emit(data.name, data)
-           },
-           type: 'POST'
-        });
-    });
-  });
-// });
+// $('#createGame').submit(function(e){
+//         e.preventDefault()
+//         // var gameName = $(this).serialize();
+//         var gameCode = createGameCode();
+//         console.log(gameCode)
+//         var game = new Game(gameCode, gameName);
+//         // console.log(game);
+//         // $.ajax({
+//         //    url: '/games',
+//         //    data: game,
+//         //    fail: function() {
+//         //       alert(error.message)
+//         //    },
+//         //    dataType: 'json',
+//         //    success: function(data) {
+//         //        console.log(data)
+//         //        window.location.href = "/games/" + data.name;
+//         //        console.log('Redirected to game, socket will now be created for this game...')
+//         //        socket.emit(data.name, data)
+//         //    },
+//         //    type: 'POST'
+//         // });
+//     });
+//   });
+});

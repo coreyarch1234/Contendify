@@ -2,7 +2,8 @@
 var questions = require('./testdata')
 
 class Game {
-  constructor(name) {
+  constructor(gameCode, name) {
+    this.gameCode = gameCode
     this.name = name
     this.participants = []
     this.currentQuestion = null
@@ -11,7 +12,6 @@ class Game {
 
   saveToDatabase() {
     // save relevant data to the db
-    
   }
 
 
