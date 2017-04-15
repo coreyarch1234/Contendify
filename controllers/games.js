@@ -1,7 +1,7 @@
 var express = require('express')
 var router = express.Router()
 
-var Game = require('../models/game.js')
+var Game = require('../models/game/index.js')
 
 // INDEX of Game
 // router.get('/', function(req, res) {
@@ -21,7 +21,7 @@ router.get('/new', function(req, res) {
 router.post('/', function(req, res) {
   var game = new Game(req.body)
   var gameName = game.name
-  console.log(gameName)
+  console.log('ello')
   game.save(function (err, game) {
     if (err) return console.error(err)
     res.send(game)
