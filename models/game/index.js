@@ -11,6 +11,7 @@ class Game {
 
   saveToDatabase() {
     // save relevant data to the db
+    
   }
 
 
