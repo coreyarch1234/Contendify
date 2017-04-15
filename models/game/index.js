@@ -67,10 +67,37 @@ class Game {
   // increase the score of the specified player
   increaseScore(sockId) {
     this.participants = this.participants.map((user) => {
-      if(user.sockId === sockId) {
+      if (user.sockId === sockId) {
         user.score++
       }
     })
+  }
+
+  // ####GET GAME STATE####
+  // gets the game state; If there are no answers, the game is currently in the submission phase 
+  // -> allow users to submit their fake answers
+  fetchCurrentGameState(sockId) {
+    if (this.findUser(sockId)) {
+      var answers = this.populateAnswers()
+      var gameState = {
+        question: questions[this.currentQuestion].text,
+        answers: answers
+      }
+    }
+  }
+
+  // #### HELPERS ####
+
+  // return an array of answers if all are there, else return null
+  populateAnswers() {
+    if (this.currentAnswers.length === this.participants.length) {
+      var answers = []
+      this.currentAnswers.forEach((answer) => {
+        answers.push(answer.text)
+      })
+      return answers
+    }
+    return null   
   }
 }
 
