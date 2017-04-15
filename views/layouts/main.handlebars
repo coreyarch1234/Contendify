@@ -1,59 +1,104 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Contendify</title>
+  <head>
+
+    <!--Title-->
+    <title>Contendify. Math and Science Education Game.</title>
+
+    <!--Favicon-->
+    <link rel="icon" href="img/favicon.png" type="image/png">
+    <link rel="shortcut icon" href="img/favicon.png" type="img/x-icon">
+
+    <!--Meta Content-->
     <meta charset="utf-8">
-    <!-- VENDOR STYLES -->
+    <meta name="keywords" content="math, science, game, engage, students, education">
+    <meta name="description" content="Contendify is a math and science game that engages students with STEM content.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!--OG Information-->
+    <meta property="og:title" content="Contendify">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="Enter URL">
+    <meta property="og:site_name" content="Enter Site Name"> <!--Enter URL Here--> <!--Enter Site Name Here-->
+    <meta property="og:description" content="Contendify is a math and science game that engages students with STEM content.">
+    <meta property="og:image" content="Enter Image Link" /> <!--Enter Image Link Here-->
+
+    <!--Twitter-->
+    <meta name="twitter:title" content="Contendify">
+    <meta name="twitter:description" content="Contendify is a math and science game that engages students with STEM content.">
+    <meta name="twitter:image" content="Enter Image for Twitter Card"> <!--Enter Image Link Here-->
+    <meta name="twitter:card" content="Enter Image for Twitter Card"> <!--Enter Image Link Here-->
+
+    <!-- Bootstrap -->
     <link rel="stylesheet" href="/vendor/bootstrap/dist/css/bootstrap.min.css">
-    <!-- Jquery -->
-    <script type="text/javascript" src="/vendor/jquery/dist/jquery.min.js"></script>
-    <!-- MY STYLES -->
-    <!-- <link rel="stylesheet" href="styles/main.css"> -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:700" rel="stylesheet">
-    <style>
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font: 13px Helvetica, Arial; }
-      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
-      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
-      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
-    </style>
-    <!-- Sockets  -->
+
+    <!--Scripts-->
+    <script src="/vendor/modernizr/bin/modernizr"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles/application.css">
+
+    <!--Google Fonts-->
+    <link href='http://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,800,900' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700,900" rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="/vendor/components-font-awesome/css/font-awesome.min.css">
+
+    <!-- Importing Sockets  -->
     <script src="/socket.io/socket.io.js"></script>
-    <!-- Scripts -->
-    <script type="text/javascript" src="/scripts/game-socket.js"> </script>
-    <script type="text/javascript" src="/scripts/math.js"> </script>
 
     <!-- MathJax -->
     <script type="text/javascript" async
         src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML">
     </script>
-<body>
-    <header>
-        <nav class="navbar navbar-custom">
-        <a class="navbar-brand custom" href="/">CONTENDIFY</a>
-          <div class="container-fluid">
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                  <ul class="nav navbar-nav navbar-right">
-                    <li id="login-button"><a  href="/login">Login</a></li>
-                    <li id="logout-button"><a  href="#" >Logout</a></li>
-                    <li id="signup-button" class="dropdown" >
-                      <a href="/signup" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sign up <span ></span></a>
-                    </li>
-                  </ul>
-                </div><!-- /.navbar-collapse -->
-              </div><!-- /.container-fluid -->
-         </nav>
-     </header>
-        <div class="container-fluid">
-          <form action="">
-          </form>
-            {{{body}}}
-         </div>
+  </head>
 
-        <script>
-            var socket = io();
-        </script>
 
-</body>
+
+  <body>
+
+    {{{body}}}
+
+    <!--jQuery -->
+    <script type="text/javascript" src="/vendor/jquery/dist/jquery.min.js"></script>
+
+    <script>
+      var socket = io();
+    </script>
+
+    <!--Scripts-->
+    <script scr="scripts/main.js" type="text/javascript"></script>
+
+    <!-- Custom Scripts -->
+    <script type="text/javascript" src="/scripts/game-socket.js"></script>
+    <!-- <script type="text/javascript" src="/scripts/math.js"></script> -->
+
+    <!--Smooth Scrolling Script-->
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $("a").on('click', function (event) {
+          if (this.hash !== "") {
+            event.preventDefault();
+            var hash = this.hash;
+            $('html, body').animate({
+              scrollTop: $(hash).offset().top
+            }, 800, function () {
+              window.location.hash = hash;
+            });
+          }
+        });
+      });
+    </script>
+
+    <!--Loading Screen-->
+    <script type="text/javascript">
+      var preloader = document.getElementById('preloader');
+      window.addEventListener('load', function () {
+        preloader.style.display = 'none';
+      })
+    </script>
+  </body>
+
 </html>
