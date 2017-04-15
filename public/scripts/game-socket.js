@@ -12,9 +12,10 @@ $(function () {
   //   });
 
     //Create Competition
-    $('#createGame').submit(function(e){
+$('#createGame').submit(function(e){
         e.preventDefault()
         var game = $(this).serialize()
+        console.log(game);
         $.ajax({
            url: '/games',
            data: game,
@@ -24,10 +25,10 @@ $(function () {
            dataType: 'json',
            success: function(data) {
                console.log(data)
-               window.location.href = "/games/" + data.gameName;
+               window.location.href = "/games/" + data.name;
                console.log('Redirected to game, socket will now be created for this game...')
             //    tell server to make nsp socket for this game
-               socket.emit(data.gameName, data)
+               socket.emit(data.name, data)
            },
            type: 'POST'
         });
