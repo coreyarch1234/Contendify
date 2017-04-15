@@ -19,20 +19,22 @@ router.get('/new', function(req, res) {
 
 // CREATE
 router.post('/', function(req, res) {
-  var game = new Game(req.body)
-  var gameName = game.name
-  console.log('ello')
-  game.save(function (err, game) {
-    if (err) return console.error(err)
-    res.send(game)
-  });
+  console.log('Running POST on server');
+  var game = new Game(req.body.name);
+  console.log(game);
+  res.send(game);
+  // game.save(function (err, game) {
+  //   if (err) return console.error(err)
+  //   res.send(game)
+  // });
 });
 
 // SHOW
-router.get('/:gameName', function(req, res) {
-    Game.find({gameName:req.params.gameName}).exec(function(err, game) {
-      res.render('games/show', {game: game});
-    });
+router.get('/:name', function(req, res) {
+    // Game.find({gameName:req.params.gameName}).exec(function(err, game) {
+    //   res.render('games/show', {game: game});
+    // });
+    res.render('games/show');
 });
 
 module.exports = router;

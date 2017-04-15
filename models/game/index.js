@@ -1,14 +1,7 @@
+'use strict'
 var questions = require('./testdata')
 
 class Game {
-  // constructor(id, name) {
-  //   this.id = id
-  //   this.name = name
-  //   this.participants = []
-  //   this.currentQuestion = null
-  //   this.currentAnswers = []
-  // }
-
   constructor(name) {
     this.name = name
     this.participants = []
@@ -27,14 +20,14 @@ class Game {
     this.currentAnswers = []
   }
 
-  addUser(sockId, score = 0) {
-    var newUser = {
-      sockId: sockId,
-      score: score
-    }
-
-    this.participants.push(newUser)
-  }
+  // addUser(sockId, score=0) {
+  //   var newUser = {
+  //     sockId: sockId,
+  //     score: score
+  //   }
+  //
+  //   this.participants.push(newUser)
+  // }
 
   removeUser(sockId) {
     this.participants = this.participants.filter((user) => {
