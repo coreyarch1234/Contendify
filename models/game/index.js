@@ -1,8 +1,15 @@
 var questions = require('./testdata')
 
 class Game {
-  constructor(id, name) {
-    this.id = id
+  // constructor(id, name) {
+  //   this.id = id
+  //   this.name = name
+  //   this.participants = []
+  //   this.currentQuestion = null
+  //   this.currentAnswers = []
+  // }
+
+  constructor(name) {
     this.name = name
     this.participants = []
     this.currentQuestion = null
@@ -74,7 +81,7 @@ class Game {
   }
 
   // ####GET GAME STATE####
-  // gets the game state; If there are no answers, the game is currently in the submission phase 
+  // gets the game state; If there are no answers, the game is currently in the submission phase
   // -> allow users to submit their fake answers
   fetchCurrentGameState(sockId) {
     if (this.findUser(sockId)) {
@@ -97,7 +104,7 @@ class Game {
       })
       return answers
     }
-    return null   
+    return null
   }
 }
 

@@ -20,7 +20,8 @@ router.get('/new', function(req, res) {
 // CREATE
 router.post('/', function(req, res) {
   var game = new Game(req.body)
-  var gameName = game.gameName
+  var gameName = game.name
+  console.log(gameName)
   game.save(function (err, game) {
     if (err) return console.error(err)
     res.send(game)
