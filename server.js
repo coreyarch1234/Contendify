@@ -42,19 +42,8 @@ app.use('/games', games)
 
 
 // Socket Logic
-io.sockets.on('connection', function(socket) {
-
-     //User sent specific message in gameName
-     socket.on('corey', function(data){
-         console.log(data.message)
-     })
-     socket.on('answered', function(data, callback){
-        // console.log(text)
-
-        callback('Correct Answer')
-    })
-
-})
+var sockets = require('./public/sockets/game.js');
+sockets(io);
 
 // Deploy
 httpServer.listen(process.env.PORT || port, function() {

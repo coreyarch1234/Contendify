@@ -2,41 +2,47 @@
 // var Game = require('.../models/game/index.js');
 
 $(function () {
-  // $(document).ready(function(){
-  //   //Question One
-  //   questionNumber = "One"
-  //   optionOneText = getData("One");
-  //   $("#optionOne").append("<a href='#'>" + "<p>" + "$$x = " + optionOneText + ".$$" + "</p>" + "</a></br>").click(function(){
-  //     //Grab socket id and option text and emit
-  //     var id = socket.io.engine.id
-  //     socket.emit('answered', optionOneText, function(data){
-  //       console.log(data);
-  //     });
-  //   });
+  var socket = io();
 
-    //Create Competition
-// $('#createGame').submit(function(e){
-//         e.preventDefault()
-//         // var gameName = $(this).serialize();
-//         var gameCode = createGameCode();
-//         console.log(gameCode)
-//         var game = new Game(gameCode, gameName);
-//         // console.log(game);
-//         // $.ajax({
-//         //    url: '/games',
-//         //    data: game,
-//         //    fail: function() {
-//         //       alert(error.message)
-//         //    },
-//         //    dataType: 'json',
-//         //    success: function(data) {
-//         //        console.log(data)
-//         //        window.location.href = "/games/" + data.name;
-//         //        console.log('Redirected to game, socket will now be created for this game...')
-//         //        socket.emit(data.name, data)
-//         //    },
-//         //    type: 'POST'
-//         // });
-//     });
-//   });
+  $('#createGame').submit(function(e) {
+    e.preventDefault();
+    // var data = $(this).serialize();
+
+    var data = $(this).serializeArray();
+    var jsonData = {};
+
+    $(data).each(function(index, obj){
+      jsonData[obj.name] = obj.value;
+    });
+    // var game = new Game($(this).serialize().name);
+    // console.log(game);
+
+    // socket.emit('join_game', data);
+    socket.emit('join_room', jsonData, function(game) {
+      window.location.href = "/games/" + game.name;
+      console.log(game);
+    });
+
+    // $.ajax({
+    //   url: '/games',
+    //   data: game,
+    //   fail: function() {
+    //     alert(error.message);
+    //   },
+    //   dataType: 'json',
+    //   success: function(data) {
+    //     // console.log(data);
+    //     window.location.href = "/games/" + data.name;
+    //     console.log('Redirected to game, socket will now be created for this game...')
+    //     //    tell server to make nsp socket for this game
+    //     //  socket.emit(data.name, data)
+    //     // socket.emit('join_game', data);
+    //   },
+    //   type: 'POST'
+    // });
+  });
+
+  socket.on('broadcast:join_room', function(data) {
+    console.log(data);
+  });
 });
