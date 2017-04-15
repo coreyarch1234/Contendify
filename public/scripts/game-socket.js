@@ -1,5 +1,3 @@
-
-
 $(function () {
     $(document).ready(function(){
         //Question One
@@ -11,21 +9,8 @@ $(function () {
             socket.emit('answered', optionOneText, function(data){
                 console.log(data);
             });
-
-
-            // console.log(id);
-            // console.log(optionOneText);
         });
-
     });
-    // // Option click logic
-    // $("#optionOne").click(function(){
-    //     //Grab socket id and option text and emit
-    //     var optionText = document.getElementById("optionOne").textContent;
-    //     console.log(optionText);
-    //     var id = socket.io.engine.id
-    //     console.log(id)
-    // });
 
     $("#optionTwo").click(function(){
         //Grab socket id and option text and emit
@@ -60,7 +45,6 @@ $(function () {
                console.log('Redirected to game, socket will now be created for this game...');
             //    tell server to make nsp socket for this game
                socket.emit(data.gameName, data);
-
            },
            type: 'POST'
         });

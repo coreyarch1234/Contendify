@@ -3,6 +3,8 @@ var questions = {
     "One": ["What is the quadratic formula?", "{-b \\pm \\sqrt{b^2-4ac} \\over 2a}"]
 };
 
+
+
 var getData = function(questionNumber){
     return questions[questionNumber][1];
 };

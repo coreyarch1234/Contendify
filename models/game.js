@@ -1,13 +1,21 @@
-var mongoose = require('mongoose'),
-    Schema = mongoose.Schema
+class Game {
+    constructor(id, name) {
+        this.id = id
+        this.name = name
+        this.participants = []
+    }
 
-var GameSchema = new Schema({
-  createdAt            : { type: Date, default: Date() },
-  updatedAt            : { type: Date, default: Date() },
-  gameName             : { type: String, unique: false, required: true },
-  userCountMax         : { type: Number, default: 5 }
-})
+    userJoin(sockId, score = 0) {
+        let newUser = {
+            sockId: sockId,
+            score: score
+        }
+        this.participants.push(newUser)
+    }
+}
 
-module.exports = mongoose.model('Game', GameSchema)
+module.exports = Game
 
-// gameNumber           : { type: Number, required: true },
+var newGame = new Game('Q3F4', 'TestGame')
+
+console.log(newGame.id)
