@@ -37,7 +37,6 @@ $(function () {
     //     var id = socket.io.engine.id
     //     console.log(id)
     // });
->>>>>>> c93fd27949e11b11ad0fb41f515c232ce9756d07
 
     $("#optionTwo").click(function(){
         //Grab socket id and option text and emit
@@ -71,16 +70,12 @@ $(function () {
                window.location.href = "/games/" + data.gameName;
                console.log('Redirected to game, socket will now be created for this game...')
             //    tell server to make nsp socket for this game
-<<<<<<< HEAD
-               socket.emit(data.gameName, data);
-=======
+
                socket.emit(data.gameName, data)
 
->>>>>>> c93fd27949e11b11ad0fb41f515c232ce9756d07
            },
            type: 'POST'
         });
->>>>>>> 726c523a9d14ccdbf8aca9222da2d6978711f764
     });
   });
   // // Option click logic

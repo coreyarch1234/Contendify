@@ -40,9 +40,7 @@ app.get('/', function(req, res){
 
 app.use('/games', games)
 
-<<<<<<< HEAD
-sockets(io);
-=======
+
 // Socket Logic
 io.sockets.on('connection', function(socket) {
 
@@ -52,12 +50,11 @@ io.sockets.on('connection', function(socket) {
      })
      socket.on('answered', function(data, callback){
         // console.log(text)
-        
+
         callback('Correct Answer')
     })
 
 })
->>>>>>> 726c523a9d14ccdbf8aca9222da2d6978711f764
 
 // Deploy
 httpServer.listen(process.env.PORT || port, function() {
