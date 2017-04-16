@@ -1,3 +1,6 @@
+
+// var Game = require('.../models/game/index.js');
+
 $(function () {
   var socket = io();
 

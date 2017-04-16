@@ -1,6 +1,5 @@
 var express = require('express')
 var router = express.Router()
-
 var Game = require('../models/game/index.js')
 
 // INDEX of Game
