@@ -14,12 +14,14 @@ module.exports = function(io) {
         console.log(joined);
 
         var game = new Game(data.name);
+        console.log(game)
 
         socket.join(game.name); // Join socket to a room
 
-        io.sockets.in(game.name).emit('broadcast:join_room', joined); // Notify everyone in room someone joined
-
         cb(game); // Redirects current user to room
+
+
+        io.sockets.in(game.name).emit('broadcast:join_room', joined); // Notify everyone in room someone joined
       });
 
        //User sent specific message in gameName

@@ -13,11 +13,13 @@ $(function () {
     });
     // var game = new Game($(this).serialize().name);
     // console.log(game);
-
+    window.location.href = "/games/" + jsonData.name;
     // socket.emit('join_game', data);
     socket.emit('join_room', jsonData, function(game) {
-      window.location.href = "/games/" + game.name;
+      console.log('hello');
+      // window.location.href = "/games/" + game.name;
       console.log(game);
+      // $('#connected-users').append("<p>Socket " + "'data'" + "joined the room</p>");
     });
 
     // $.ajax({
@@ -40,6 +42,10 @@ $(function () {
   });
 
   socket.on('broadcast:join_room', function(data) {
-    console.log(data);
+    console.log("Event 'broadcast:join_room' emitted.");
+    console.log("---> Data: " + data);
+
+    // $('#connected-users').append("<p>Socket " + "'" + data + "'" + "joined the room</p>");
+    $('#connected-users').append("<p>" + data + "</p>");
   });
 });
