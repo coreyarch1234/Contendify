@@ -9,7 +9,7 @@ $(function () {
     var data = $(this).serializeArray();
     var jsonData = {};
     $(data).each(function(index, obj){
-      jsonData[obj.name] = obj.value;
+      jsonData[obj.name] = obj.value[1];
       jsonData[obj.gameCode] = obj.value[0];
     });
     // window.location.href = "/games/" + jsonData.name;
