@@ -8,10 +8,20 @@ $(function () {
     e.preventDefault();
     var data = $(this).serializeArray();
     var jsonData = {};
-    $(data).each(function(index, obj){
-      jsonData[obj.name] = obj.value[1];
-      jsonData[obj.gameCode] = obj.value[0];
-    });
+    jsonData['name'] = data[0].value;
+    jsonData['gameCode'] = data[1].value;
+    // var key_bool = false
+    // $(data).each(function(index, obj){
+    //     if key_bool == false {
+    //         key = obj.name;
+    //     }
+    //     else{
+    //         key = obj.gameCode;
+    //     }
+    //      jsonData[key] = obj.value;
+    //      key_bool = true;
+    // });
+    // console.log('Data: ' + jsonData.gameCode);
     // window.location.href = "/games/" + jsonData.name;
     window.location.href = "/games/" + jsonData.gameCode;
     socket.emit('join_room', jsonData, function(game) {
