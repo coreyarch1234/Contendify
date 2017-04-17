@@ -21,14 +21,14 @@ class Game {
     this.currentAnswers = []
   }
 
-  // addUser(sockId, score=0) {
-  //   var newUser = {
-  //     sockId: sockId,
-  //     score: score
-  //   }
-  //
-  //   this.participants.push(newUser)
-  // }
+  addUser(sockId, score=0) {
+    var newUser = {
+      sockId: sockId,
+      score: score
+    }
+
+    this.participants.push(newUser)
+  }
 
   removeUser(sockId) {
     this.participants = this.participants.filter((user) => {
@@ -40,6 +40,8 @@ class Game {
   findUser(sockId) {
     return true
   }
+
+  
 
   // add a new false answer to the current question
   submitAnswer(sockId, answer) {

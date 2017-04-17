@@ -4,19 +4,23 @@ module.exports = function(io) {
 
   io.on('connection', function(socket) {
 
-      // socket.on('join', function(data, cb) {
-      //   var game = new Game(data.name);
-      //   cb(game);
-      // });
-
       socket.on('join_room', function(data, cb) {
         var joined = 'User joined :' + socket.id;
         console.log(joined);
 
-        var game = new Game(data.name);
-        console.log(game)
+        // var game = new Game(data.name);
 
-        socket.join(game.name); // Join socket to a room
+        var game = new Game(data.gameCode, data.name);
+        game.addUser(socket.id); //Add user
+
+        console.log(game);
+        console.log("The participants are " + game.participants[0].sockId);
+
+        // socket.join(game.name); // Join socket to a room
+
+        socket.join(game.gameCode); // Join socket to a room
+
+        
 
         cb(game); // Redirects current user to room
 
