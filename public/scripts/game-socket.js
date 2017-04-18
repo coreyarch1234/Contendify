@@ -1,8 +1,16 @@
 
 // var Game = require('.../models/game/index.js');
 
+
 $(function () {
   var socket = io();
+  function changeHTML(){
+      $('#connected-users').append("<p>" + 'word' + "</p>");
+  };
+
+
+  // changeHTML();
+
 
   $('#createGame').submit(function(e) {
     e.preventDefault();
@@ -12,12 +20,12 @@ $(function () {
       jsonData[obj.name] = obj.value[1];
       jsonData[obj.gameCode] = obj.value[0];
     });
-    // window.location.href = "/games/" + jsonData.name;
-    window.location.href = "/games/" + jsonData.gameCode;
     socket.emit('join_room', jsonData, function(game) {
       console.log('hello');
       console.log(game);
     });
+    // window.location.href = "/games/" + jsonData.name;
+    window.location.href = "/games/" + jsonData.gameCode;
 
     // $.ajax({
     //   url: '/games',
@@ -42,9 +50,9 @@ $(function () {
     console.log("Event 'broadcast:join_room' emitted.");
     console.log(data)
     console.log("---> Data: " + data);
-
+    changeHTML();
     //All of the users in the room
 
-    // $('#connected-users').append("<p>" + data + "</p>");
   });
+
 });

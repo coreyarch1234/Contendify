@@ -20,12 +20,9 @@ module.exports = function(io) {
 
         socket.join(game.gameCode); // Join socket to a room
 
-        
-
         cb(game); // Redirects current user to room
 
-
-        io.sockets.in(game.name).emit('broadcast:join_room', joined); // Notify everyone in room someone joined
+        io.sockets.in(game.gameCode).emit('broadcast:join_room', joined); // Notify everyone in room someone joined
       });
 
        //User sent specific message in gameName

@@ -10,3 +10,15 @@ to compare with answer. -->
     <p>Hello</p>
   </div>
 </div>
+<div id="questions">
+    {{#each questions}}
+        <div>{{this.title}}</div>
+    {{/each}}
+</div>
+
+<script>
+socket.emit('join_room', jsonData, function(game) {
+  console.log('hello');
+  console.log(game);
+});
+</script>

@@ -33,7 +33,7 @@ router.get('/:name', function(req, res) {
     // Game.find({gameName:req.params.gameName}).exec(function(err, game) {
     //   res.render('games/show', {game: game});
     // });
-    res.render('games/show');
+    res.render('games/show', { questions: [] });
 });
 
 module.exports = router;
