@@ -6,8 +6,17 @@ module.exports = function(io) {
 
   io.on('connection', function(socket) {
 
+      // on create-game
+        // create the game, send it back
+
+      // on join room, do p much errythang down here plus or minus some stuff
+        // like add user to game
+        // add user to socket room
+        // pass back that joined string thing
+        // {;D<-<
+
       socket.on('join_room', function(data, cb) {
-        var joined = 'User joined :' + socket.id;
+        var joined = 'User joined: ' + socket.id;
         console.log(joined);
         var gameName = "Supa Cool"
         var game = new Game(data.gameCode, gameName);

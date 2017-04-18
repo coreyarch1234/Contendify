@@ -38,7 +38,7 @@ app.get('/', function(req, res){
     res.render('home')
 })
 
-app.use('/games', games)
+app.use('/', games)
 
 
 // Socket Logic

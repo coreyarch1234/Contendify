@@ -1,5 +1,11 @@
 var socket = io();
 
+// when veiw loads
+// create socket
+// emit creategame event (create game on server, send it back to us)
+  // in cb emit joinroom event
+// server should create game object, we should then display that a user joined
+
 $(function() {
   var gameCode = window.location.href.split('/')[-1];
   console.log(gameCode);

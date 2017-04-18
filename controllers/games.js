@@ -16,6 +16,10 @@ router.get('/new', function(req, res) {
   res.render('games/new');
 });
 
+router.get('/join', function(req, res) {
+  res.render('games/join')
+});
+
 // CREATE
 router.post('/', function(req, res) {
   console.log('Running POST on server');

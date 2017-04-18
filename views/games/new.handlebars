@@ -1,17 +1,3 @@
-<!-- Create a new game here. -->
-{{!--<div class="col-sm-12">
-  <legend>New Game</legend>
-
-  <form id='createGame'>
-    <div class="form-group">
-      <input type="text" placeholder= "Game Name" name="name"/>
-      <input type="text" placeholder= "Game Code" name="gameCode"/>
-    </div>
-    <button class="btn btn-primary btn-responsive  button-create" type='submit'>Create</button>
-  </form>
-
-</div>--}}
-
 <div class="heading-container">
   <div class="title">
     <h1>Contendify</h1>
@@ -22,11 +8,12 @@
   </div>
   <div class="form-container">
     <div class="form-input">
-      <h3>Game Name</h3>
-      <input type="text" id="name" name="name" placeholder="Game Name" maxlength="12">
+      <!-- Should be a game name, we will eventually generate the code ourselves to avoid collisions -->
+      <h3>Game Code</h3>
+      <input type="text" id="game-code" name="game-code" placeholder="Game Code" maxlength="12">
     </div>
     <div class="start-button">
-      <input type="submit" value="Let's Go!'">
+      <input type="submit" value="Let's Go!'" id="create-game">
     </div>
   </div>
 </div>
