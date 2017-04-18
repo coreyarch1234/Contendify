@@ -8,7 +8,7 @@ var io = require('socket.io')(httpServer)
 var port = 3000
 
 // Custom Imports
-var sockets = require('./sockets');
+// var sockets = require('./sockets');
 
 // Middleware
 app.use(bodyParser.json())

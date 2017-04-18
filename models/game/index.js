@@ -21,7 +21,7 @@ class Game {
     this.currentAnswers = []
   }
 
-  addUser(sockId, score=0) {
+  addUser(sockId, score = 0) {
     var newUser = {
       sockId: sockId,
       score: score
@@ -41,7 +41,7 @@ class Game {
     return true
   }
 
-  
+
 
   // add a new false answer to the current question
   submitAnswer(sockId, answer) {
