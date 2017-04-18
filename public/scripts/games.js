@@ -1,5 +1,5 @@
 $(function() {
-  $('#join-game').onclick(function(event) {
+  $('#join-game').click(function(event) {
     var code = $('game-code').val();
     // if game code exists in global variable of game connected-users
       // take user to /:code
@@ -7,9 +7,26 @@ $(function() {
       // u tryna join a fake ass room bruh
   });
 
-  $('#create-game').onclick(function(event) {
-    var code = $('#game-code').val();
-    // push code to global gamecode array
-    // redirect user to /:gameCode
+  $('#create-game').click(function(event) {
+    var name = $('#game-name').val();
+    var code = '0';
+    var gameObj = {};
+    gameObj['name'] = name;
+    gameObj['code'] = code;
+
+    $.ajax({
+      type: 'POST',
+      url: '/',
+      data: gameObj,
+      dataType: 'JSON',
+      fail: function() {
+        alert(error.message);
+      },
+      success: function(game) {
+        alert('Game Created succesfuly - Redirecting');
+        window.location.href = '/' + game.code;
+      }
+    });
   });
+
 });

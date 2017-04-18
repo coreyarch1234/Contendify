@@ -1,6 +1,7 @@
-var express = require('express')
-var router = express.Router()
-var Game = require('../models/game/index.js')
+var express = require('express');
+var router = express.Router();
+var GameLocal = require('../models/game');
+var Game = require('../models/game/game.js');
 
 // INDEX of Game
 // router.get('/', function(req, res) {
@@ -16,28 +17,21 @@ router.get('/new', function(req, res) {
   res.render('games/new');
 });
 
-router.get('/join', function(req, res) {
-  res.render('games/join')
-});
 
 // CREATE
 router.post('/', function(req, res) {
-  console.log('Running POST on server');
-  var game = new Game(req.body.name);
-  console.log(game);
-  res.send(game);
-  // game.save(function (err, game) {
-  //   if (err) return console.error(err)
-  //   res.send(game)
-  // });
+  var game = new Game(req.body);
+  game.save(function (err, game) {
+    if (err) return console.error(err)
+    res.send(game)
+  });
 });
 
 // SHOW
-router.get('/:name', function(req, res) {
-    // Game.find({gameName:req.params.gameName}).exec(function(err, game) {
-    //   res.render('games/show', {game: game});
-    // });
-    res.render('games/show');
+router.get('/:code', function(req, res) {
+    Game.find({ code:req.params.code }).exec(function(err, game) {
+      res.render('games/show', {game: game});
+    });
 });
 
 module.exports = router;

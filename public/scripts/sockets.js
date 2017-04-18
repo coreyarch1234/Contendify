@@ -7,11 +7,13 @@ var socket = io();
 // server should create game object, we should then display that a user joined
 
 $(function() {
-  var gameCode = window.location.href.split('/')[-1];
-  console.log(gameCode);
-  socket.emit('join_room', gameCode, function(game) {
+  var code = window.location.href.split('/')[3];
+  socket.emit('join_room', code, function(game) {
     console.log('Game: ' + game);
   });
+
+  
+
 });
 
 socket.on('broadcast:join_room', function(data) {

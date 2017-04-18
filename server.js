@@ -7,9 +7,6 @@ var httpServer = http.createServer(app)
 var io = require('socket.io')(httpServer)
 var port = 3000
 
-// Custom Imports
-// var sockets = require('./sockets');
-
 // Middleware
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
@@ -35,14 +32,14 @@ var games = require('./controllers/games')
 
 // Routing
 app.get('/', function(req, res){
-    res.render('home')
+    res.render('games/join')
 })
 
 app.use('/', games)
 
 
 // Socket Logic
-var sockets = require('./public/sockets/game.js');
+var sockets = require('./public/server-sockets/game.js');
 sockets(io);
 
 // Deploy

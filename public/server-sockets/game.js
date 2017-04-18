@@ -2,7 +2,7 @@ module.exports = function(io) {
 
   var GameCodes = [];
 
-  var Game = require('../../models/game');
+  var Game = require('../../models/game/game.js');
 
   io.on('connection', function(socket) {
 
@@ -16,20 +16,22 @@ module.exports = function(io) {
         // {;D<-<
 
       socket.on('join_room', function(data, cb) {
-        var joined = 'User joined: ' + socket.id;
-        console.log(joined);
-        var gameName = "Supa Cool"
-        var game = new Game(data.gameCode, gameName);
-        GameCodes.push(game.gameCode);
-        game.addUser(socket.id); //Add user
+        // var joined = 'User joined: ' + socket.id;
+        // console.log(joined);
 
-        console.log("The participants are " + game.participants[0].sockId);
+        Game.find({ code: data }).exec(function(error, game) {
+          GameCodes.push(game.code);
+          // game.addUser(socket.id); //Add user
 
-        socket.join(game.gameCode); // Join socket to a room
+          // console.log("The participants are " + game.participants[0].sockId);
 
-        cb(game); // Redirects current user to room
+          // socket.join(game.gameCode); // Join socket to a room
 
-        io.sockets.in(game.gameCode).emit('broadcast:join_room', joined); // Notify everyone in room someone joined
+          cb(game); // Redirects current user to room
+
+          // io.sockets.in(game.gameCode).emit('broadcast:join_room', joined); // Notify everyone in room someone joined
+        });
+
       });
   });
 };
