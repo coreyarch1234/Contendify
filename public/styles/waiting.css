@@ -1,8 +1,50 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+html, body {
+	width: 100%;
+	background-color: #333132;
+	font-family: 'Montserrat';
+  font-size: 1.2em;
+}
 .heading-container {
   position: absolute;
   top: 35%;
   left: 23%;
   transform: translate(-23%, -35%);
+	z-index: 99;
+	background-color: #333132;
+}
+.title {
+  text-align: center;
+  position: relative;
+  top: 20%;
+}
+.title h1 {
+  font-weight: 700;
+  color: #f1f2f2;
+}
+.underline {
+  border: none;
+  border-top: 3px dashed #39b54a;
+  height: 1px;
+  width: 225px;
+  position:relative;
+  left: 45%;
+  margin-top: -6px;
+  transform: translate(-50%,0%);
+}
+.subtitle {
+  text-align: center;
+  position: relative;
+  top: 20%;
+}
+.subtitle h3 {
+  font-weight: 400;
+  color: #a9abae;
+  font-size: 0.78em;
+  margin-top: 3px;
 }
 .room-code {
 	font-size: 0.65em;
@@ -150,4 +192,14 @@
 	border: 3px dashed #f1f2f2;
 	border-radius: 15px;
 	padding: 3px 15px 3px 15px;
+}
+
+/*Overriding Default Highlight Color*/
+::selection {
+  background: #39b54a; /* WebKit/Blink Browsers */
+  color: #f1f2f2;
+}
+::-moz-selection {
+  background: #39b54a; /* Gecko Browsers */
+  color: #f1f2f2;
 }
