@@ -1,8 +1,9 @@
 {
     "questions": [
         {
-            "text": "What is the quadratic formula?",
-            "answer": "{-b \\pm \\sqrt{b^2-4ac} \\over 2a}"
+            "text": "Which of these letters is a B ?",
+            "answer": "B"
+
         }
     ]
 }

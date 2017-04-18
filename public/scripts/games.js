@@ -29,4 +29,11 @@ $(function() {
     });
   });
 
+  $('.answers').click(function(e){
+        e.preventDefault();
+        console.log('hello')
+        var val = $("#answers option:selected").html();
+        console.log(val)
+    });
+
 });
