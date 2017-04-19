@@ -10,20 +10,32 @@ var questionJSON = require('../question-data/questions.json');
 
 // NEW GAME PAGE
 router.get('/new', function(req, res) {
-  res.render('games/new');
+   res.render('games/new');
 });
 
 
 // CREATE THE GAME. AND AT THE SAME TIME, WE WANT TO POPULATE THE GAME WITH QUESTIONS.
 router.post('/', function(req, res) {
+  //Create game object
   var game = new Game(req.body);
+
+  //Create question array
   questionsArray = []
   questionsArray.push(questionJSON.questions[0].text);
-  console.log(questionsArray)
 
+  //Create question object by filling body with question array data. MAKE THIS PROCESS A MODULAR FUNCTION
+  var question = new Question({
+    body: questionsArray[0],
+    game: game
+  });
 
+  //Push question array in game object. Game will store only reference to questiob ID. To grab it's body, use populate
+  game.questions.push(question);
+  
+  //Save Game
   game.save(function (err, game) {
     if (err) return console.error(err)
+    console.log(game)
     res.send(game)
   });
 });
