@@ -1,26 +1,27 @@
 var express = require('express');
 var router = express.Router();
+//GAME CLASS
 var GameLocal = require('../models/game');
+//MODELS
 var Game = require('../models/game/game.js');
+var Question = require('../models/question/question.js');
+//JSON questions
+var questionJSON = require('../question-data/questions.json');
 
-// INDEX of Game
-// router.get('/', function(req, res) {
-//   var games = Game.find(function (err, games) {
-//     if (err) return console.error(err)
-//     console.log(games)
-//     res.render('games', { games: games })
-//   })
-// })
-
-// NEW
+// NEW GAME PAGE
 router.get('/new', function(req, res) {
   res.render('games/new');
 });
 
 
-// CREATE
+// CREATE THE GAME. AND AT THE SAME TIME, WE WANT TO POPULATE THE GAME WITH QUESTIONS.
 router.post('/', function(req, res) {
   var game = new Game(req.body);
+  questionsArray = []
+  questionsArray.push(questionJSON.questions[0].text);
+  console.log(questionsArray)
+
+
   game.save(function (err, game) {
     if (err) return console.error(err)
     res.send(game)

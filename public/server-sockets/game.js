@@ -3,6 +3,7 @@ module.exports = function(io) {
   var GameCodes = [];
 
   var Game = require('../../models/game/game.js');
+  var Question = require('../../models/question/question.js');
 
   io.on('connection', function(socket) {
 
@@ -33,7 +34,7 @@ module.exports = function(io) {
           //Later, use game object to compare answerChosen with
           var answerChosen = data;
           var correctAnswer = 'B'
-          if answerChosen == correctAnswer{
+          if (answerChosen == correctAnswer) {
               cb('Correct!')
           }
       });

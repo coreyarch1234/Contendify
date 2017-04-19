@@ -36,7 +36,6 @@ $(function() {
       socket.emit('answer_chosen', answerChosen, function(result){
           console.log(result);
       });
-    //   console.log(answerChosen);
   });
 
 });

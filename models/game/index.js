@@ -1,5 +1,5 @@
 'use strict'
-var questions = require('./testdata')
+// var questions = require('./testdata')
 
 class Game {
   constructor(gameCode, name) {
