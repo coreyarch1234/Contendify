@@ -19,13 +19,23 @@ module.exports = function(io) {
       socket.on('join_room', function(data, cb) {
         // var joined = 'User joined: ' + socket.id;
         // console.log(joined);
-        Game.find({ code: data }).exec(function(error, game) {
-          GameCodes.push(game.code);
-          // game.addUser(socket.id); //Add user
-          // console.log("The participants are " + game.participants[0].sockId);
-          // socket.join(game.gameCode); // Join socket to a room
-          cb(game); // Redirects current user to room
-          // io.sockets.in(game.gameCode).emit('broadcast:join_room', joined); // Notify everyone in room someone joined
+        // Game.find({ code: data }).exec(function(error, game) {
+        //   GameCodes.push(game.code);
+        //   // game.addUser(socket.id); //Add user
+        //   // console.log("The participants are " + game.participants[0].sockId);
+        //   // socket.join(game.gameCode); // Join socket to a room
+        //   console.log(game)
+        //   cb(game); // Redirects current user to room
+        //   // io.sockets.in(game.gameCode).emit('broadcast:join_room', joined); // Notify everyone in room someone joined
+        // });
+
+        Game.findOne({ code: data }).populate('questions').exec(function(err, game){
+            //Store game code in global GameCodes array
+            GameCodes.push(game.code);
+            console.log(game.questions[0].body)
+            cb(game);
+            //Grab questions from game to pass back in callback to fill show page
+            // res.render('games/show', {game: game});
         });
       });
 

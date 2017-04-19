@@ -20,24 +20,58 @@ router.post('/', function(req, res) {
   var game = new Game(req.body);
 
   //Create question array
-  questionsArray = []
-  questionsArray.push(questionJSON.questions[0].text);
+  // var questionsArray = []
+  // questionsArray.push(questionJSON.questions[0].text);
 
   //Create question object by filling body with question array data. MAKE THIS PROCESS A MODULAR FUNCTION
-  var question = new Question({
-    body: questionsArray[0],
-    game: game
-  });
+  // var question = new Question({
+  //   body: questionsArray[0],
+  //   game: game._id
+  // });
+
+  // question.save(function (err, savedQuestion) {
+  //   if (err) return console.error(err)
+  //   game.questions.push(savedQuestion);
+  //   game.save(function(error, savedGame) {
+  //       if (error) return console.error(error);
+  //       res.send(savedGame);
+  //   })
+    // console.log('the question has been saved:' + question);
+    // res.send(game)
+  // });
+
+
 
   //Push question array in game object. Game will store only reference to questiob ID. To grab it's body, use populate
-  game.questions.push(question);
-  
+  // game.questions.push(question);
+  // console.log(game.questions)
+
   //Save Game
   game.save(function (err, game) {
-    if (err) return console.error(err)
-    console.log(game)
-    res.send(game)
+    if (err){ return res.status(300) };
+    // console.log(game)
+    //Create question array
+    questionsArray = []
+    questionsArray.push(questionJSON.questions[0].text);
+
+    //Create question object by filling body with question array data. MAKE THIS PROCESS A MODULAR FUNCTION
+    var question = new Question({
+      body: questionsArray[0],
+      game: game._id
+    });
+
+    question.save(function (error, question) {
+      if (error){ return res.status(300) };
+      // console.log('the question has been saved:' + question);
+      // res.send(game)
+      game.questions.push(question);
+      game.save(function(errr, updatedGame) {
+          if (errr){ return res.status(300) };
+          res.send(updatedGame);
+      })
+    });
   });
+
 });
 
 // SHOW

@@ -1,3 +1,4 @@
+//CREATING GAME POST REQUESTS AND THE LIKE GO HERE
 $(function() {
   $('#join-game').click(function(event) {
     var code = $('game-code').val();
@@ -9,7 +10,7 @@ $(function() {
 
   $('#create-game').click(function(event) {
     var name = $('#game-name').val();
-    var code = '0';
+    var code = '4';
     var gameObj = {};
     gameObj['name'] = name;
     gameObj['code'] = code;
@@ -28,14 +29,4 @@ $(function() {
       }
     });
   });
-
-  $('body').on('click', '.answer', function(e) {
-      e.preventDefault();
-      var answerChosen = $(this).val();
-      //Once answer is chosen, emit it and compare with answer on server
-      socket.emit('answer_chosen', answerChosen, function(result){
-          console.log(result);
-      });
-  });
-
 });
