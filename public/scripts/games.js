@@ -29,11 +29,14 @@ $(function() {
     });
   });
 
-  $('.answers').click(function(e){
-        e.preventDefault();
-        console.log('hello')
-        var val = $("#answers option:selected").html();
-        console.log(val)
-    });
+  $('body').on('click', '.answer', function(e) {
+      e.preventDefault();
+      var answerChosen = $(this).val();
+      //Once answer is chosen, emit it and compare with answer on server
+      socket.emit('answer_chosen', answerChosen, function(result){
+          console.log(result);
+      });
+    //   console.log(answerChosen);
+  });
 
 });
