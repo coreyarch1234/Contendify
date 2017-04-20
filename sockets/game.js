@@ -1,9 +1,10 @@
 module.exports = function(io) {
 
-  var GameCodes = [];
+  var loadedAnswer = [];
 
   var Game = require('../models/game/game.js');
   var Question = require('../models/question/question.js');
+  var Answer = require('../models/answer/answer.js');
   var helper = require('./helpers/nextQuestion.js');
 
   io.on('connection', function(socket) {
@@ -63,10 +64,8 @@ module.exports = function(io) {
           })
       });
 
-      socket.on('get_next', function(data, cb) {
-          helper(data.code, data.index, function(question) {
-              cb(question);
-          })
+      socket.on('answer_created', function(data, cb) {
+        Answer.create()
       });
 
   });

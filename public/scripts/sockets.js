@@ -5,13 +5,9 @@ var gameCode = ""
 
 //ONCE WE HIT THE GAMES SHOW PAGE, GRAB GAME CODE AND EMIT TO SERVER
 $(function() {
+    $('.question').first().show().addClass('current-question');
     gameCode = window.location.href.split('/')[3];
     socket.emit('join_room', gameCode, function(game) { });
-
-    //Fill page in with questions and answers
-    // function questionAnswerFill(){
-    //     $('question').append('<h1>' + Which of these letters is a B ? + '</h1>');
-    // }
 
     //ONCE USER CLICKS ON AN ANSWER, GRAB TEXT AND EMIT DATA TO SERVER
     $('body').on('click', '.answer', function(e) {
@@ -23,7 +19,7 @@ $(function() {
           questionId: questionId,
           answerChosen: answerChosen
         }
-        // console.log(data);
+
         //Once answer is chosen, emit it and compare with answer on server
         socket.emit('answer_chosen', data, function(result) {
           console.log(result);
@@ -41,32 +37,21 @@ $(function() {
               $('.current-question').next().show().addClass('current-question')
               $('.current-question').first().removeClass('current-question');
           }, 5000);
-
-        //   var data = {
-        //       code: gameCode,
-        //       index: questionIndex
-        //   }
-        //   setTimeout(function() {
-          //
-        //       socket.emit('get_next', data, function(question) {
-        //           console.log('question :' + question)
-        //           $('#question').text = question.text;
-        //           $('#_id').text(question._id);
-        //       });
-        //   }, 5000);
-        //   display correct or incorrect stuff
-        // dipslay timer for next question
-        // when that is over, display next question
     });
-});
+  });
 
+  $('#submit-lie').click(function(event) {
+    var fakeAnswer = $('#fake-answer').val();
+    var socketId = socket.id;
+    var data = {
+      socketId: socketId,
+      answer: fakeAnswer
+    }
 
+    socket.emit('answer_created', data, function() {
 
+    });
 
- // socket.on('broadcast:join_room', function(data) {
- //   console.log("Event 'broadcast:join_room' emitted.");
- //   console.log("---> Data: " + data);
- //   console.log($('#connected-users'));
- //   $('#connected-users').append($('<p>').text(data));
- // });
+  });
+
 });

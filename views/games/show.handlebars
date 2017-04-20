@@ -106,12 +106,11 @@ to compare with answer. -->
     </div>
     <br>
 
-    <script>
-        $('.question').first().show().addClass('current-question');
-    </script>
+    <input type="text" id="fake-answer" name="fake-answer" placeholder="Enter your lie">
+    <input type="submit" value="Lie!" id="submit-lie">
 
-    <div class="answers">
-        <input class="answer" type="submit" value="B" style="display: block;">
+    <div class="answers" style="display:none;">
+        <!-- <input class="answer" type="submit" value="B" style="display: block;"> -->
         <!-- <input class="answer" type="submit" value="B" style="display: block;">
         <input class="answer" type="submit" value="C" style="display: block;">
         <input class="answer" type="submit" value="D" style="display: block;">
