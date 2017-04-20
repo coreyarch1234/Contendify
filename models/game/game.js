@@ -6,7 +6,7 @@ var GameSchema = new Schema({
   updatedAt            : { type: Date, default: Date() },
   name                 : { type: String, unique: false, required: true },
   code                 : { type: String, unique: false, required: true },
-  questions: [{ type: Schema.Types.ObjectId, ref: 'Question' }]
+  questions            : [{ type: Schema.Types.ObjectId, ref: 'Question' }]
 });
 
 module.exports = mongoose.model('Game', GameSchema);

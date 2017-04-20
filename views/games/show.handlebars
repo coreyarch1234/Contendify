@@ -97,22 +97,26 @@ to compare with answer. -->
     <h1>Which of these letters is a B ?</h1>
 </div> -->
 
-<legend>Questions</legend>
-<ul class="">
-    {{#each game.questions}}
-        <li class=''>
-            <p>{{this.body}}</p>
-            </br>
-        </li>
-    {{/each}}
-</ul>
+<div class="container">
+    <legend>Questions</legend>
+    <div id="questions">
+        {{#each game.questions}}
+            <div class="question" data-id="{{this._id}}" style= "display:none;">{{this.body}}</div>
+        {{/each}}
+    </div>
+    <br>
 
-<div class="answers">
-    <input class="answer" type="submit" value="A" style="display: block;">
-    <input class="answer" type="submit" value="B" style="display: block;">
-    <input class="answer" type="submit" value="C" style="display: block;">
-    <input class="answer" type="submit" value="D" style="display: block;">
-    <input class="answer" type="submit" value="E" style="display: block;">
+    <script>
+        $('.question').first().show().addClass('current-question');
+    </script>
+
+    <div class="answers">
+        <input class="answer" type="submit" value="B" style="display: block;">
+        <!-- <input class="answer" type="submit" value="B" style="display: block;">
+        <input class="answer" type="submit" value="C" style="display: block;">
+        <input class="answer" type="submit" value="D" style="display: block;">
+        <input class="answer" type="submit" value="E" style="display: block;"> -->
+    </div>
+
+    <script type="text/javascript" src="/scripts/sockets.js"></script>
 </div>
-
-<script type="text/javascript" src="/scripts/sockets.js"></script>

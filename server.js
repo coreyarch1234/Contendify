@@ -39,7 +39,7 @@ app.use('/', games)
 
 
 // Socket Logic
-var sockets = require('./public/server-sockets/game.js');
+var sockets = require('./sockets/game.js');
 sockets(io);
 
 // Deploy

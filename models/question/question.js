@@ -4,7 +4,8 @@ var Schema = mongoose.Schema;
 var QuestionSchema = new Schema({
   createdAt            : { type: Date, default: Date() },
   updatedAt            : { type: Date, default: Date() },
-  body                 : { type: String, unique: false, required: true },
+  body                 : { type: String, required: true },
+  answer               : { type: String, required: true },
   game: {
       type: Schema.Types.ObjectId,
       ref: 'Game'

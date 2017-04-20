@@ -7,7 +7,7 @@ var Game = require('../models/game/game.js');
 var Question = require('../models/question/question.js');
 //JSON questions
 var questionJSON = require('../question-data/questions.json');
-var helper = require('../public/helpers/generateQuestions');
+var helper = require('../sockets/helpers/generateQuestions');
 
 // NEW GAME PAGE
 router.get('/new', function(req, res) {
@@ -54,11 +54,14 @@ router.post('/', function(req, res) {
       helper(game, function(questions) {
           for (var i = 0; i < questions.length; i++) {
               game.questions.push(questions[i]);
+
+              if (i == (questions.length - 1)) {
+                  game.save(function(error, savedGame) {
+                      if (error){ return res.status(300) };
+                      res.send(savedGame);
+                  });
+              }
           }
-          game.save(function(error, savedGame) {
-              if (error){ return res.status(300) };
-              res.send(savedGame);
-          });
       });
 
     //Create question array
@@ -87,8 +90,8 @@ router.post('/', function(req, res) {
 
 // SHOW
 router.get('/:code', function(req, res) {
-    Game.find({ code:req.params.code }).exec(function(err, game) {
-      res.render('games/show', {game: game});
+    Game.findOne({ code:req.params.code }).populate("questions").exec(function(err, game) {
+      res.render('games/show', { game: game });
     });
 });
 
