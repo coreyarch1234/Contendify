@@ -10,7 +10,7 @@ $(function() {
 
   $('#create-game').click(function(event) {
     var name = $('#game-name').val();
-    var code = '4';
+    var code = '10';
     var gameObj = {};
     gameObj['name'] = name;
     gameObj['code'] = code;

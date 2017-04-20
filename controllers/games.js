@@ -7,6 +7,7 @@ var Game = require('../models/game/game.js');
 var Question = require('../models/question/question.js');
 //JSON questions
 var questionJSON = require('../question-data/questions.json');
+var helper = require('../public/helpers/generateQuestions');
 
 // NEW GAME PAGE
 router.get('/new', function(req, res) {
@@ -48,31 +49,41 @@ router.post('/', function(req, res) {
 
   //Save Game
   game.save(function (err, game) {
-    if (err){ return res.status(300) };
-    // console.log(game)
+      if (err){ return res.status(300) };
+
+      helper(game, function(questions) {
+          for (var i = 0; i < questions.length; i++) {
+              game.questions.push(questions[i]);
+          }
+          game.save(function(error, savedGame) {
+              if (error){ return res.status(300) };
+              res.send(savedGame);
+          });
+      });
+
     //Create question array
-    questionsArray = []
-    questionsArray.push(questionJSON.questions[0].text);
-
-    //Create question object by filling body with question array data. MAKE THIS PROCESS A MODULAR FUNCTION
-    var question = new Question({
-      body: questionsArray[0],
-      game: game._id
+    // questionsArray = []
+    // questionsArray.push(questionJSON.questions[0].text);
+    //
+    // //Create question object by filling body with question array data. MAKE THIS PROCESS A MODULAR FUNCTION
+    // var question = new Question({
+    //   body: questionsArray[0],
+    //   game: game._id
+    // });
+    //
+    // question.save(function (error, question) {
+    //   if (error){ return res.status(300) };
+    //   // console.log('the question has been saved:' + question);
+    //   // res.send(game)
+    //   game.questions.push(question);
+    //   game.save(function(errr, updatedGame) {
+    //       if (errr){ return res.status(300) };
+    //       res.send(updatedGame);
+    //   })
     });
-
-    question.save(function (error, question) {
-      if (error){ return res.status(300) };
-      // console.log('the question has been saved:' + question);
-      // res.send(game)
-      game.questions.push(question);
-      game.save(function(errr, updatedGame) {
-          if (errr){ return res.status(300) };
-          res.send(updatedGame);
-      })
-    });
-  });
-
 });
+
+// });
 
 // SHOW
 router.get('/:code', function(req, res) {

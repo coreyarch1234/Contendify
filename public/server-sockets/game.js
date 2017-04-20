@@ -32,7 +32,8 @@ module.exports = function(io) {
         Game.findOne({ code: data }).populate('questions').exec(function(err, game){
             //Store game code in global GameCodes array
             GameCodes.push(game.code);
-            console.log(game.questions[0].body)
+            console.log('Hello: ')
+            console.log(game.questions)
             cb(game);
             //Grab questions from game to pass back in callback to fill show page
             // res.render('games/show', {game: game});
