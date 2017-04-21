@@ -2,6 +2,7 @@ module.exports = function(io) {
 
   var loadedAnswer = [];
   var participants = {};
+  var participantIds = [];
 
   var Game = require('../models/game/game.js');
   var Question = require('../models/question/question.js');
@@ -39,26 +40,53 @@ module.exports = function(io) {
     });
 
     //Answer logic
-    socket.on('answer_chosen', function(data, cb) {
+    socket.on('answer_chosen', function(data) {
         // console.log("Data: " + data.questionId);
         //Later, use game object to compare answerChosen with
         Question.findById(data.questionId).exec(function(error, question) {
+          if (error) { return error };
           //   console.log("Question: " + question + " | Error: " + error);
-            if (error) { return error };
             // console.log('Question Object: ' + question);
             var answerCorrect = question.answer;
             var answerChosen = data.answerChosen;
+
             console.log('Correct: ' + answerCorrect + " | Chosen: " + answerChosen);
+
+            var status = {}
             if (answerChosen == answerCorrect) {
-                cb({ isCorrect: true, answer: answerCorrect }); // object containing true or false the answer selected
+                status = { isCorrect: true, answer: answerCorrect } // object containing true or false the answer selected
             } else {
-                cb({ isCorrect: false, answer: answerCorrect });
+                status = { isCorrect: false, answer: answerCorrect }
             }
+
+            socket.emit('client:update_isCorrect', status, function() {
+              Game.findById(question.game, function(err, game) {
+                if (err) { return error }
+                var response = {
+                  participantIds: participantIds,
+                  game: game
+                }
+                io.in(socket.room).emit('room:update_answered', response);
+
+              });
+            });
         })
     });
 
-    socket.on('answer_created', function(data, cb) {
+    socket.on('room:next_question', function(game) {
+      console.log('Question passed for context: ' + game.code);
+      participantIds.push(socket.id);
+      console.log('participantIds: ' + participantIds);
+      if ((participantIds.length) == participants[game.code]*4) {
+        participantIds = []
+        io.in(socket.room).emit('room:next_question');
+      } else {
+        console.log("'" + socket.id + "' has selected their answer...")
+        console.log("Awaiting " + (participants[game.code] - participantIds.length));
+      }
+    });
 
+    socket.on('answer_created', function(data, cb) {
       Answer.create(data.answer, function(error, answer) { // Create answer object from user
         if (error) { return error }
         console.log('Fake Answer created: ' + answer);
@@ -89,10 +117,8 @@ module.exports = function(io) {
             }
             cb(response)
           }
-
         })
       });
-
     }); // End of socket.on('answer_created')
 
     socket.on('update_clients', function(data) {

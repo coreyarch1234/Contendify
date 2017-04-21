@@ -22,22 +22,8 @@ $(function() {
 
         //Once answer is chosen, emit it and compare with answer on server
         socket.emit('answer_chosen', data, function(result) {
-          // console.log(result);
-
-          if (result.isCorrect) {
-              $('#correct-answer-alert').text("Nice Job! The correct answer was: " + result.answer).show()
-          } else {
-              $('#correct-answer-alert').text("The correct answer was: " + result.answer).show()
-          }
-
-          setTimeout(function() {
-              $('#correct-answer-alert').text('').hide();
-
-              $('.current-question').hide()
-              $('.current-question').next().show().addClass('current-question')
-              $('.current-question').first().removeClass('current-question');
-          }, 5000);
-    });
+          console.log(result);
+        });
   });
 
   $('#submit-lie').click(function(event) {
@@ -72,10 +58,10 @@ $(function() {
     socket.on('update_clients', function(answers) {
       setTimeout(function() {
           $('#answer-input').hide(); // hide input
-          $('#fake-answer').text(""); // clear input
+          $('#fake-answer').val(""); // clear input
 
           $('#answers').show(); // display answers
-          
+
           var answer = $('.answer').first()
 
           console.log("UPDATING DOM WITH ANSWERS");
@@ -87,6 +73,35 @@ $(function() {
           }
       }, 1000);
     });
+
+    socket.on('client:update_isCorrect', function(data, cb) {
+      if (data.isCorrect) {
+          $('#correct-answer-alert').text("Nice Job! The correct answer was: " + data.answer);
+      } else {
+          $('#correct-answer-alert').text("The correct answer was: " + data.answer);
+      }
+      cb();
+    });
+
+    socket.on('room:update_answered', function(data) {
+      // update dom to reflect # of people who have answered the question
+      // cb();
+      socket.emit('room:next_question', data.game);
+    });
+
+    socket.on('room:next_question', function() {
+      $('#correct-answer-alert').show();
+      setTimeout(function() {
+          $('#correct-answer-alert').text('').hide();
+
+          $('.current-question').hide()
+          $('.current-question').next().show().addClass('current-question')
+          $('.current-question').first().removeClass('current-question');
+
+          $('#answer-input').show(); // unhide input
+          $('#answers').hide();
+      }, 5000);
+    })
 
   });
 
