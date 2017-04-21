@@ -45,17 +45,47 @@ $(function() {
     var socketId = socket.id;
     var questionId = $('.current-question').data('id');
     var data = {
-      body: fakeAnswer,
-      socketId: socketId,
-      question: questionId
+        answer: {
+          body: fakeAnswer,
+          socketId: socketId,
+          question: questionId
+        },
+        code: gameCode
     }
 
     // console.log("Lie: " + data.answer);
     // console.log("Socket _id: " + data.socketId);
     // console.log("Question _id: " + data.questionId);
 
-    socket.emit('answer_created', data, function() {
+    socket.emit('answer_created', data, function(result) {
+      if (result.ready) {
+        console.log('Everyone has answered and we are ready to show results');
 
+        socket.emit('update_clients', result.answers);
+
+      } else {
+        console.log('Waiting for the rest of the players to answer')
+      }
+
+    });
+
+    socket.on('update_clients', function(answers) {
+      setTimeout(function() {
+          $('#answer-input').hide(); // hide input
+          $('#fake-answer').text(""); // clear input
+
+          $('#answers').show(); // display answers
+          
+          var answer = $('.answer').first()
+
+          console.log("UPDATING DOM WITH ANSWERS");
+          console.log("All Answers: ");
+          console.log(answers);
+          for (var i = 0; i < answers.length; i++) {
+            answer.val(answers[i]);
+            answer = answer.next();
+          }
+      }, 1000);
     });
 
   });

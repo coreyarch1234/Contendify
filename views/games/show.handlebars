@@ -106,15 +106,21 @@ to compare with answer. -->
     </div>
     <br>
 
-    <input type="text" id="fake-answer" name="fake-answer" placeholder="Enter your lie">
-    <input type="submit" value="Lie!" id="submit-lie">
+    <div id="correct-answer-alert" style="display: none;">
 
-    <div class="answers" style="display:none;">
-        <!-- <input class="answer" type="submit" value="B" style="display: block;"> -->
-        <!-- <input class="answer" type="submit" value="B" style="display: block;">
-        <input class="answer" type="submit" value="C" style="display: block;">
-        <input class="answer" type="submit" value="D" style="display: block;">
-        <input class="answer" type="submit" value="E" style="display: block;"> -->
+    </div>
+
+    <div id="answer-input">
+      <input type="text" id="fake-answer" name="fake-answer" placeholder="Enter your lie">
+      <input type="submit" value="Lie!" id="submit-lie">
+    </div>
+
+    <div id="answers" style="display:none;">
+        <input class="answer" type="submit" value="B">
+        <input class="answer" type="submit" value="B">
+        <input class="answer" type="submit" value="C">
+        <input class="answer" type="submit" value="D">
+        <input class="answer" type="submit" value="E">
     </div>
 
     <script type="text/javascript" src="/scripts/sockets.js"></script>
