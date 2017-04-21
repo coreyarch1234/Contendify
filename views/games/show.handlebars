@@ -96,32 +96,34 @@ to compare with answer. -->
 <!-- <div class="question">
     <h1>Which of these letters is a B ?</h1>
 </div> -->
-
-<div class="container">
-    <legend>Questions</legend>
+<!-- <div class="question-container">
+  <div class="question">
+    <h1>Michelle Joni operates a unique preschool in Brooklyn. All the students in the preschool are <span class="dash">_ _ _ _ _ _.</span></h1>
+  </div>
+</div> -->
+<div class="question-container">
     <div id="questions">
         {{#each game.questions}}
-            <div class="question" data-id="{{this._id}}" style= "display:none;">{{this.body}}</div>
+            <div class="question" data-id="{{this._id}}" style= "display:none;">
+              <h1>{{this.body}}</h1>
+            </div>
         {{/each}}
     </div>
-    <br>
-
-    <div id="correct-answer-alert" style="display: none;">
-
+    <div class="lie" id="answer-input">
+      <input type="text" class="fake-answer" id="fake-answer" name="fake-answer" placeholder="ENTER YOUR LIE">
+      <div class="lie-background"></div><br>
+      <input type="submit" class="submit-lie" value="SUBMIT LIE" id="submit-lie">
     </div>
 
-    <div id="answer-input">
-      <input type="text" id="fake-answer" name="fake-answer" placeholder="Enter your lie">
-      <input type="submit" value="Lie!" id="submit-lie">
-    </div>
-
-    <div id="answers" style="display:none;">
+    <div class="answers" id="answers" style="display:none;">
         <input class="answer" type="submit" value="B">
         <input class="answer" type="submit" value="B">
         <input class="answer" type="submit" value="C">
         <input class="answer" type="submit" value="D">
         <input class="answer" type="submit" value="E">
     </div>
+    <div class="answer-alert" id="correct-answer-alert" style="display: none;">
 
+    </div>
     <script type="text/javascript" src="/scripts/sockets.js"></script>
 </div>
