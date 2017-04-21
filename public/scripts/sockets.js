@@ -7,12 +7,12 @@ var gameCode = ""
 $(function() {
     $('.question').first().show().addClass('current-question');
     gameCode = window.location.href.split('/')[3];
-    socket.emit('join_room', gameCode, function(game) { });
+    socket.emit('join_room', gameCode, function() { });
 
     //ONCE USER CLICKS ON AN ANSWER, GRAB TEXT AND EMIT DATA TO SERVER
     $('body').on('click', '.answer', function(e) {
         e.preventDefault();
-        console.log();
+
         var questionId = $('.current-question').data('id');
         var answerChosen = $(this).val();
         var data = {
@@ -22,7 +22,7 @@ $(function() {
 
         //Once answer is chosen, emit it and compare with answer on server
         socket.emit('answer_chosen', data, function(result) {
-          console.log(result);
+          // console.log(result);
 
           if (result.isCorrect) {
               $('#correct-answer-alert').text("Nice Job! The correct answer was: " + result.answer).show()
@@ -43,10 +43,16 @@ $(function() {
   $('#submit-lie').click(function(event) {
     var fakeAnswer = $('#fake-answer').val();
     var socketId = socket.id;
+    var questionId = $('.current-question').data('id');
     var data = {
+      body: fakeAnswer,
       socketId: socketId,
-      answer: fakeAnswer
+      question: questionId
     }
+
+    // console.log("Lie: " + data.answer);
+    // console.log("Socket _id: " + data.socketId);
+    // console.log("Question _id: " + data.questionId);
 
     socket.emit('answer_created', data, function() {
 

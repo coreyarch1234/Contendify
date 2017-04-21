@@ -1,4 +1,8 @@
 //CREATING GAME POST REQUESTS AND THE LIKE GO HERE
+function generateCode() {
+  return Math.round((Math.pow(36, 4 + 1) - Math.random() * Math.pow(36, 4))).toString(36).slice(1);
+}
+
 $(function() {
   $('#join-game').click(function(event) {
     var code = $('game-code').val();
@@ -10,7 +14,7 @@ $(function() {
 
   $('#create-game').click(function(event) {
     var name = $('#game-name').val();
-    var code = '10';
+    var code = generateCode();
     var gameObj = {};
     gameObj['name'] = name;
     gameObj['code'] = code;
@@ -29,4 +33,12 @@ $(function() {
       }
     });
   });
+
+  $('#join-game').click(function(event) {
+    var code = $('#game-code').val();
+
+    alert('Trying to join game...');
+    window.location.href = '/' + code;
+  });
+
 });
