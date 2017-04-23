@@ -1,13 +1,13 @@
 {
     "questions": [
         {
-            "text": "Which of these letters is a B ?",
-            "answer": "B"
+            "text": "Which of the following correctly describes subtractive color mixing?",
+            "answer": "Green boxes absorb colors that aren't green"
 
         },
         {
-            "text": "One of these is not like the other....which one is YEEZUS?",
-            "answer": "Corey"
+            "text": "Which of the following is true of ganglion cells?",
+            "answer": "They process information from a single cone."
 
         }
     ]
