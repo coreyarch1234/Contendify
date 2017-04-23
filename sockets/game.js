@@ -12,27 +12,27 @@ module.exports = function(io) {
   io.on('connection', function(socket) {
 
     socket.on('disconnect', function() {
-      console.log("Removing '" + socket.id + "' from room '" + socket.room + "'...");
-      participants[socket.room]--;
-      console.log("Remaining participants: ");
-      console.log(participants);
+    //   console.log("Removing '" + socket.id + "' from room '" + socket.room + "'...");
+      participants[socket.room] = participants[socket.room] - 1;
+    //   console.log("Remaining participants: ");
+    //   console.log(participants);
     });
 
     //Join Room
     socket.on('join_room', function(code, cb) {
       socket.join(code);
       socket.room = code;
-      console.log("User '" + socket.id + "' joined...");
-      console.log("user is now in : " + socket.room);
+    //   console.log("User '" + socket.id + "' joined...");
+    //   console.log("user is now in : " + socket.room);
 
       if (participants[code] == undefined) {
         participants[code] = 1;
       } else {
-          participants[code]++;
+          participants[code] = participants[code] + 1
       }
 
-      console.log("Participants: ");
-      console.log(participants);
+    //   console.log("Participants: ");
+    //   console.log(participants);
 
       cb();
 
@@ -50,7 +50,7 @@ module.exports = function(io) {
             var answerCorrect = question.answer;
             var answerChosen = data.answerChosen;
 
-            console.log('Correct: ' + answerCorrect + " | Chosen: " + answerChosen);
+            // console.log('Correct: ' + answerCorrect + " | Chosen: " + answerChosen);
 
             var status = {}
             if (answerChosen == answerCorrect) {
@@ -67,6 +67,7 @@ module.exports = function(io) {
                   game: game
                 }
                 io.in(socket.room).emit('room:update_answered', response);
+                // socket.emit('room:update_answered', response);
 
               });
             });
@@ -74,44 +75,50 @@ module.exports = function(io) {
     });
 
     socket.on('room:next_question', function(game) {
-      console.log('Question passed for context: ' + game.code);
+    //   console.log('Question passed for context: ' + game.code);
       participantIds.push(socket.id);
-      console.log('participantIds: ' + participantIds);
+    //   console.log('participantIds: ' + participantIds);
       if ((participantIds.length) == participants[game.code]*4) {
         participantIds = []
         io.in(socket.room).emit('room:next_question');
       } else {
-        console.log("'" + socket.id + "' has selected their answer...")
-        console.log("Awaiting " + (participants[game.code] - participantIds.length));
+        // console.log("'" + socket.id + "' has selected their answer...")
+        // console.log("Awaiting " + (participants[game.code] - participantIds.length));
       }
     });
 
     socket.on('answer_created', function(data, cb) {
       Answer.create(data.answer, function(error, answer) { // Create answer object from user
         if (error) { return error }
-        console.log('Fake Answer created: ' + answer);
-        console.log("---------------------------------");
+        // console.log('Fake Answer created: ' + answer);
+        // console.log("---------------------------------");
         // console.log("Loaded Answers: ");
         // console.log(loadedAnswer);
         Answer.find({ question: answer.question }, function(err, answers) { // find all user generated answers for this question
+          if (err) { return err }
           console.log("Number of answers for this question: " + answers.length);
+          console.log('HERE ARE ALL OF THE ANSWERS BEFORE: ' + answers)
 
           if (answers.length == participants[data.code]) {
-            console.log("All fake answers have been submitted")
+            // console.log("All fake answers have been submitted")
 
-            Question.findById(answer.question, function(er, question) { // Find the current question for teh correct answer
+            Question.findById(answer.question, function(er, question) { // Find the current question for the correct answer
+              if (er) { return er }
               var response = {
                 ready: true,
                 answers: answers.map(function(a) {
                  return a.body;
                 })
               }
+            //   console.log('THE ANSWER TO THIS QUESTION IS: ' + question.answer)
+              console.log('HERE ARE ALL OF THE ANSWERS AFTER: ' + answers)
+
               response.answers.push(question.answer);
               cb(response)
             });
           } else {
-            console.log("'" + socket.id + "' has entered their answer...")
-            console.log("Awaiting " + (participants[data.code] - answers.length));
+            // console.log("'" + socket.id + "' has entered their answer...")
+            // console.log("Awaiting " + (participants[data.code] - answers.length));
             var response = {
               ready: false
             }
@@ -120,6 +127,10 @@ module.exports = function(io) {
         })
       });
     }); // End of socket.on('answer_created')
+
+    // socket.on('update_CLIENT', function(data) {
+    //   socket.emit('update_CLIENT', data)
+    // });
 
     socket.on('update_clients', function(data) {
       io.in(socket.room).emit('update_clients', data)

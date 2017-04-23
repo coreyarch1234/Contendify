@@ -26,10 +26,11 @@ $(function() {
         });
   });
 
-  $('#submit-lie').click(function(event) {
+  $('body').on('click', '#submit-lie', function(event){
     var fakeAnswer = $('#fake-answer').val();
     var socketId = socket.id;
     var questionId = $('.current-question').data('id');
+    console.log('THE CURRENT QUESTION ID IS: ' + questionId);
     var data = {
         answer: {
           body: fakeAnswer,
@@ -46,6 +47,8 @@ $(function() {
     socket.emit('answer_created', data, function(result) {
       if (result.ready) {
         console.log('Everyone has answered and we are ready to show results');
+        //Empy answer database
+        // socket.emit('update_CLIENT', result.answers);
 
         socket.emit('update_clients', result.answers);
 
@@ -54,6 +57,25 @@ $(function() {
       }
 
     });
+
+    // socket.on('update_CLIENT', function(answers) {
+    //   setTimeout(function() {
+    //       $('#answer-input').hide(); // hide input
+    //       $('#fake-answer').val(""); // clear input
+    //
+    //       $('#answers').show(); // display answers
+    //
+    //       var answer = $('.answer').first()
+    //
+    //     //   console.log("UPDATING DOM WITH ANSWERS");
+    //     //   console.log("All Answers: ");
+    //       console.log(answers);
+    //       for (var i = 0; i < answers.length; i++) {
+    //         answer.val(answers[i]);
+    //         answer = answer.next();
+    //       }
+    //   }, 0);
+    // });
 
     socket.on('update_clients', function(answers) {
       setTimeout(function() {
@@ -64,14 +86,15 @@ $(function() {
 
           var answer = $('.answer').first()
 
-          console.log("UPDATING DOM WITH ANSWERS");
-          console.log("All Answers: ");
+        //   console.log("UPDATING DOM WITH ANSWERS");
+        //   console.log("All Answers: ");
           console.log(answers);
+          console.log('ANSWERS LENGTH IS: ' + answers.length)
           for (var i = 0; i < answers.length; i++) {
             answer.val(answers[i]);
             answer = answer.next();
           }
-      }, 1000);
+      }, 0);
     });
 
     socket.on('client:update_isCorrect', function(data, cb) {
@@ -100,7 +123,7 @@ $(function() {
 
           $('#answer-input').show(); // unhide input
           $('#answers').hide();
-      }, 5000);
+      }, 0);
     })
 
   });

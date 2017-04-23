@@ -21,7 +21,7 @@ router.post('/', function(req, res) {
   var data = new Game(req.body);
 
   Game.findOne({ code: data.code }).exec(function(error, game) {
-    if (game == undefined) {
+    if (game == undefined) { //If game does not exist
       //Save Game
       data.save(function (err, savedGame) {
         if (err){ return res.status(300) };

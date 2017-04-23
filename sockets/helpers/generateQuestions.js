@@ -4,17 +4,17 @@ var questionJSON = require('../../question-data/questions.json');
 
 var questionDocs = []
 var questions = []
-var total = 2;
+var total = 6;
 
 function saveQuestions(cb) {
-    var question = questionDocs.pop();
+    var question = questionDocs.shift();
 
     question.save(function(error, saved) {
         if (error) { return error };
 
         questions.push(saved);
-
-        if (--total) {
+        total = total - 1
+        if (total > 0) {
             saveQuestions(cb);
         } else {
             console.log('All docs have been saved!');
@@ -43,33 +43,4 @@ module.exports = function(game, cb) {
         console.log('Calling you back with new questions')
         cb(questions);
     })
-
-
-
-    // for (var i = 0; i < numQuestions; i++) {
-    //     console.log('Iteration: ' + i)
-    //     var data = new Question({
-    //       body: questionJSON.questions[i].text,
-    //       answer: questionJSON.questions[i].answer,
-    //       game: game._id
-    //     });
-    //     console.log('Pre-Save: ' + data)
-    //
-    //     data.save(function(error, question) {
-    //         console.log("Saving.....")
-    //         // console.log('our i : ' + i)
-    //         if (error){ return error };
-    //
-    //         questionArray.push(question);
-    //
-    //         if (i == 1) {
-    //             console.log('Calling you back with new questions')
-    //             cb(questionArray);
-    //         } else {
-    //             console.log("Saved!");
-    //             console.log("Building question '" + i + "' ....");
-    //         }
-    //
-    //     });
-    // }
 }
