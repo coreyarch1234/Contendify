@@ -22,7 +22,7 @@ $(function() {
 
         //Once answer is chosen, emit it and compare with answer on server
         socket.emit('answer_chosen', data, function(result) {
-          console.log(result);
+          console.log("You chose: " + result);
         });
   });
 
@@ -39,21 +39,14 @@ $(function() {
         code: gameCode
     }
 
-    // console.log("Lie: " + data.answer);
-    // console.log("Socket _id: " + data.socketId);
-    // console.log("Question _id: " + data.questionId);
-
     socket.emit('answer_created', data, function(result) {
       if (result.ready) {
         console.log('Everyone has answered and we are ready to show results');
-
         socket.emit('update_clients', result.answers);
-
       } else {
         console.log('Waiting for the rest of the players to answer')
         // FEATURE: Update all clients with who has just created an answer
       }
-
     });
 
     socket.on('update_clients', function(answers) {
@@ -64,7 +57,7 @@ $(function() {
 
           var answer = $('.answer').first()
 
-          console.log("UPDATING DOM WITH ANSWERS");
+          console.log("Displaying answer selection for all users...");
           console.log("All Answers: ");
           console.log(answers);
           for (var i = 0; i < answers.length; i++) {

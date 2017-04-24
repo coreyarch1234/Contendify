@@ -1,6 +1,5 @@
 module.exports = function(io) {
 
-  var loadedAnswer = [];
   var participants = {};
   var participantIdsDict = {};
   var participantIds = [];
@@ -39,16 +38,15 @@ module.exports = function(io) {
 
     //Answer logic
     socket.on('answer_chosen', function(data) {
-        // console.log("Data: " + data.questionId);
+        console.log("-------------------------");
+        console.log("An answer has been chosen.");
         //Later, use game object to compare answerChosen with
         Question.findById(data.questionId).exec(function(error, question) {
           if (error) { return error };
-          //   console.log("Question: " + question + " | Error: " + error);
-            // console.log('Question Object: ' + question);
             var answerCorrect = question.answer;
             var answerChosen = data.answerChosen;
 
-            console.log('Correct: ' + answerCorrect + " | Chosen: " + answerChosen);
+            // console.log('Correct: ' + answerCorrect + " | Chosen: " + answerChosen);
 
             var status = {}
             if (answerChosen == answerCorrect) {
@@ -66,37 +64,45 @@ module.exports = function(io) {
                   socketId: socket.id
                 }
                 io.in(socket.room).emit('room:update_answered', response);
+                // update everyone's dom, the, after this is 100% complete, do stuff
               });
             });
         })
     });
 
     socket.on('room:next_question', function(data) {
-      console.log('Question passed for context: ' + data.game.code);
       //Check my socket id with everyone else's...if my socket id is there twice
+    //   var moveOn = false; //Only true once participantIdsDict is reset
       if (!(data.socketId in participantIdsDict)) {
-        participantIdsDict[data.socketId] = true;
-        participantIds.push(data.socketId);
+        if (participantIds == [] && moveOn == false){
+            console.log('Keep users moving onto next round')
+        }
+        else{
+            participantIdsDict[data.socketId] = true;
+            participantIds.push(data.socketId);
+        }
+        // participantIdsDict[data.socketId] = true;
+        // participantIds.push(data.socketId);
       }
 
-      console.log('participantIds: ' + participantIds);
+      console.log("'" + data.socketId + "' has selected their answer...");
+      console.log("The number of participants: " + participantIds);
+      console.log("Awaiting " + (participants[data.game.code] - participantIds.length));
+
       if ((participantIds.length) == participants[data.game.code]) {
+        console.log("All users have chosen an answer, now moving on to next question.");
         participantIdsDict = {};
         participantIds = [];
+        moveOn = true;
         io.in(socket.room).emit('room:next_question');
-      } else {
-        console.log("'" + socket.id + "' has selected their answer...")
-        console.log("Awaiting " + (participants[data.game.code] - participantIds.length));
       }
     });
 
     socket.on('answer_created', function(data, cb) {
       Answer.create(data.answer, function(error, answer) { // Create answer object from user
         if (error) { return error }
-        console.log('Fake Answer created: ' + answer);
         console.log("---------------------------------");
-        // console.log("Loaded Answers: ");
-        // console.log(loadedAnswer);
+        console.log('Fake Answer created: ' + answer);
         Answer.find({ question: answer.question }, function(err, answers) { // find all user generated answers for this question
           console.log("Number of answers for this question: " + answers.length);
 

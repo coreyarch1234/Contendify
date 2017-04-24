@@ -27,7 +27,6 @@ router.post('/', function(req, res) {
         if (err){ return res.status(300) };
 
         helper(savedGame, function(questions) {
-          // console.log('QUESTIONS ARE...:' + questions);
           for (var i = 0; i < questions.length; i++) {
             savedGame.questions.push(questions[i]);
 

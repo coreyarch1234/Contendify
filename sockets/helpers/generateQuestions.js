@@ -7,7 +7,7 @@ var questions = []
 var total = 2;
 
 function saveQuestions(cb) {
-    var question = questionDocs.pop();
+    var question = questionDocs.shift();
 
     question.save(function(error, saved) {
         if (error) { return error };
@@ -36,7 +36,7 @@ module.exports = function(game, cb) {
           game: game._id
         });
         questionDocs.push(question)
-        console.log('Pre-Save: ' + question)
+        // console.log('Pre-Save: ' + question)
     }
 
     saveQuestions(function() {
