@@ -37,7 +37,6 @@ app.get('/', function(req, res){
 
 app.use('/', games)
 
-
 // Socket Logic
 var sockets = require('./sockets/game.js');
 sockets(io);

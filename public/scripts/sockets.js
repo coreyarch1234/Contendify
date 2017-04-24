@@ -1,15 +1,15 @@
 // ANYTHING CORRESPONDING TO THE GAME SHOW PAGE SHOULD GO HERE.
 var socket = io();
-var questionIndex = 0
-var gameCode = ""
+var questionIndex = 0;
+var gameCode = "";
 
 //ONCE WE HIT THE GAMES SHOW PAGE, GRAB GAME CODE AND EMIT TO SERVER
 $(function() {
     $('.question').first().show().addClass('current-question');
     gameCode = window.location.href.split('/')[3];
-    socket.emit('join_room', gameCode, function() { });
+    socket.emit('join_room', gameCode);
 
-    //ONCE USER CLICKS ON AN ANSWER, GRAB TEXT AND EMIT DATA TO SERVER
+    //
     $('body').on('click', '.answer', function(e) {
         e.preventDefault();
 
@@ -51,6 +51,7 @@ $(function() {
 
       } else {
         console.log('Waiting for the rest of the players to answer')
+        // FEATURE: Update all clients with who has just created an answer
       }
 
     });
@@ -60,7 +61,6 @@ $(function() {
           $('#answer-input').hide(); // hide input
           $('#fake-answer').val(""); // clear input
 
-          $('#answers').show(); // display answers
 
           var answer = $('.answer').first()
 
@@ -71,6 +71,8 @@ $(function() {
             answer.val(answers[i]);
             answer = answer.next();
           }
+
+          $('#answers').show(); // display answers
       }, 1000);
     });
 
@@ -85,8 +87,7 @@ $(function() {
 
     socket.on('room:update_answered', function(data) {
       // update dom to reflect # of people who have answered the question
-      // cb();
-      socket.emit('room:next_question', data.game);
+      socket.emit('room:next_question', data);
     });
 
     socket.on('room:next_question', function() {

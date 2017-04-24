@@ -2,6 +2,7 @@ module.exports = function(io) {
 
   var loadedAnswer = [];
   var participants = {};
+  var participantIdsDict = {};
   var participantIds = [];
 
   var Game = require('../models/game/game.js');
@@ -33,9 +34,6 @@ module.exports = function(io) {
 
       console.log("Participants: ");
       console.log(participants);
-
-      cb();
-
       // INCREMENT THE # OF PARTICIPANTS
     });
 
@@ -64,25 +62,31 @@ module.exports = function(io) {
                 if (err) { return error }
                 var response = {
                   participantIds: participantIds,
-                  game: game
+                  game: game,
+                  socketId: socket.id
                 }
                 io.in(socket.room).emit('room:update_answered', response);
-
               });
             });
         })
     });
 
-    socket.on('room:next_question', function(game) {
-      console.log('Question passed for context: ' + game.code);
-      participantIds.push(socket.id);
+    socket.on('room:next_question', function(data) {
+      console.log('Question passed for context: ' + data.game.code);
+      //Check my socket id with everyone else's...if my socket id is there twice
+      if (!(data.socketId in participantIdsDict)) {
+        participantIdsDict[data.socketId] = true;
+        participantIds.push(data.socketId);
+      }
+
       console.log('participantIds: ' + participantIds);
-      if ((participantIds.length) == participants[game.code]*4) {
-        participantIds = []
+      if ((participantIds.length) == participants[data.game.code]) {
+        participantIdsDict = {};
+        participantIds = [];
         io.in(socket.room).emit('room:next_question');
       } else {
         console.log("'" + socket.id + "' has selected their answer...")
-        console.log("Awaiting " + (participants[game.code] - participantIds.length));
+        console.log("Awaiting " + (participants[data.game.code] - participantIds.length));
       }
     });
 
@@ -112,9 +116,7 @@ module.exports = function(io) {
           } else {
             console.log("'" + socket.id + "' has entered their answer...")
             console.log("Awaiting " + (participants[data.code] - answers.length));
-            var response = {
-              ready: false
-            }
+            var response = { ready: false }
             cb(response)
           }
         })
