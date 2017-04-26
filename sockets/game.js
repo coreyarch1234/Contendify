@@ -1,7 +1,6 @@
 module.exports = function(io) {
 
   var participants = {};
-  var participantIdsDict = {};
   var participantIds = [];
   var excessArray = [];
 
@@ -19,8 +18,8 @@ module.exports = function(io) {
       console.log(participants);
     });
 
-    //Join Room
-    socket.on('join_room', function(code, cb) {
+    // MARK: Adding user to room
+    socket.on('publish:join', function(code, cb) {
       socket.join(code);
       socket.room = code;
       console.log("User '" + socket.id + "' joined...");
@@ -34,7 +33,6 @@ module.exports = function(io) {
 
       console.log("Participants: ");
       console.log(participants);
-      // INCREMENT THE # OF PARTICIPANTS
     });
 
     // MARK: Receiving users' selected answer
@@ -65,23 +63,21 @@ module.exports = function(io) {
                   game: game,
                   socketId: socket.id
                 }
-                io.in(socket.room).emit('room:update_answered', response);
+                io.in(socket.room).emit('subscribe:answered', response);
                 // update everyone's dom, the, after this is 100% complete, do stuff
               });
             });
         })
     });
 
-    socket.on('room:next_question', function(data) {
+    // MARK: Checked if we are to mvoe on to the next question or not
+    socket.on('publish:next_question?', function(data) {
       //Check my socket id with everyone else's...if my socket id is there twice
       excessArray.push(data.socketId)
       console.log("excessArray size: " + excessArray.length);
       if (excessArray.length == 4) {
-        if (!(data.socketId in participantIdsDict)) {
-          participantIdsDict[data.socketId] = true;
-          participantIds.push(data.socketId);
-          excessArray = [];
-        }
+        participantIds.push(data.socketId);
+        excessArray = [];
 
         console.log("'" + data.socketId + "' has selected their answer...");
         console.log("The number of participants: " + participantIds.length);
@@ -89,15 +85,14 @@ module.exports = function(io) {
 
         if ((participantIds.length) == participants[data.game.code]) {
           console.log("All users have chosen an answer, now moving on to next question.");
-          participantIdsDict = {};
           participantIds = [];
-          io.in(socket.room).emit('room:next_question');
+          io.in(socket.room).emit('subscribe:next_question?');
         }
       }
     });
 
     // MARK: Receiving users fake answer before answering
-    socket.on('pub:fake_answer', function(data, cb) {
+    socket.on('publish:fake_answer', function(data, cb) {
       // Create answer object from user's input
       Answer.create(data.answer, function(error, answer) {
         if (error) { return error };
@@ -125,7 +120,7 @@ module.exports = function(io) {
               response.answers.push(question.answer);
               // cb(response)
               console.log('Everyone has submitted a fake answer, showing collection of answers');
-              io.in(socket.room).emit('sub:answers', response.answers);
+              io.in(socket.room).emit('subscribe:answers', response.answers);
             });
           } else {
             console.log("'" + socket.id + "' has entered their answer...")

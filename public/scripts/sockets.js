@@ -1,15 +1,23 @@
-// ANYTHING CORRESPONDING TO THE GAME SHOW PAGE SHOULD GO HERE.
-var socket = io();
-var questionIndex = 0;
-var gameCode = "";
+// MARK: Script for SHOW page of game.
 
-//ONCE WE HIT THE GAMES SHOW PAGE, GRAB GAME CODE AND EMIT TO SERVER
+var socket = io(); // Create socket instance
+var gameCode = ""; // Global game code set when a user connects
+var numQuestions = 4; // Total # of questions
+
 $(function() {
+    // Initial setup
+
+    // Show participants until all have joined, then start game
+
+
     $('.question').first().show().addClass('current-question');
     gameCode = window.location.href.split('/')[3];
-    socket.emit('join_room', gameCode);
+    socket.emit('publish:join', gameCode);
 
-    //
+
+    // MARK: Game event and socket logic
+
+    // Answer selected
     $('body').on('click', '.answer', function(e) {
         e.preventDefault();
 
@@ -20,12 +28,13 @@ $(function() {
           answerChosen: answerChosen
         }
 
-        // MARK: Publishing a user having selected an answer
+        // Publishing a user having selected an answer
         socket.emit('publish:answer', data, function(result) {
           console.log("You chose: " + result);
         });
   });
 
+  // Fake Answer submitted
   $('#submit-lie').click(function(event) {
     var fakeAnswer = $('#fake-answer').val();
     var socketId = socket.id;
@@ -39,20 +48,15 @@ $(function() {
         code: gameCode
     }
 
-    socket.emit('pub:fake_answer', data, function(result) {
-      // if (result.ready) {
-      //   console.log('Everyone has submitted a fake answer, showing collection of answers');
-      //   // THIS IS WHERE DUP HAPPENS ON Q 2
-      //   // Tells the server to show everyone the answer selection
-      //   socket.emit('pub:answers', result.answers);
-      // } else {
-        console.log('Waiting for the rest of the players to answer')
-        // FEATURE: Update all clients with who has just created an answer
-      // }
+    // MARK: Publishing Fake Answer
+    socket.emit('publish:fake_answer', data, function(result) {
+      console.log('Waiting for the rest of the players to answer');
+      // FEATURE: Update all clients with who has just created an answer
     });
   });
 
-  socket.on('sub:answers', function(answers) {
+  // MARK: Updates users' DOM to show collection of answers
+  socket.on('subscribe:answers', function(answers) {
     setTimeout(function() {
         $('#answer-input').hide(); // hide input
         $('#fake-answer').val(""); // clear input
@@ -81,22 +85,29 @@ $(function() {
     cb();
   });
 
-  socket.on('room:update_answered', function(data) {
+  socket.on('subscribe:answered', function(data) {
     // update dom to reflect # of people who have answered the question
-    socket.emit('room:next_question', data);
+    socket.emit('publish:next_question?', data);
   });
 
-  socket.on('room:next_question', function() {
+  socket.on('subscribe:next_question?', function() {
     $('#correct-answer-alert').show();
     setTimeout(function() {
-        $('#correct-answer-alert').text('').hide();
+        var nextQuestionsSize = $('.current-question').next().length;
+        if (nextQuestionsSize == 0) {
+          alert("This is the end of the game!");
+          window.location.href = '/';
+          // end game
+        } else {
+          $('#correct-answer-alert').text('').hide();
 
-        $('.current-question').hide()
-        $('.current-question').next().show().addClass('current-question')
-        $('.current-question').first().removeClass('current-question');
+          $('.current-question').hide()
+          $('.current-question').next().show().addClass('current-question')
+          $('.current-question').first().removeClass('current-question');
 
-        $('#answer-input').show(); // unhide input
-        $('#answers').hide();
+          $('#answer-input').show(); // unhide input
+          $('#answers').hide();
+        }
     }, 5000);
   })
 });
