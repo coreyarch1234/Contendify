@@ -49,54 +49,102 @@ $(function() {
       }
     });
 
-    socket.on('update_clients', function(answers) {
-      setTimeout(function() {
-          $('#answer-input').hide(); // hide input
-          $('#fake-answer').val(""); // clear input
-
-
-          var answer = $('.answer').first()
-
-          console.log("Displaying answer selection for all users...");
-          console.log("All Answers: ");
-          console.log(answers);
-          for (var i = 0; i < answers.length; i++) {
-            answer.val(answers[i]);
-            answer = answer.next();
-          }
-
-          $('#answers').show(); // display answers
-      }, 1000);
-    });
-
-    socket.on('subscribe:is_correct?', function(data, cb) {
-      if (data.isCorrect) {
-          $('#correct-answer-alert').text("Nice Job! The correct answer was: " + data.answer);
-      } else {
-          $('#correct-answer-alert').text("The correct answer was: " + data.answer);
-      }
-      cb();
-    });
-
-    socket.on('room:update_answered', function(data) {
-      // update dom to reflect # of people who have answered the question
-      socket.emit('room:next_question', data);
-    });
-
-    socket.on('room:next_question', function() {
-      $('#correct-answer-alert').show();
-      setTimeout(function() {
-          $('#correct-answer-alert').text('').hide();
-
-          $('.current-question').hide()
-          $('.current-question').next().show().addClass('current-question')
-          $('.current-question').first().removeClass('current-question');
-
-          $('#answer-input').show(); // unhide input
-          $('#answers').hide();
-      }, 5000);
-    })
+    // socket.on('update_clients', function(answers) {
+    //   setTimeout(function() {
+    //       $('#answer-input').hide(); // hide input
+    //       $('#fake-answer').val(""); // clear input
+    //
+    //
+    //       var answer = $('.answer').first()
+    //
+    //       console.log("Displaying answer selection for all users...");
+    //       console.log("All Answers: ");
+    //       console.log(answers + 'with a socket id of: ' + socket.id);
+    //       for (var i = 0; i < answers.length; i++) {
+    //         answer.val(answers[i]);
+    //         answer = answer.next();
+    //       }
+    //
+    //       $('#answers').show(); // display answers
+    //   }, 1000);
+    // });
+    //
+    // socket.on('subscribe:is_correct?', function(data, cb) {
+    //   if (data.isCorrect) {
+    //       $('#correct-answer-alert').text("Nice Job! The correct answer was: " + data.answer);
+    //   } else {
+    //       $('#correct-answer-alert').text("The correct answer was: " + data.answer);
+    //   }
+    //   cb();
+    // });
+    //
+    // socket.on('room:update_answered', function(data) {
+    //   // update dom to reflect # of people who have answered the question
+    //   socket.emit('room:next_question', data);
+    // });
+    //
+    // socket.on('room:next_question', function() {
+    //   $('#correct-answer-alert').show();
+    //   setTimeout(function() {
+    //       $('#correct-answer-alert').text('').hide();
+    //
+    //       $('.current-question').hide()
+    //       $('.current-question').next().show().addClass('current-question')
+    //       $('.current-question').first().removeClass('current-question');
+    //
+    //       $('#answer-input').show(); // unhide input
+    //       $('#answers').hide();
+    //   }, 5000);
+    // })
 
   });
+
+  socket.on('update_clients', function(answers) {
+    setTimeout(function() {
+        $('#answer-input').hide(); // hide input
+        $('#fake-answer').val(""); // clear input
+
+
+        var answer = $('.answer').first()
+
+        console.log("Displaying answer selection for all users...");
+        console.log("All Answers: ");
+        console.log(answers + 'with a socket id of: ' + socket.id);
+        for (var i = 0; i < answers.length; i++) {
+          answer.val(answers[i]);
+          answer = answer.next();
+        }
+
+        $('#answers').show(); // display answers
+    }, 1000);
+  });
+
+  socket.on('subscribe:is_correct?', function(data, cb) {
+    if (data.isCorrect) {
+        $('#correct-answer-alert').text("Nice Job! The correct answer was: " + data.answer);
+    } else {
+        $('#correct-answer-alert').text("The correct answer was: " + data.answer);
+    }
+    cb();
+  });
+
+  socket.on('room:update_answered', function(data) {
+    // update dom to reflect # of people who have answered the question
+    socket.emit('room:next_question', data);
+  });
+
+  socket.on('room:next_question', function() {
+    $('#correct-answer-alert').show();
+    setTimeout(function() {
+        $('#correct-answer-alert').text('').hide();
+
+        $('.current-question').hide()
+        $('.current-question').next().show().addClass('current-question')
+        $('.current-question').first().removeClass('current-question');
+
+        $('#answer-input').show(); // unhide input
+        $('#answers').hide();
+    }, 5000);
+  })
 
 });
