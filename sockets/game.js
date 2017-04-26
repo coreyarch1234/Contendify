@@ -72,17 +72,9 @@ module.exports = function(io) {
 
     socket.on('room:next_question', function(data) {
       //Check my socket id with everyone else's...if my socket id is there twice
-    //   var moveOn = false; //Only true once participantIdsDict is reset
       if (!(data.socketId in participantIdsDict)) {
-        if (participantIds == [] && moveOn == false){
-            console.log('Keep users moving onto next round')
-        }
-        else{
-            participantIdsDict[data.socketId] = true;
-            participantIds.push(data.socketId);
-        }
-        // participantIdsDict[data.socketId] = true;
-        // participantIds.push(data.socketId);
+        participantIdsDict[data.socketId] = true;
+        participantIds.push(data.socketId);
       }
 
       console.log("'" + data.socketId + "' has selected their answer...");
@@ -93,7 +85,6 @@ module.exports = function(io) {
         console.log("All users have chosen an answer, now moving on to next question.");
         participantIdsDict = {};
         participantIds = [];
-        moveOn = true;
         io.in(socket.room).emit('room:next_question');
       }
     });

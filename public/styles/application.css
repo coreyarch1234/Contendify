@@ -68,7 +68,7 @@ html, body {
     font-family: 'Montserrat';
     font-weight: 700;
     text-transform: uppercase;
-		color: black;
+	color: black;
 }
 .form-input input:focus {
   outline-color: #39b54a;
@@ -163,20 +163,28 @@ html, body {
 	text-decoration: none;
 }
 .question-container {
-  width: 80%;
+  width: 90%;
   position: absolute;
-	top: 5%;
+ top: 5%;
   left: 50%;
   transform: translate(-50%,0%);
 }
 .question {
+  width: 70%;
+  float: left;
   text-align: center;
   color: #f1f2f2;
   margin-top: 40px;
+  margin-left: 80px;
 }
 .question h1 {
 	font-size: 1.8em;
 	font-weight: 700;
+}
+.question-container img {
+	width: 20%;
+	margin-top: 50px;
+	height: 95%;
 }
 .lie {
   margin-top: 40px;
@@ -190,8 +198,8 @@ html, body {
   height: 100px;
   position: absolute;
   left: 12.6%;
-  top: 52%;
-	border-radius: 7px;
+  top: 65%;
+  border-radius: 7px;
   z-index: -99;
 
   -ms-transform: rotate(-1.5deg); /* IE 9 */
@@ -211,7 +219,7 @@ html, body {
     font-weight: 700;
     text-transform: uppercase;
     text-align: center;
-		color: black;
+	color: black;
 }
 .lie input:focus {
   outline-color: #39b54a;

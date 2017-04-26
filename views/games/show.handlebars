@@ -104,10 +104,12 @@ to compare with answer. -->
 <div class="question-container">
     <div id="questions">
         {{#each game.questions}}
+            <!-- <img src="https://d18l82el6cdm1i.cloudfront.net/image_optimizer/3660bc360b3ea19b57a508f606f59abe92790671.png" alt> -->
             <div class="question" data-id="{{this._id}}" style= "display:none;">
               <h1>{{this.body}}</h1>
             </div>
         {{/each}}
+        <img src="https://d18l82el6cdm1i.cloudfront.net/image_optimizer/3660bc360b3ea19b57a508f606f59abe92790671.png" style="width:200px;height:200px;border:0;">
     </div>
     <div class="lie" id="answer-input">
       <input type="text" class="fake-answer" id="fake-answer" name="fake-answer" placeholder="ENTER YOUR LIE">

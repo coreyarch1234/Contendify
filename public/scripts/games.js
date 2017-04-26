@@ -1,6 +1,7 @@
 //CREATING GAME POST REQUESTS AND THE LIKE GO HERE
 function generateCode() {
-  return Math.round((Math.pow(36, 4 + 1) - Math.random() * Math.pow(36, 4))).toString(36).slice(1);
+  // return Math.round((Math.pow(36, 4 + 1) - Math.random() * Math.pow(36, 4))).toString(36).slice(1);
+  return 'ARTZ'
 }
 
 $(function() {
