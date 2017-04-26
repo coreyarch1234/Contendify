@@ -20,8 +20,8 @@ $(function() {
           answerChosen: answerChosen
         }
 
-        //Once answer is chosen, emit it and compare with answer on server
-        socket.emit('answer_chosen', data, function(result) {
+        // MARK: Publishing a user having selected an answer
+        socket.emit('publish:answer', data, function(result) {
           console.log("You chose: " + result);
         });
   });
@@ -39,7 +39,7 @@ $(function() {
         code: gameCode
     }
 
-    socket.emit('answer_created', data, function(result) {
+    socket.emit('pub:fake_answer', data, function(result) {
       if (result.ready) {
         console.log('Everyone has answered and we are ready to show results');
         socket.emit('update_clients', result.answers);
@@ -69,7 +69,7 @@ $(function() {
       }, 1000);
     });
 
-    socket.on('client:update_isCorrect', function(data, cb) {
+    socket.on('subscribe:is_correct?', function(data, cb) {
       if (data.isCorrect) {
           $('#correct-answer-alert').text("Nice Job! The correct answer was: " + data.answer);
       } else {

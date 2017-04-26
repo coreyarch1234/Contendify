@@ -3,6 +3,7 @@ module.exports = function(io) {
   var participants = {};
   var participantIdsDict = {};
   var participantIds = [];
+  var excessArray = [];
 
   var Game = require('../models/game/game.js');
   var Question = require('../models/question/question.js');
@@ -36,26 +37,27 @@ module.exports = function(io) {
       // INCREMENT THE # OF PARTICIPANTS
     });
 
-    //Answer logic
-    socket.on('answer_chosen', function(data) {
-        console.log("-------------------------");
-        console.log("An answer has been chosen.");
-        //Later, use game object to compare answerChosen with
+    // MARK: Receiving users' selected answer
+    socket.on('publish:answer', function(data) {
+        console.log("------------------------------");
+        console.log("-      'publish:answer'      -");
+        console.log("------------------------------");
+
+        // Find the question this user is answering
         Question.findById(data.questionId).exec(function(error, question) {
           if (error) { return error };
-            var answerCorrect = question.answer;
-            var answerChosen = data.answerChosen;
+            var answerCorrect = question.answer; // Correct Answer
+            var answerChosen = data.answerChosen; // Users' answer
 
-            // console.log('Correct: ' + answerCorrect + " | Chosen: " + answerChosen);
-
-            var status = {}
+            var status = {} // Data we want to send to the client/user
             if (answerChosen == answerCorrect) {
-                status = { isCorrect: true, answer: answerCorrect } // object containing true or false the answer selected
+                status = { isCorrect: true, answer: answerCorrect }
             } else {
                 status = { isCorrect: false, answer: answerCorrect }
             }
 
-            socket.emit('client:update_isCorrect', status, function() {
+            // MARK: Updating the users' dom (hidden field) with whether they were correct or incorrect
+            socket.emit('subscribe:is_correct?', status, function() {
               Game.findById(question.game, function(err, game) {
                 if (err) { return error }
                 var response = {
@@ -72,44 +74,48 @@ module.exports = function(io) {
 
     socket.on('room:next_question', function(data) {
       //Check my socket id with everyone else's...if my socket id is there twice
-    //   var moveOn = false; //Only true once participantIdsDict is reset
-      if (!(data.socketId in participantIdsDict)) {
-        if (participantIds == [] && moveOn == false){
-            console.log('Keep users moving onto next round')
+      excessArray.push(data.socketId)
+      console.log("excessArray size: " + excessArray.length);
+      if (excessArray.length == 4) {
+        if (!(data.socketId in participantIdsDict)) {
+          participantIdsDict[data.socketId] = true;
+          participantIds.push(data.socketId);
+          excessArray = [];
         }
-        else{
-            participantIdsDict[data.socketId] = true;
-            participantIds.push(data.socketId);
+
+        console.log("'" + data.socketId + "' has selected their answer...");
+        console.log("The number of participants: " + participantIds.length);
+        console.log("Awaiting " + (participants[data.game.code] - participantIds.length));
+
+        if ((participantIds.length) == participants[data.game.code]) {
+          console.log("All users have chosen an answer, now moving on to next question.");
+          participantIdsDict = {};
+          participantIds = [];
+          io.in(socket.room).emit('room:next_question');
         }
-        // participantIdsDict[data.socketId] = true;
-        // participantIds.push(data.socketId);
-      }
-
-      console.log("'" + data.socketId + "' has selected their answer...");
-      console.log("The number of participants: " + participantIds);
-      console.log("Awaiting " + (participants[data.game.code] - participantIds.length));
-
-      if ((participantIds.length) == participants[data.game.code]) {
-        console.log("All users have chosen an answer, now moving on to next question.");
-        participantIdsDict = {};
-        participantIds = [];
-        moveOn = true;
-        io.in(socket.room).emit('room:next_question');
       }
     });
 
-    socket.on('answer_created', function(data, cb) {
-      Answer.create(data.answer, function(error, answer) { // Create answer object from user
-        if (error) { return error }
+    // MARK: Receiving users fake answer before answering
+    socket.on('pub:fake_answer', function(data, cb) {
+      // Create answer object from user's input
+      Answer.create(data.answer, function(error, answer) {
+        if (error) { return error };
         console.log("---------------------------------");
         console.log('Fake Answer created: ' + answer);
-        Answer.find({ question: answer.question }, function(err, answers) { // find all user generated answers for this question
-          console.log("Number of answers for this question: " + answers.length);
 
+        // Find all fake answers for this question
+        Answer.find({ question: answer.question }, function(err, answers) {
+
+          console.log("Number of fake answers for this question: " + answers.length);
+
+          // If all users have submitted a fake answers
           if (answers.length == participants[data.code]) {
             console.log("All fake answers have been submitted")
 
-            Question.findById(answer.question, function(er, question) { // Find the current question for teh correct answer
+            // Find the question these fake answers are for so we can get the correct one too
+            Question.findById(answer.question, function(er, question) {
+              // 
               var response = {
                 ready: true,
                 answers: answers.map(function(a) {
