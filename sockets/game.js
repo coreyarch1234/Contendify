@@ -115,7 +115,7 @@ module.exports = function(io) {
 
             // Find the question these fake answers are for so we can get the correct one too
             Question.findById(answer.question, function(er, question) {
-              // 
+              // Add all the fake answers and the real answer to the response
               var response = {
                 ready: true,
                 answers: answers.map(function(a) {
@@ -123,7 +123,9 @@ module.exports = function(io) {
                 })
               }
               response.answers.push(question.answer);
-              cb(response)
+              // cb(response)
+              console.log('Everyone has submitted a fake answer, showing collection of answers');
+              io.in(socket.room).emit('sub:answers', response.answers);
             });
           } else {
             console.log("'" + socket.id + "' has entered their answer...")
@@ -135,8 +137,8 @@ module.exports = function(io) {
       });
     }); // End of socket.on('answer_created')
 
-    socket.on('update_clients', function(data) {
-      io.in(socket.room).emit('update_clients', data)
+    socket.on('pub:answers', function(data) {
+      io.in(socket.room).emit('sub:answers', data)
     });
 
   });

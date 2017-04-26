@@ -4,7 +4,7 @@ var questionJSON = require('../../question-data/questions.json');
 
 var questionDocs = []
 var questions = []
-var total = 2;
+var total = 4;
 
 function saveQuestions(cb) {
     var question = questionDocs.shift();
