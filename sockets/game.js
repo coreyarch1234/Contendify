@@ -3,6 +3,7 @@ module.exports = function(io) {
   var participants = {};
   var participantIds = [];
   var excessArray = [];
+  var maxPlayers = 2;
 
   var Game = require('../models/game/game.js');
   var Question = require('../models/question/question.js');
@@ -33,7 +34,7 @@ module.exports = function(io) {
 
       console.log("Participants: ");
       console.log(participants);
-      cb();
+    //   cb();
     });
 
     // MARK: Receiving users' selected answer
@@ -76,7 +77,7 @@ module.exports = function(io) {
       //Check my socket id with everyone else's...if my socket id is there twice
       excessArray.push(data.socketId)
       console.log("excessArray size: " + excessArray.length);
-      if (excessArray.length == 4) {
+      if (excessArray.length == maxPlayers) {
         participantIds.push(data.socketId);
         excessArray = [];
 

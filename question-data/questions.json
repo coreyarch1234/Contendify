@@ -1,11 +1,6 @@
 {
     "questions": [
         {
-            "text": "What is a major difference between the senate and the House of Representatives?",
-            "answer": "They process information from a single cone."
-
-        },
-        {
             "text": "Before Mt. Everest was discovered, what was the highest mountain in the world?",
             "answer": "Mt. Everest"
 
@@ -13,11 +8,6 @@
         {
             "text": "Which of the following is considered a presidential power?",
             "answer": "Declaring war"
-
-        },
-        {
-            "text": "What is classical conditioning?",
-            "answer": "Response Activation."
 
         }
     ]

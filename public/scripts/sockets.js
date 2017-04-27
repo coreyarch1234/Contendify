@@ -2,8 +2,8 @@
 
 var socket = io(); // Create socket instance
 var gameCode = ""; // Global game code set when a user connects
-var numQuestions = 3; // Total # of questions
-var maxPlayers = 4;
+var numQuestions = 2; // Total # of questions (unused atm)
+var maxPlayers = 2 // Unused atm as well
 var participants = 0;
 
 $(function() {
