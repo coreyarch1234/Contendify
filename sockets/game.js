@@ -33,6 +33,7 @@ module.exports = function(io) {
 
       console.log("Participants: ");
       console.log(participants);
+      cb();
     });
 
     // MARK: Receiving users' selected answer

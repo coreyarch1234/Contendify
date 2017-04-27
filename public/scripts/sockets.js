@@ -3,16 +3,33 @@
 var socket = io(); // Create socket instance
 var gameCode = ""; // Global game code set when a user connects
 var numQuestions = 4; // Total # of questions
+var maxPlayers = 4;
+var participants = 0;
 
 $(function() {
-    // Initial setup
-
-    // Show participants until all have joined, then start game
-
 
     $('.question').first().show().addClass('current-question');
     gameCode = window.location.href.split('/')[3];
     socket.emit('publish:join', gameCode);
+
+    // // MARK: New (for waiting room)
+    // // Initial setup
+    //
+    // // update waiting screen with joined players, then start game
+    // $('.last-user').next().addClass('conected last-user')
+    // $('.last-user').first().removeClass('last-user').removeClass('waiting');
+    // gameCode = window.location.href.split('/')[3];
+    // socket.emit('publish:join', gameCode, function() {
+    //   participants += 1;
+    //   if (participants == maxPlayers) {
+    //     // hide watiing screen html
+    //     // segue to show question
+    //     $('.question').first().show().addClass('current-question');
+    //   }
+    // });
+    // // MARK: End
+
+
 
 
     // MARK: Game event and socket logic
