@@ -1,49 +1,44 @@
-# contendify-
+# Contendify
 
+Contendify is a research-based education platform for the classroom. Contendify aims to benefit both students and teachers. With Contendify, students will have engaging research-based games and teachers will have platform with in-depth statistics. 
 
-// if user clicks answer
-  // get their socket id
-  // find their user id if any in teh game.players dict
-  // if user id exists
-    // check if chosen option is correct answer
-    // if correct
-      // display they were correct
-  // else
-    // do something
+# How it works
 
+Here is an example of a typical assessment test. Students will join a room together and will be given a question. Instead of answering the question with the answer they think is correct, it is their job to submit a distractors in order to dupe their opponents into choosing it. 
 
+Then, the students will be able to choose what they think is the right answer from a multiple choice pool of distractors (and the right answer). If they choose a distractor that their opponent (classmate) submitted, they will lose points. 
 
-  // on answer selected
-    // update view with data
+Research has shown that being able to come up with effective distractors takes a high level of understanding of the concepts in the class. 
 
-  // when user clicks asnwer
-    // if not everyone has answered
-      // emit answer selected
-    //
+![ScreenShot](http://i.imgur.com/PenBpsd.png)
 
+![ScreenShot](http://i.imgur.com/ROgEPsh.png)
 
+# Technologies
 
+Javascript, Node/Express, MongoDB, HTML/CSS.
 
+We used web sockets (Socket.io)to handle the real time submission of fake answers and the multiple choice answering. 
 
-  // on answer selected
-    // set socket id : true bc they answered question
-    // emit answer selected with data
+# Coming soon
 
-//Current Task
-// On game page, show question text and options text.
-// When a user clicks on an option, grab the option text and the socket id.
-// Emit the socket id and the option text to server and compare with actual answer.
-// If they got it right, update view with "correct text" and if they got it wrong, update with "wrong text"
-//
-// Key lessons: Obtain socket id and option text and pass it around + manipulate
+We plan to add a full interface for teachers to check the progress of their students, add questions and view more details about the assessment test. 
 
-// addl' Task
-// if user is last one left, take eveyrone to next question
-// else update everyone to know that another persom answered
+Teachers can view the content and check the status of questions:
 
-Tasks:
-1) Find a place to store question and options text
-2) Make it possible to grab socket id and options text once a user clicks on an options
-3) Emit socket id and options text to server
-// 4) create max user count and increment as people answer
-4) Update view accordingly
+![ScreenShot](http://i.imgur.com/CyDq6JO.png)
+
+Question submission is simple:
+
+![ScreenShot](http://i.imgur.com/bfgKfrv.png)
+
+Teachers can view which distractors were most effective in duping the students:
+
+![ScreenShot](http://i.imgur.com/u0NbPiS.png)
+
+The student ranking can also be viewed so that teachers can keep tabs on which students need the most assistance:
+
+![ScreenShot](http://i.imgur.com/WD411F1.png)
+
+These questions can be used as content material in future classes. Contendify is a more efficient, effective and engaging way to teach class concepts and provide content for teachers. 
+
