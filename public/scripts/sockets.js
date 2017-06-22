@@ -119,7 +119,7 @@ $(function() {
           $('#correct-answer-alert').text('').hide();
 
           $('.current-question').hide()
-          $('.current-question').next().show().addClass('current-question')
+          $('.current-question').next().show().addClass('current-question');
           $('.current-question').first().removeClass('current-question');
 
           $('#answer-input').show(); // unhide input
