@@ -5,6 +5,44 @@ module.exports = function(io) {
   var excessArray = [];
   var maxPlayers = 2;
 
+  //Scoring
+  var users = []
+
+  //Add a user with a specific ID
+  function addUser(sockId, score = 12) {
+     var newUser = {
+       sockId: sockId,
+       score: score
+     }
+     users.push(newUser)
+   }
+
+   // increase or decrease the score of the specified player
+   function increaseScore(sockId) {
+    for (var i = 0; i < users.length; i++){
+        if (users[i].sockId === sockId) {
+          users[i].score++;
+        }
+    }
+   }
+
+   function decreaseScore(sockId) {
+       for (var i = 0; i < users.length; i++){
+           if (users[i].sockId === sockId) {
+             users[i].score--;
+           }
+       }
+   }
+
+   //Find user with a specific id
+   function findUser(sockId) {
+       for (var i = 0; i < users.length; i++){
+           if (users[i].sockId === sockId) {
+             return users[i];
+           }
+       }
+   }
+
   var Game = require('../models/game/game.js');
   var Question = require('../models/question/question.js');
   var Answer = require('../models/answer/answer.js');
@@ -25,6 +63,9 @@ module.exports = function(io) {
       socket.room = code;
       console.log("User '" + socket.id + "' joined...");
       console.log("user is now in : " + socket.room);
+
+      //Add a user to users array to keep track of score
+      addUser(socket.id);
 
       if (participants[code] == undefined) {
         participants[code] = 1;
@@ -51,13 +92,32 @@ module.exports = function(io) {
 
             var status = {} // Data we want to send to the client/user
             if (answerChosen == answerCorrect) {
-                status = { isCorrect: true, answer: answerCorrect }
+                //Increase score of specific player
+                increaseScore(socket.id);
+                var user = findUser(socket.id);
+                // console.log("Printing users:")
+                // console.log(users.length)
+                // for (var i = 0; i < users.length; i++){
+                //     console.log("users")
+                //     console.log(users[i].sockId)
+                // }
+                status = { isCorrect: true, answer: answerCorrect, score: user.score }
             } else {
-                status = { isCorrect: false, answer: answerCorrect }
+                //Decrease score of specific player
+                decreaseScore(socket.id);
+                var user = findUser(socket.id);
+                status = { isCorrect: false, answer: answerCorrect, score: user.score }
             }
 
             // MARK: Updating the users' dom (hidden field) with whether they were correct or incorrect
             socket.emit('subscribe:is_correct?', status, function() {
+              //Find user to pass in score to response object
+            //   var user = findUser(socket.id);
+            //   console.log("The user found is: ");
+            //   console.log(user)
+            //   console.log("The users are");
+            //   console.log(users);
+            //   var user_score = user.score;
               Game.findById(question.game, function(err, game) {
                 if (err) { return error }
                 var response = {
