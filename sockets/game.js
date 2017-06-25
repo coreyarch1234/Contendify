@@ -18,7 +18,7 @@ module.exports = function(io) {
       console.log("Remaining participants: ");
       console.log(participants);
   });
-  
+
     // MARK: Adding user to room
     socket.on('publish:join', function(code, cb) {
       socket.join(code);
