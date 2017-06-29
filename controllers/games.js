@@ -47,7 +47,19 @@ router.post('/', function(req, res) {
 });
 
 // SHOW
+
 router.get('/:code', function(req, res) {
+    Game.findOne({ code:req.params.code }).populate("questions").exec(function(err, game) {
+      if (game == undefined) {
+        console.log("Unable to join - Game not found...");
+        res.render('games/404');
+      } else {
+        console.log("Game found - Enjoy yo sef...");
+        res.render('games/waiting', { game: game });
+      }
+    });
+});
+router.get('/start/:code', function(req, res) {
     Game.findOne({ code:req.params.code }).populate("questions").exec(function(err, game) {
       if (game == undefined) {
         console.log("Unable to join - Game not found...");

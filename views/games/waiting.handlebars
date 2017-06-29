@@ -1,0 +1,92 @@
+<head>
+  <!-- Styles -->
+  <link rel="stylesheet" href="/styles/waiting.css">
+</head>
+
+<!-- <div class="main-container"> -->
+  <div class="heading-container">
+    <div class="title">
+      <h1>Contendify</h1>
+      <hr class="underline">
+    </div>
+    <div class="subtitle">
+      <h3>Learn by gaming.</h3>
+    </div>
+    <div class="room-code">
+      <h3>ROOM CODE</h3>
+      <div class="code-container">
+
+          <a href="" onClick="onclick="copier()""><h3>CLICK CODE TO COPY</h3></a>
+          <h1 id="myText">{{game.code}}</h1>
+      </div>
+    </div>
+    <div class="press-spacebar">
+      <div class="spacebar">
+          <!-- <h3>SPACEBAR</h3> -->
+          <a href="start/{{game.code}}"><h3>START GAME</h3></a>
+      </div>
+    </div>
+  </div>
+
+<!-- </div> -->
+
+
+
+
+
+
+<!--Scripts-->
+<script scr="js/main.js" type="text/javascript"></script>
+
+<!--Smooth Scrolling Script-->
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        $("a").on('click', function(event) {
+            if (this.hash !== "") {
+
+                event.preventDefault();
+                var hash = this.hash;
+
+                $('html, body').animate({
+
+                    scrollTop: $(hash).offset().top
+                    }, 800, function(){
+
+                        window.location.hash = hash;
+
+                });
+            }
+        });
+    });
+</script>
+
+<!--Loading Screen-->
+<script type="text/javascript">
+    var preloader = document.getElementById('preloader');
+    window.addEventListener('load', function(){
+        preloader.style.display = 'none';
+    })
+</script>
+
+<script>
+    function copier(){
+            document.getElementById('myText').select();
+            document.execCommand('copy');
+        }
+</script>
+
+
+<style>
+    a:link {
+        color: #39b54a;
+        background-color: transparent;
+        text-decoration: none;
+    }
+    a:hover {
+        color: #f1f2f2;
+        background-color: transparent;
+    }
+
+
+</style>

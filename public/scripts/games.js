@@ -30,7 +30,7 @@ $(function() {
     var code = $('#game-code').val();
 
     // alert('Trying to join game...');
-    window.location.href = '/' + code;
+    window.location.href = '/start/' + code;
   });
 
 });
