@@ -94,14 +94,19 @@ $(function() {
   });
 
   socket.on('subscribe:is_correct?', function(data, cb) {
+    //   console.log("Hit correct")
     if (data.isCorrect) {
+        console.log("Hit correct")
+        console.log(data.answer)
         // $('#score-display').text(data.score);
-        $('#correct-answer-alert').text("Nice Job! Your score is: " + data.score);
-        // $('#correct-answer-alert').text("Nice Job! The correct answer was: " + data.answer);
+        $('#correct-answer-alert').text("Nice Job! Your score is: " + data.score).removeClass("answer-alert-display");
+        // $('#correct-answer-alert').text("Nice Job! The correct answer was: " + data.answer).removeClass("answer-alert-display");
     } else {
+        console.log("Hit incorrect")
+        console.log(data.answer)
         // $('#score-display').text(data.score);
-        $('#correct-answer-alert').text("Your score is: " + data.score);
-        // $('#correct-answer-alert').text("The correct answer was: " + data.answer);
+        $('#correct-answer-alert').text("Your score is: " + data.score).removeClass("answer-alert-display");
+        // $('#correct-answer-alert').text("The correct answer was: " + data.answer).removeClass("answer-alert-display");
     }
     cb();
   });

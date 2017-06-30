@@ -272,7 +272,9 @@ html, body {
 	left: 50%;
 	transform: translate(-50%,0%);
 }
-
+.answer-alert-display {
+	display: none;
+}
 /*Input Placeholder Text Opacity*/
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
   opacity:  0.5;
