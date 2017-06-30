@@ -99,14 +99,12 @@ $(function() {
         console.log("Hit correct")
         console.log(data.answer)
         // $('#score-display').text(data.score);
-        $('#correct-answer-alert').text("Nice Job! Your score is: " + data.score).removeClass("answer-alert-display");
-        // $('#correct-answer-alert').text("Nice Job! The correct answer was: " + data.answer).removeClass("answer-alert-display");
+        $('#correct-answer-alert').text("That's correct! Your score is: " + data.score).removeClass("answer-alert-display");
     } else {
         console.log("Hit incorrect")
         console.log(data.answer)
         // $('#score-display').text(data.score);
-        $('#correct-answer-alert').text("Your score is: " + data.score).removeClass("answer-alert-display");
-        // $('#correct-answer-alert').text("The correct answer was: " + data.answer).removeClass("answer-alert-display");
+        $('#correct-answer-alert').text("Incorrect. The correct answer is: " + data.answer + ". Your score is: " + data.score).removeClass("answer-alert-display");
     }
     cb();
   });
