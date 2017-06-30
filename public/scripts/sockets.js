@@ -95,14 +95,27 @@ $(function() {
 
   socket.on('subscribe:is_correct?', function(data, cb) {
     if (data.isCorrect) {
-        $('#correct-answer-alert').text("Nice Job! The correct answer was: " + data.answer);
+        // $('#score-display').text(data.score);
+        $('#correct-answer-alert').text("Nice Job! Your score is: " + data.score);
+        // $('#correct-answer-alert').text("Nice Job! The correct answer was: " + data.answer);
     } else {
-        $('#correct-answer-alert').text("The correct answer was: " + data.answer);
+        // $('#score-display').text(data.score);
+        $('#correct-answer-alert').text("Your score is: " + data.score);
+        // $('#correct-answer-alert').text("The correct answer was: " + data.answer);
     }
     cb();
   });
 
   socket.on('subscribe:answered', function(data) {
+    // Show updated score
+    // for (var i = 0; i < data.users.length; i++){
+    //     if (data.users[i].sockId === socket.id) {
+    //     //   return data.users[i];
+    //       $('#correct-answer-alert').text(data.users[i].score);
+    //     }
+    // }
+    // $('#correct-answer-alert').text(data.score);
+    // console.log(data.score)
     // update dom to reflect # of people who have answered the question
     socket.emit('publish:next_question?', data);
   });
