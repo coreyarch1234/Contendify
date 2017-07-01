@@ -9,7 +9,7 @@ var participants = 0;
 $(function() {
 
     $('.question').first().show().addClass('current-question');
-    gameCode = window.location.href.split('/')[3];
+    gameCode = window.location.href.split('/')[4];
     socket.emit('publish:join', gameCode);
 
     // // MARK: New (for waiting room)
@@ -99,12 +99,17 @@ $(function() {
         console.log("Hit correct")
         console.log(data.answer)
         // $('#score-display').text(data.score);
-        $('#correct-answer-alert').html("<span style='color: #39b54a;font-size:1.2em;'>Correct!</span><br> <span style='font-size:0.7em;color: #aaa;padding-top:5px;'>YOUR SCORE:</span>  <br><span style='font-size: 3em; color: #39b54a;padding-bottom:5px;'>" + data.score + "</span>").removeClass("answer-alert-display");
+
+        $('#correct-answer-alert').removeClass("answer-alert-display");
+        // $('#correct-answer-alert').html("<span style='color: #39b54a;font-size:1.2em;'>Correct!</span><br> <span style='font-size:0.7em;color: #aaa;padding-top:5px;'>YOUR SCORE:</span>  <br><span style='font-size: 3em; color: #39b54a;padding-bottom:5px;'>" + data.score + "</span>").removeClass("answer-alert-display");
+        $('#correct-answer-alert').html("<span style='color: #39b54a;font-size:1.2em;'>Correct!</span><br> <span style='font-size:0.7em;color: #aaa;padding-top:5px;'>YOUR SCORE:</span>  <br><span style='font-size: 3em; color: #39b54a;padding-bottom:5px;'>" + data.score + "</span>");
     } else {
         console.log("Hit incorrect")
         console.log(data.answer)
         // $('#score-display').text(data.score);
-        $('#correct-answer-alert').html("<span style='color: #ff4c4c;font-size:1.2em;'>Incorrect.</span><br> The correct answer is <u>" + data.answer + ".</u><br> <span style='font-size:0.7em;color: #aaa;padding-top:5px;'>YOUR SCORE:</span> <br><span style='font-size: 3em; color: #39b54a;padding-bottom:5px;'>" + data.score + "</span>").removeClass("answer-alert-display");
+        $('#correct-answer-alert').removeClass("answer-alert-display");
+        // $('#correct-answer-alert').html("<span style='color: #ff4c4c;font-size:1.2em;'>Incorrect.</span><br> The correct answer is <u>" + data.answer + ".</u><br> <span style='font-size:0.7em;color: #aaa;padding-top:5px;'>YOUR SCORE:</span> <br><span style='font-size: 3em; color: #39b54a;padding-bottom:5px;'>" + data.score + "</span>").removeClass("answer-alert-display");
+        $('#correct-answer-alert').html("<span style='color: #ff4c4c;font-size:1.2em;'>Incorrect.</span><br> The correct answer is <u>" + data.answer + ".</u><br> <span style='font-size:0.7em;color: #aaa;padding-top:5px;'>YOUR SCORE:</span> <br><span style='font-size: 3em; color: #39b54a;padding-bottom:5px;'>" + data.score + "</span>")
     }
     cb();
   });
@@ -124,7 +129,7 @@ $(function() {
   });
 
   socket.on('subscribe:next_question?', function() {
-    $('#correct-answer-alert').show();
+    $('.answer-alert-display').show();
     setTimeout(function() {
         var nextQuestionsSize = $('.current-question').next().length;
         if (nextQuestionsSize == 0) {
@@ -132,7 +137,7 @@ $(function() {
           window.location.href = '/';
           // end game
         } else {
-          $('#correct-answer-alert').text('').hide();
+          $('#correct-answer-alert').text('');
 
           $('.current-question').hide()
           $('.current-question').next().show().addClass('current-question');
@@ -140,6 +145,8 @@ $(function() {
 
           $('#answer-input').show(); // unhide input
           $('#answers').hide();
+
+
         }
     }, 5000);
   })
