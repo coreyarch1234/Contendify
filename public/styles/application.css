@@ -275,6 +275,14 @@ html, body {
 .answer-alert-display {
 	display: none;
 }
+.answer-alert-container {
+	width: 100%;
+	position: absolute;
+	top: 60%;
+	left: 50%;
+	transform: translate(-50%, -60%);
+	text-align: center;
+}
 /*Input Placeholder Text Opacity*/
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
   opacity:  0.5;
