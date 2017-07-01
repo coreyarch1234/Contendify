@@ -9,7 +9,7 @@ var participants = 0;
 $(function() {
 
     $('.question').first().show().addClass('current-question');
-    gameCode = window.location.href.split('/')[4];
+    gameCode = window.location.href.split('/')[3];
     socket.emit('publish:join', gameCode);
 
     // // MARK: New (for waiting room)
@@ -141,6 +141,6 @@ $(function() {
           $('#answer-input').show(); // unhide input
           $('#answers').hide();
         }
-    }, 2000);
+    }, 5000);
   })
 });
