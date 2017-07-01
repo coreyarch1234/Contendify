@@ -143,6 +143,9 @@ module.exports = function(io) {
 
         console.log("'" + data.socketId + "' has selected their answer...");
         console.log("The number of participants: " + participantIds.length);
+
+        console.log("participants: " + participants[data.game.code]);
+        console.log("participants length: " + participantIds.length);
         console.log("Awaiting " + (participants[data.game.code] - participantIds.length));
 
         if ((participantIds.length) == participants[data.game.code]) {
