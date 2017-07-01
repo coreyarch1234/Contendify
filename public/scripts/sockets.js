@@ -141,6 +141,6 @@ $(function() {
           $('#answer-input').show(); // unhide input
           $('#answers').hide();
         }
-    }, 5000);
+    }, 2000);
   })
 });
