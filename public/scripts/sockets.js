@@ -124,7 +124,7 @@ $(function() {
   });
 
   socket.on('subscribe:next_question?', function() {
-    $('#correct-answer-alert').show();
+    $('.answer-alert-display').show();
     setTimeout(function() {
         var nextQuestionsSize = $('.current-question').next().length;
         if (nextQuestionsSize == 0) {
@@ -132,7 +132,7 @@ $(function() {
           window.location.href = '/';
           // end game
         } else {
-          $('#correct-answer-alert').text('').hide();
+          $('#correct-answer-alert').text('');
 
           $('.current-question').hide()
           $('.current-question').next().show().addClass('current-question');
@@ -140,6 +140,8 @@ $(function() {
 
           $('#answer-input').show(); // unhide input
           $('#answers').hide();
+
+
         }
     }, 5000);
   })
