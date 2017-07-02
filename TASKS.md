@@ -20,3 +20,15 @@ How to implement:
     * Create div with id='score-display'
 * In 'public/scripts/sockets.js'
     * In socket.on('subscribe:answered'...), update text of 'score-display' in show.handlebars to be data.gameScore
+
+
+## Waiting Screen
+
+We want to show the players that have joined the game before the questions appear in the loading screen.
+
+How to implement:
+
+* Go to the Game Model and use name field as playerName field
+* Create name input field in proper views
+* Save playerName to DB
+* Make sure that field is usable in the waiting page where the code is shown

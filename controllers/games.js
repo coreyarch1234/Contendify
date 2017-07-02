@@ -48,7 +48,10 @@ router.post('/', function(req, res) {
 
 // SHOW
 
-router.get('/:code', function(req, res) {
+//Go to the waiting screen
+router.get('/:name/:code', function(req, res) {
+    console.log(req.params.code);
+    console.log(req.params.name);
     Game.findOne({ code:req.params.code }).populate("questions").exec(function(err, game) {
       if (game == undefined) {
         console.log("Unable to join - Game not found...");
@@ -59,7 +62,9 @@ router.get('/:code', function(req, res) {
       }
     });
 });
-router.get('/start/:code', function(req, res) {
+
+//Go to the game
+router.get('/:name/start/:code', function(req, res) {
     Game.findOne({ code:req.params.code }).populate("questions").exec(function(err, game) {
       if (game == undefined) {
         console.log("Unable to join - Game not found...");
