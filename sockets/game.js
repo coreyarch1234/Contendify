@@ -5,6 +5,8 @@ module.exports = function(io) {
   var excessArray = [];
   var maxPlayers = 2;
 
+  var playerNames = [];
+
   //Scoring
   var users = []
 
@@ -56,6 +58,12 @@ module.exports = function(io) {
       console.log("Remaining participants: ");
       console.log(participants);
   });
+
+    //player was added, so push to playerNames and emit that message to everyone
+    socket.on('added:player', function(playerName){
+        playerNames.push(playerName);
+        io.sockets.emit('added:more players', playerNames);
+    });
 
     // MARK: Adding user to room
     socket.on('publish:join', function(code, cb) {

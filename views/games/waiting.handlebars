@@ -34,55 +34,7 @@
             <div class="indicator" id="i1"></div>
           </div>
           <div class="player-one" id="one">
-            <h1>&nbsp;{{playerName}}</h1>
-          </div>
-        </div>
-        <div class="player-container">
-          <div class="indicator-container-others">
-            <div class="indicator" id="i2"></div>
-          </div>
-          <div class="player-others" id="two">
-            <h1>&nbsp;CHANDAN</h1>
-          </div>
-        </div>
-        <div class="player-container">
-          <div class="indicator-container-others">
-            <div class="indicator" id="i3"></div>
-          </div>
-          <div class="player-others" id="three">
-            <h1>&nbsp;NABIL</h1>
-          </div>
-        </div>
-        <div class="player-container">
-          <div class="indicator-container-others">
-            <div class="indicator" id="i4"></div>
-          </div>
-          <div class="player-others" id="four">
-            <h1>&nbsp;MARQUAVIOUS</h1>
-          </div>
-        </div>
-        <div class="player-container">
-          <div class="indicator-container-others">
-            <div class="indicator" id="i5"></div>
-          </div>
-          <div class="player-others" id="five">
-            <h1>&nbsp;ALEX</h1>
-          </div>
-        </div>
-        <div class="player-container">
-          <div class="indicator-container-others">
-            <div class="indicator" id="i6"></div>
-          </div>
-          <div class="player-others" id="six">
-            <h1>&nbsp;MADHUR</h1>
-          </div>
-        </div>
-        <div class="player-container">
-          <div class="indicator-container-others">
-            <div class="indicator" id="i7"></div>
-          </div>
-          <div class="player-others" id="seven">
-            <h1>&nbsp;TASSOS</h1>
+
           </div>
         </div>
         <div class="player-container">
@@ -100,15 +52,30 @@
 
 
 
-
-
-<!--Scripts-->
-<script scr="js/main.js" type="text/javascript"></script>
-
-<!--Smooth Scrolling Script-->
-<script type="text/javascript">
+<script>
+    function copier(){
+            document.getElementById('myText').select();
+            document.execCommand('copy');
+    }
+    var socket = io(); // Create socket instance
     $(document).ready(function(){
+        var decodedJson = decodeURIComponent("{{{encodedJson}}}");
+        var jsonObj = JSON.parse(decodedJson);
 
+        //Send message that a player was added
+        socket.emit('added:player', jsonObj.playerName);
+        //Once a player is added, receive that message and update waiting screen
+        socket.on('added:more players', function(playerNames){
+            console.log("more players: " + playerNames);
+            for (var i=0; i < playerNames.length; i++){
+                console.log("hello");
+                var name = playerNames[i];
+                $('#one').append("<h1>&nbsp;{{name}}</h1>");
+            };
+        });
+
+        // console.log("the name is" + jsonObj.playerName);
+        // console.log("the name is" + playerNames);
         $("a").on('click', function(event) {
             if (this.hash !== "") {
 
@@ -128,23 +95,18 @@
     });
 </script>
 
-<!--Loading Screen-->
-<script type="text/javascript">
+<script scr="js/main.js" type="text/javascript"></script>
+
+<!-- <script type="text/javascript">
     var preloader = document.getElementById('preloader');
     window.addEventListener('load', function(){
         preloader.style.display = 'none';
     })
-</script>
-
-<script>
-    function copier(){
-            document.getElementById('myText').select();
-            document.execCommand('copy');
-        }
-</script>
+</script> -->
 
 
-<style>
+
+/*<style>
     a:link {
         color: #39b54a;
         background-color: transparent;
@@ -156,4 +118,4 @@
     }
 
 
-</style>
+</style>*/

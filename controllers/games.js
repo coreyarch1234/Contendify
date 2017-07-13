@@ -63,7 +63,11 @@ router.get('/:name/:code', function(req, res) {
         res.render('games/404');
       } else {
         console.log("Game found - Enjoy yo sef...");
-        res.render('games/waiting', { game: game, playerName: req.params.name });
+        // res.render('games/waiting', { game: game, playerName: req.params.name });
+        jsonData = {
+            playerName: req.params.name
+        };
+        res.render('games/waiting', {game: game, name: req.params.name, encodedJson : encodeURIComponent(JSON.stringify(jsonData))});
       }
     });
 });

@@ -1,3 +1,4 @@
+
 //CREATING GAME POST REQUESTS AND THE LIKE GO HERE
 function generateCode() {
   return Math.round((Math.pow(36, 4 + 1) - Math.random() * Math.pow(36, 4))).toString(36).slice(1);
@@ -21,6 +22,8 @@ $(function() {
         alert(error.message);
       },
       success: function(game) {
+        // //Emit message to pass in playerNames for waiting screen
+        // socket.emit('add:name', game.name);
         window.location.href = '/' + game.name + '/' + game.code;
         // window.location.href = '/' + game.code;
       }
