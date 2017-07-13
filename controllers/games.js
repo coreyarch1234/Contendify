@@ -9,6 +9,9 @@ var Question = require('../models/question/question.js');
 var questionJSON = require('../question-data/questions.json');
 var helper = require('../sockets/helpers/generateQuestions');
 
+//PlayerName array
+var playerNames = [];
+
 // NEW GAME PAGE
 router.get('/new', function(req, res) {
    res.render('games/new');
@@ -52,13 +55,15 @@ router.post('/', function(req, res) {
 router.get('/:name/:code', function(req, res) {
     console.log(req.params.code);
     console.log(req.params.name);
+    //Push to player array for loading screen
+    playerNames.push(req.params.name);
     Game.findOne({ code:req.params.code }).populate("questions").exec(function(err, game) {
       if (game == undefined) {
         console.log("Unable to join - Game not found...");
         res.render('games/404');
       } else {
         console.log("Game found - Enjoy yo sef...");
-        res.render('games/waiting', { game: game });
+        res.render('games/waiting', { game: game, playerName: req.params.name });
       }
     });
 });

@@ -12,7 +12,13 @@ html, body {
   position: absolute;
   top: 15%;
   left: 50%;
-  transform: translate(-50%, -20%);
+  /*transform: translate(-50%, -20%);*/
+  top: 35%;
+  left: 23%;
+  transform: translate(-23%, -35%);
+	z-index: 99;
+	background-color: #333132;
+}
 }
 .title {
   text-align: center;
