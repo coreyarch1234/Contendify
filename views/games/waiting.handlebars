@@ -28,24 +28,27 @@
     </div>
   </div>
 
-  <div class="players-container">
+  <div class="players-container" style="color:white; padding-left: 5em;">
         <div class="player-container">
-          <div class="indicator-container-one">
+          <!-- <div class="indicator-container-one">
             <div class="indicator" id="i1"></div>
-          </div>
-          <div class="player-one" id="one">
+          </div> -->
+          <div class="player-one" id="container">
 
           </div>
         </div>
-        <div class="player-container">
+        <!-- <div class="player-container">
           <div class="indicator-container-others">
             <div class="indicator" id="iw"></div>
           </div>
           <div class="player-others" id="waiting">
             <h1><span class="waiting-border">WAITING FOR PLAYER 8</span></h1>
           </div>
-        </div>
-      </div>
+        </div> -->
+  </div>
+
+  <!-- <div id="container" style="color:white; padding-left: 10em; padding-top: 5em;">
+  </div> -->
 
 <!-- </div> -->
 
@@ -66,16 +69,12 @@
         socket.emit('added:player', jsonObj.playerName);
         //Once a player is added, receive that message and update waiting screen
         socket.on('added:more players', function(playerNames){
-            console.log("more players: " + playerNames);
-            for (var i=0; i < playerNames.length; i++){
-                console.log("hello");
-                var name = playerNames[i];
-                $('#one').append("<h1>&nbsp;{{name}}</h1>");
-            };
-        });
+            $("#container").empty();
 
-        // console.log("the name is" + jsonObj.playerName);
-        // console.log("the name is" + playerNames);
+            $.each(playerNames, function(index, name){
+                $("#container").append("<h1>" + name + "</h1>")})
+            });
+
         $("a").on('click', function(event) {
             if (this.hash !== "") {
 
