@@ -48,28 +48,28 @@ module.exports = function(game, cb) {
 
     // for (var i = 0; i < numQuestions; i++) {
     //     console.log('Iteration: ' + i)
-    //     var data = new Question({
-    //       body: questionJSON.questions[i].text,
-    //       answer: questionJSON.questions[i].answer,
-    //       game: game._id
-    //     });
+        // var data = new Question({
+        //   body: questionJSON.questions[i].text,
+        //   answer: questionJSON.questions[i].answer,
+        //   game: game._id
+        // });
     //     console.log('Pre-Save: ' + data)
     //
-    //     data.save(function(error, question) {
-    //         console.log("Saving.....")
-    //         // console.log('our i : ' + i)
-    //         if (error){ return error };
-    //
-    //         questionArray.push(question);
-    //
-    //         if (i == 1) {
-    //             console.log('Calling you back with new questions')
-    //             cb(questionArray);
-    //         } else {
-    //             console.log("Saved!");
-    //             console.log("Building question '" + i + "' ....");
-    //         }
-    //
-    //     });
+        data.save(function(error, question) {
+            console.log("Saving.....")
+            // console.log('our i : ' + i)
+            if (error){ return error };
+
+            questionArray.push(question);
+
+            if (i == 1) {
+                console.log('Calling you back with new questions')
+                cb(questionArray);
+            } else {
+                console.log("Saved!");
+                console.log("Building question '" + i + "' ....");
+            }
+
+        });
     // }
 }
