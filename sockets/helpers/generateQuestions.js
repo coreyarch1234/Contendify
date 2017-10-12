@@ -8,7 +8,7 @@ var total = 2;
 
 function saveQuestions(cb) {
     var question = questionDocs.shift();
-
+    console.log("THE QUESTION JUST CREATED IS: " + question);
     question.save(function(error, saved) {
         if (error) { return error };
 
@@ -35,7 +35,7 @@ module.exports = function(game, cb) {
           answer: questionJSON.questions[i].answer,
           game: game._id
         });
-        console.log("THE QUESTION JUST CREATED IS: " + question);
+        // console.log("THE QUESTION JUST CREATED IS: " + question);
         questionDocs.push(question)
         // console.log('Pre-Save: ' + question)
     }
