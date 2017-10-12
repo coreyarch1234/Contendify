@@ -19,6 +19,10 @@ function saveQuestions(cb) {
         } else {
             console.log('All docs have been saved!');
             cb();
+            //Drop models so no duplicate questions
+            Game.collection.drop();
+            Question.collection.drop();
+            Answer.collection.drop();
         }
     });
 }
