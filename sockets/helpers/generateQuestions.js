@@ -35,6 +35,7 @@ module.exports = function(game, cb) {
           answer: questionJSON.questions[i].answer,
           game: game._id
         });
+        console.log("THE QUESTION JUST CREATED IS: " + question);
         questionDocs.push(question)
         // console.log('Pre-Save: ' + question)
     }
