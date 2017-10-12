@@ -1,5 +1,6 @@
 var Game = require('../../models/game/game.js');
 var Question = require('../../models/question/question.js');
+var Answer = require('../../models/answer/answer.js');
 var questionJSON = require('../../question-data/questions.json');
 
 var questionDocs = []
