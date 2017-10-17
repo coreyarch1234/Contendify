@@ -5,12 +5,16 @@ var GameLocal = require('../models/game');
 //MODELS
 var Game = require('../models/game/game.js');
 var Question = require('../models/question/question.js');
+var Answer = require('../models/answer/answer.js');
+
 //JSON questions
 var questionJSON = require('../question-data/questions.json');
 var helper = require('../sockets/helpers/generateQuestions');
 
 // NEW GAME PAGE
 router.get('/new', function(req, res) {
+    Answer.collection.drop();
+
    res.render('games/new');
 });
 

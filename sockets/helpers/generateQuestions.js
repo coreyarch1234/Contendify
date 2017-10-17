@@ -20,10 +20,6 @@ function saveQuestions(cb) {
         } else {
             console.log('All docs have been saved!');
             cb();
-            //Drop models so no duplicate questions
-            Game.collection.drop();
-            Question.collection.drop();
-            Answer.collection.drop();
         }
     });
 }
@@ -40,15 +36,21 @@ module.exports = function(game, cb) {
           answer: questionJSON.questions[i].answer,
           game: game._id
         });
-        // console.log("THE QUESTION JUST CREATED IS: " + question);
+        console.log("THE QUESTION JUST CREATED IS: " + question);
         questionDocs.push(question)
+        if (i == total - 1){
+            saveQuestions(function() {
+                console.log('Calling you back with new questions')
+                cb(questions);
+            })
+        }
         // console.log('Pre-Save: ' + question)
     }
 
-    saveQuestions(function() {
-        console.log('Calling you back with new questions')
-        cb(questions);
-    })
+    // saveQuestions(function() {
+    //     console.log('Calling you back with new questions')
+    //     cb(questions);
+    // })
 
 
 

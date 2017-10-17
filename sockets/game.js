@@ -53,6 +53,13 @@ module.exports = function(io) {
     socket.on('disconnect', function() {
       console.log("Removing '" + socket.id + "' from room '" + socket.room + "'...");
       participants[socket.room]--;
+       Answer.collection.drop();
+      //get rid of all fake answers to questions
+    //   if (participants[socket.room].length == 0){
+        //   Question.collection.drop();
+        //   Answer.collection.drop();
+        //   Game.collection.drop();
+    //   }
       console.log("Remaining participants: ");
       console.log(participants);
   });
