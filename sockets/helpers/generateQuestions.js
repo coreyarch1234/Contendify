@@ -5,7 +5,7 @@ var questionJSON = require('../../question-data/questions.json');
 
 var questionDocs = []
 var questions = []
-var total = 2;
+var total = 0;
 
 function saveQuestions(cb) {
     var question = questionDocs.shift();
@@ -29,7 +29,8 @@ function saveQuestions(cb) {
 module.exports = function(game, cb) {
     var questionArray = [];
     // Future: Generate random questions
-
+    total = 2;
+    console.log("THE TOTAL IS: " + total);
     for (var i = 0; i < total; i++) {
         console.log('Iteration: ' + i)
         var question = new Question({

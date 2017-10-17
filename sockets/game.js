@@ -55,6 +55,8 @@ module.exports = function(io) {
       participants[socket.room]--;
       console.log("Remaining participants: ");
       console.log(participants);
+      users = [];
+      participantIds = [];
   });
 
     // MARK: Adding user to room

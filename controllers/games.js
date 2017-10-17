@@ -13,7 +13,6 @@ var helper = require('../sockets/helpers/generateQuestions');
 
 // NEW GAME PAGE
 router.get('/new', function(req, res) {
-    Answer.collection.drop();
 
    res.render('games/new');
 });
@@ -25,9 +24,13 @@ router.post('/', function(req, res) {
   var data = new Game(req.body);
 
   Game.findOne({ code: data.code }).exec(function(error, game) {
-    if (game == undefined) {
+    console.log("***********WHAT IS THE GAME BITCH?*********** : " + game);
+    console.log("THE CODE IS: " + data.code);
+    if (game === undefined || game === null) {
+        console.log("++++++++++++ game is going to be created +++++++++")
       //Save Game
       data.save(function (err, savedGame) {
+          console.log("THE SAVED GAME IS: " + savedGame);
         if (err){ return res.status(300) };
 
         helper(savedGame, function(questions) {
@@ -44,6 +47,8 @@ router.post('/', function(req, res) {
         });
       });
     } else {
+        console.log(">>>>>>>>THIS GAME ALREADY EXISTS>>>>>>");
+        console.log(game);
       res.send(game);
     }
   });
