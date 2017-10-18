@@ -55,8 +55,27 @@ module.exports = function(io) {
       participants[socket.room]--;
       console.log("Remaining participants: ");
       console.log(participants);
+    //   if (participants.length == 1){
+    //       participants = {};
+    //   }
       users = [];
       participantIds = [];
+      Answer.remove({}, function(err) {
+        if (!err) {
+                console.log("deleted answer collection");
+                Question.remove({}, function(err) {
+                  if (!err) {
+                          console.log("deleted question collection");
+                  }
+                  else {
+                          console.log("didn't delete question collection");
+                  }
+               });
+        }
+        else {
+                console.log("didn't delete answer collection");
+        }
+     });
   });
 
     // MARK: Adding user to room
@@ -125,7 +144,8 @@ module.exports = function(io) {
                 var response = {
                   participantIds: participantIds,
                   game: game,
-                  socketId: socket.id
+                  socketId: socket.id,
+                  gameCode: data.gameCode
                 }
                 io.in(socket.room).emit('subscribe:answered', response);
                 // update everyone's dom, the, after this is 100% complete, do stuff
@@ -145,12 +165,14 @@ module.exports = function(io) {
 
         console.log("'" + data.socketId + "' has selected their answer...");
         console.log("The number of participants: " + participantIds.length);
+        // console.log("&&&&&&&& THE GAME CODE IS: " + data.game.code + "&&&&&&&&&&&&&&");
+        console.log("&&&&&&&& THE GAME CODE IS: " + data.gameCode + "&&&&&&&&&&&&&&");
 
-        console.log("participants: " + participants[data.game.code]);
+        console.log("participants: " + participants[data.gameCode]);
         console.log("participants length: " + participantIds.length);
-        console.log("Awaiting " + (participants[data.game.code] - participantIds.length));
+        console.log("Awaiting " + (participants[data.gameCode] - participantIds.length));
 
-        if ((participantIds.length) == participants[data.game.code]) {
+        if ((participantIds.length) == participants[data.gameCode]) {
           console.log("All users have chosen an answer, now moving on to next question.");
           participantIds = [];
           io.in(socket.room).emit('subscribe:next_question?');
