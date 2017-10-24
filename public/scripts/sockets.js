@@ -182,8 +182,6 @@ $(function() {
 
           $('#answer-input').show(); // unhide input
           $('#answers').hide();
-
-
         }
     }, 3000);
   })
