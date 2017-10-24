@@ -1,13 +1,28 @@
 {
     "questions": [
         {
-            "text": "Before Mt. Everest was discovered, what was the highest mountain in the world?",
-            "answer": "Mt. Everest"
+            "text": "The half-life of one isotope of radium is about 1,600 years. In a given sample of this isotope, 15/16th of the radium atoms will decay in a time most nearly equal to?",
+            "answer": "6,400 years"
 
         },
         {
-            "text": "Which of the following is considered a presidential power?",
-            "answer": "Declaring war"
+            "text": "When a vector of magnitude 6 units is added to a vector of magnitude 8 units, the magnitude of the resultant vector will be?",
+            "answer": "2"
+
+        },
+        {
+            "text": "The diameter and height of a right circular cylinder are equal. If the volume of the cylinder is 2, what is the height of the cylinder?",
+            "answer": "1.37"
+
+        },
+        {
+            "text": "What is the distance in space between the points with coordinates left parenthesis negative 3 comma 6 comma 7 right parenthesis and left parenthesis 2 comma negative 1 comma 4 right parenthesis?",
+            "answer": "9.11"
+
+        },
+        {
+            "text": "Alison deposits $ 500 into a new savings account that earns 5 percent interest compounded annually. If Alison makes no additional deposits or withdrawals, how many years will it take for the amount in the account to double?",
+            "answer": "15"
 
         }
     ]

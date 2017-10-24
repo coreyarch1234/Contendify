@@ -29,7 +29,7 @@ function saveQuestions(cb) {
 module.exports = function(game, cb) {
     var questionArray = [];
     // Future: Generate random questions
-    total = 2;
+    total = questionJSON.questions.length;
     console.log("THE TOTAL IS: " + total);
     for (var i = 0; i < total; i++) {
         console.log('Iteration: ' + i)
