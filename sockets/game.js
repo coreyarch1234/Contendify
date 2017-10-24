@@ -3,7 +3,7 @@ module.exports = function(io) {
   var participants = {};
   var participantIds = [];
   var excessArray = [];
-  var maxPlayers = 2;
+  var maxPlayers = 3;
 
   //Scoring
   var users = []

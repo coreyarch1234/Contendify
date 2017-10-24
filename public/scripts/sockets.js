@@ -3,7 +3,7 @@
 var socket = io(); // Create socket instance
 var gameCode = ""; // Global game code set when a user connects
 var numQuestions = 2; // Total # of questions (unused atm)
-var maxPlayers = 2 // Unused atm as well
+var maxPlayers = 3 // Unused atm as well
 var participants = 0;
 
 $(function() {
@@ -169,16 +169,9 @@ $(function() {
           for(var x=0; x<opponentScores.length; x++){
             $('#game-summary').append("<span style='color: #39b54a;font-size:1.2em;'></span><br> <span style='font-size:0.7em;color: #aaa;padding-top:5px;'></span>  <br><span style='font-size: 1em; color: #39b54a;padding-bottom:5px;'> Player " + x + ": " + opponentScores[x] + " points" + "</span>");
           }
-        //   $('#game-summary').append("<div class=start-button><input type=submit value=HOME id=home-button></div>");
-        //   $.each(opponentScores, function(index, value) {
-        //       $('<span />', {
-        //           'text': "<span style='color: #39b54a;font-size:1.2em;'></span><br> <span style='font-size:0.7em;color: #aaa;padding-top:5px;'></span>  <br><span style='font-size: 3em; color: #39b54a;padding-bottom:5px;'> Good Job. You completed the game. </span>"
-        //       }).appendTo('body');
-        //   });
 
           //Option Button to start a new game
           $('#beginning').show();
-          //window.location.href = '/';
           // end game
         } else {
           $('#correct-answer-alert').text('');
