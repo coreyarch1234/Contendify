@@ -11,6 +11,7 @@ $(function() {
     $('.question').first().show().addClass('current-question');
     $('#game-summary').hide(); //Hide summary until game has ended
     gameCode = window.location.href.split('/')[4];
+    $('#beginning').hide();
     socket.emit('publish:join', gameCode);
 
     // // MARK: New (for waiting room)
@@ -131,6 +132,10 @@ $(function() {
     socket.emit('publish:next_question?', data);
   });
 
+  $('#home-button').click(function(event) {
+     window.location.href = '/';
+  });
+
   socket.on('subscribe:next_question?', function(data) {
     $('.answer-alert-display').show();
     setTimeout(function() {
@@ -164,6 +169,7 @@ $(function() {
           for(var x=0; x<opponentScores.length; x++){
             $('#game-summary').append("<span style='color: #39b54a;font-size:1.2em;'></span><br> <span style='font-size:0.7em;color: #aaa;padding-top:5px;'></span>  <br><span style='font-size: 1em; color: #39b54a;padding-bottom:5px;'> Player " + x + ": " + opponentScores[x] + " points" + "</span>");
           }
+        //   $('#game-summary').append("<div class=start-button><input type=submit value=HOME id=home-button></div>");
         //   $.each(opponentScores, function(index, value) {
         //       $('<span />', {
         //           'text': "<span style='color: #39b54a;font-size:1.2em;'></span><br> <span style='font-size:0.7em;color: #aaa;padding-top:5px;'></span>  <br><span style='font-size: 3em; color: #39b54a;padding-bottom:5px;'> Good Job. You completed the game. </span>"
@@ -171,6 +177,7 @@ $(function() {
         //   });
 
           //Option Button to start a new game
+          $('#beginning').show();
           //window.location.href = '/';
           // end game
         } else {
@@ -182,6 +189,8 @@ $(function() {
 
           $('#answer-input').show(); // unhide input
           $('#answers').hide();
+
+
         }
     }, 3000);
   })
