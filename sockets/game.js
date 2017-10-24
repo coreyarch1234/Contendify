@@ -159,7 +159,7 @@ module.exports = function(io) {
         if ((participantIds.length) == participants[data.gameCode]) {
           console.log("All users have chosen an answer, now moving on to next question.");
           participantIds = [];
-          io.in(socket.room).emit('subscribe:next_question?');
+          io.in(socket.room).emit('subscribe:next_question?', users); //send user scores with this message to end of game
         }
       }
     });

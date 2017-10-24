@@ -131,7 +131,7 @@ $(function() {
     socket.emit('publish:next_question?', data);
   });
 
-  socket.on('subscribe:next_question?', function() {
+  socket.on('subscribe:next_question?', function(data) {
     $('.answer-alert-display').show();
     setTimeout(function() {
         var nextQuestionsSize = $('.current-question').next().length;
@@ -146,10 +146,32 @@ $(function() {
           $('#questions').hide();
           $('#answer-input').hide();
           $('#answer-alert-container').hide();
-          $('#game-summary').show();
-          $('#game-summary').html("<span style='color: #39b54a;font-size:1.2em;'></span><br> <span style='font-size:0.7em;color: #aaa;padding-top:5px;'></span>  <br><span style='font-size: 3em; color: #39b54a;padding-bottom:5px;'> Good Job. You completed the game. </span>");
+
+          //Game Summary
+          $('#game-summary').show().html("<span style='color: #39b54a;font-size:1.2em;'></span><br> <span style='font-size:0.7em;color: #aaa;padding-top:5px;'></span>  <br><span style='font-size: 3em; color: #39b54a;padding-bottom:5px;'> Good Job. You completed the game. </span>");
+        //   console.log("THE SCORES ARE: " + data[0].score);
+        //   console.log("THE SCORES ARE: " + data[1].score);
+          var opponentScores = [];
+          for (var i = 0; i < data.length; i++){
+              if (data[i].sockId === socket.id) {
+                console.log("YOUR SCORE IS: " + data[i].score);
+                $('#game-summary').append("<span style='color: #39b54a;font-size:1.2em;'></span><br> <span style='font-size:0.7em;color: #aaa;padding-top:5px;'></span>  <br><span style='font-size: 1em; color: #39b54a;padding-bottom:5px;'> You scored " + data[i].score + " points" + "</span>");
+            }else{
+                opponentScores.push(data[i].score);
+            }
+          }
+          console.log("the opponent scores are: " + opponentScores);
+          for(var x=0; x<opponentScores.length; x++){
+            $('#game-summary').append("<span style='color: #39b54a;font-size:1.2em;'></span><br> <span style='font-size:0.7em;color: #aaa;padding-top:5px;'></span>  <br><span style='font-size: 1em; color: #39b54a;padding-bottom:5px;'> Player " + x + ": " + opponentScores[x] + " points" + "</span>");
+          }
+        //   $.each(opponentScores, function(index, value) {
+        //       $('<span />', {
+        //           'text': "<span style='color: #39b54a;font-size:1.2em;'></span><br> <span style='font-size:0.7em;color: #aaa;padding-top:5px;'></span>  <br><span style='font-size: 3em; color: #39b54a;padding-bottom:5px;'> Good Job. You completed the game. </span>"
+        //       }).appendTo('body');
+        //   });
+
           //Option Button to start a new game
-        //   window.location.href = '/';
+          //window.location.href = '/';
           // end game
         } else {
           $('#correct-answer-alert').text('');
@@ -163,6 +185,6 @@ $(function() {
 
 
         }
-    }, 5000);
+    }, 3000);
   })
 });
