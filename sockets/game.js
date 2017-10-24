@@ -55,11 +55,9 @@ module.exports = function(io) {
       participants[socket.room]--;
       console.log("Remaining participants: ");
       console.log(participants);
-    //   if (participants.length == 1){
-    //       participants = {};
-    //   }
       users = [];
       participantIds = [];
+      //Delete answers and questions 
       Answer.remove({}, function(err) {
         if (!err) {
                 console.log("deleted answer collection");
@@ -96,7 +94,6 @@ module.exports = function(io) {
 
       console.log("Participants: ");
       console.log(participants);
-    //   cb();
     });
 
     // MARK: Receiving users' selected answer
@@ -116,12 +113,6 @@ module.exports = function(io) {
                 //Increase score of specific player
                 increaseScore(socket.id);
                 var user = findUser(socket.id);
-                // console.log("Printing users:")
-                // console.log(users.length)
-                // for (var i = 0; i < users.length; i++){
-                //     console.log("users")
-                //     console.log(users[i].sockId)
-                // }
                 status = { isCorrect: true, answer: answerCorrect, score: user.score }
             } else {
                 //Decrease score of specific player
@@ -132,13 +123,6 @@ module.exports = function(io) {
 
             // MARK: Updating the users' dom (hidden field) with whether they were correct or incorrect
             socket.emit('subscribe:is_correct?', status, function() {
-              //Find user to pass in score to response object
-            //   var user = findUser(socket.id);
-            //   console.log("The user found is: ");
-            //   console.log(user)
-            //   console.log("The users are");
-            //   console.log(users);
-            //   var user_score = user.score;
               Game.findById(question.game, function(err, game) {
                 if (err) { return error }
                 var response = {

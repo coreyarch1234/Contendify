@@ -99,13 +99,13 @@ $(function() {
     if (data.isCorrect) {
         console.log("Hit correct")
         console.log(data.answer)
-        // $('#score-display').text(data.score);
-        $('#correct-answer-alert').html("<span style='color: #39b54a;font-size:1.2em;'>Correct!</span><br> <span style='font-size:0.7em;color: #aaa;padding-top:5px;'>YOUR SCORE:</span>  <br><span style='font-size: 3em; color: #39b54a;padding-bottom:5px;'>" + data.score + "</span>").removeClass("answer-alert-display");
+        $('#score-display').html("<span style='color: #39b54a;font-size:1.2em;'>Score</span><br> <span style='font-size:0.7em;color: #aaa;padding-top:5px;'>YOUR SCORE:</span>  <br><span style='font-size: 3em; color: #39b54a;padding-bottom:5px;'>" + data.score + "</span>")
+        // $('#correct-answer-alert').html("<span style='color: #39b54a;font-size:1.2em;'>Correct!</span><br> <span style='font-size:0.7em;color: #aaa;padding-top:5px;'>YOUR SCORE:</span>  <br><span style='font-size: 3em; color: #39b54a;padding-bottom:5px;'>" + data.score + "</span>")
     } else {
         console.log("Hit incorrect")
         console.log(data.answer)
-        // $('#score-display').text(data.score);
-        $('#correct-answer-alert').html("<span style='color: #ff4c4c;font-size:1.2em;'>Incorrect.</span><br> The correct answer is <u>" + data.answer + ".</u><br> <span style='font-size:0.7em;color: #aaa;padding-top:5px;'>YOUR SCORE:</span> <br><span style='font-size: 3em; color: #39b54a;padding-bottom:5px;'>" + data.score + "</span>").removeClass("answer-alert-display");
+        $('#score-display').text(data.score);
+        // $('#correct-answer-alert').html("<span style='color: #ff4c4c;font-size:1.2em;'>Incorrect.</span><br> The correct answer is <u>" + data.answer + ".</u><br> <span style='font-size:0.7em;color: #aaa;padding-top:5px;'>YOUR SCORE:</span> <br><span style='font-size: 3em; color: #39b54a;padding-bottom:5px;'>" + data.score + "</span>")
     }
     cb();
   });
@@ -133,7 +133,7 @@ $(function() {
           //remove all questions
           let removeElements = elms => Array.from(elms).forEach(el => el.remove());
           // Use like:
-          removeElements( document.querySelectorAll("#questions") );
+          removeElements(document.querySelectorAll("#questions"));
           window.location.href = '/';
           // end game
         } else {

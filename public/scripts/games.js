@@ -29,7 +29,6 @@ $(function() {
   $('#join-game').click(function(event) {
     var code = $('#game-code').val();
 
-    // alert('Trying to join game...');
     window.location.href = '/start/' + code;
   });
 
