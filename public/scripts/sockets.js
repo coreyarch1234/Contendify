@@ -45,7 +45,9 @@ $(function() {
           answerChosen: answerChosen,
           gameCode: gameCode
         }
-
+        //To prevent people from clicking answers multiple times for point gain
+        $('#answers').hide();
+        
         // Publishing a user having selected an answer
         socket.emit('publish:answer', data, function(result) {
           console.log("You chose: " + result);
@@ -99,12 +101,13 @@ $(function() {
     if (data.isCorrect) {
         console.log("Hit correct")
         console.log(data.answer)
-        $('#score-display').html("<span style='color: #39b54a;font-size:1.2em;'>Score</span><br> <span style='font-size:0.7em;color: #aaa;padding-top:5px;'>YOUR SCORE:</span>  <br><span style='font-size: 3em; color: #39b54a;padding-bottom:5px;'>" + data.score + "</span>")
+        $('#score-display').html("<span style='color: #39b54a;font-size:1.2em;'></span><br> <span style='font-size:0.7em;color: #aaa;padding-top:5px;'></span>  <br><span style='font-size: 3em; color: #39b54a;padding-bottom:5px;'>" + data.score + "</span>")
         // $('#correct-answer-alert').html("<span style='color: #39b54a;font-size:1.2em;'>Correct!</span><br> <span style='font-size:0.7em;color: #aaa;padding-top:5px;'>YOUR SCORE:</span>  <br><span style='font-size: 3em; color: #39b54a;padding-bottom:5px;'>" + data.score + "</span>")
     } else {
         console.log("Hit incorrect")
         console.log(data.answer)
         $('#score-display').text(data.score);
+        $('#score-display').html("<span style='color: #39b54a;font-size:1.2em;'></span><br> <span style='font-size:0.7em;color: #aaa;padding-top:5px;'></span>  <br><span style='font-size: 3em; color: #39b54a;padding-bottom:5px;'>" + data.score + "</span>")
         // $('#correct-answer-alert').html("<span style='color: #ff4c4c;font-size:1.2em;'>Incorrect.</span><br> The correct answer is <u>" + data.answer + ".</u><br> <span style='font-size:0.7em;color: #aaa;padding-top:5px;'>YOUR SCORE:</span> <br><span style='font-size: 3em; color: #39b54a;padding-bottom:5px;'>" + data.score + "</span>")
     }
     cb();
@@ -121,6 +124,9 @@ $(function() {
     // $('#correct-answer-alert').text(data.score);
     // console.log(data.score)
     // update dom to reflect # of people who have answered the question
+
+
+
     socket.emit('publish:next_question?', data);
   });
 

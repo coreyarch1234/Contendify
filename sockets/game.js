@@ -9,7 +9,7 @@ module.exports = function(io) {
   var users = []
 
   //Add a user with a specific ID
-  function addUser(sockId, score = 12) {
+  function addUser(sockId, score = 10) {
      var newUser = {
        sockId: sockId,
        score: score
@@ -57,7 +57,7 @@ module.exports = function(io) {
       console.log(participants);
       users = [];
       participantIds = [];
-      //Delete answers and questions 
+      //Delete answers and questions
       Answer.remove({}, function(err) {
         if (!err) {
                 console.log("deleted answer collection");
