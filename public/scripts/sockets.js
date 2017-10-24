@@ -9,6 +9,7 @@ var participants = 0;
 $(function() {
 
     $('.question').first().show().addClass('current-question');
+    $('#game-summary').hide(); //Hide summary until game has ended
     gameCode = window.location.href.split('/')[4];
     socket.emit('publish:join', gameCode);
 
@@ -47,7 +48,7 @@ $(function() {
         }
         //To prevent people from clicking answers multiple times for point gain
         $('#answers').hide();
-        
+
         // Publishing a user having selected an answer
         socket.emit('publish:answer', data, function(result) {
           console.log("You chose: " + result);
@@ -140,7 +141,15 @@ $(function() {
           let removeElements = elms => Array.from(elms).forEach(el => el.remove());
           // Use like:
           removeElements(document.querySelectorAll("#questions"));
-          window.location.href = '/';
+          //See summary of game and hide all else
+          $('#score-display').hide();
+          $('#questions').hide();
+          $('#answer-input').hide();
+          $('#answer-alert-container').hide();
+          $('#game-summary').show();
+          $('#game-summary').html("<span style='color: #39b54a;font-size:1.2em;'></span><br> <span style='font-size:0.7em;color: #aaa;padding-top:5px;'></span>  <br><span style='font-size: 3em; color: #39b54a;padding-bottom:5px;'> Good Job. You completed the game. </span>");
+          //Option Button to start a new game
+        //   window.location.href = '/';
           // end game
         } else {
           $('#correct-answer-alert').text('');
