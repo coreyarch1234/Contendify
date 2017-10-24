@@ -141,7 +141,6 @@ $(function() {
     setTimeout(function() {
         var nextQuestionsSize = $('.current-question').next().length;
         if (nextQuestionsSize == 0) {
-          alert("This is the end of the game!");
           //remove all questions
           let removeElements = elms => Array.from(elms).forEach(el => el.remove());
           // Use like:
