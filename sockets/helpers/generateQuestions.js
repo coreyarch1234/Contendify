@@ -10,7 +10,6 @@ var total = 0;
 function saveQuestions(cb) {
     var question = questionDocs.shift();
     console.log("THE QUESTION JUST CREATED IS: " + question);
-    console.log("THE TOTAL IS BITCCCCHHHH: " + total);
     question.save(function(error, saved) {
         if (error) { return error };
 

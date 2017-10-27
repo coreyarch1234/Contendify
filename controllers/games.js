@@ -55,8 +55,6 @@ router.post('/', function(req, res) {
 
 });
 
-// SHOW
-
 router.get('/:code', function(req, res) {
     Game.findOne({ code:req.params.code }).populate("questions").exec(function(err, game) {
       if (game == undefined) {
