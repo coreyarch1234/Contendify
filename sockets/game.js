@@ -5,6 +5,8 @@ module.exports = function(io) {
   var excessArray = [];
   var maxPlayers = 3;
 
+  var loadingNames = []; //object containing name and ID of player to update players.
+
   //Scoring
   var users = []
 
@@ -57,6 +59,7 @@ module.exports = function(io) {
       console.log(participants);
       users = [];
       participantIds = [];
+      loadingNames = []
       //Delete answers and questions
       Answer.remove({}, function(err) {
         if (!err) {
@@ -76,25 +79,89 @@ module.exports = function(io) {
      });
   });
 
+
+
     // MARK: Adding user to room
+    // socket.on('publish:join', function(code, cb) {
+    //   socket.join(code);
+    //   socket.room = code;
+    //   console.log("User '" + socket.id + "' joined...");
+    //   console.log("user is now in : " + socket.room);
+    //
+    //   //Add a user to users array to keep track of score
+    //   addUser(socket.id);
+    //
+    //   if (participants[code] == undefined) {
+    //     participants[code] = 1;
+    //   } else {
+    //       participants[code]++;
+    //   }
+    //
+    //   console.log("Participants: ");
+    //   console.log(participants);
+    // });
+
     socket.on('publish:join', function(code, cb) {
-      socket.join(code);
-      socket.room = code;
-      console.log("User '" + socket.id + "' joined...");
-      console.log("user is now in : " + socket.room);
 
-      //Add a user to users array to keep track of score
-      addUser(socket.id);
+        if (users.length == 0){
+            socket.join(code);
+            socket.room = code;
+            console.log("User '" + socket.id + "' joined...");
+            console.log("user is now in : " + socket.room);
 
-      if (participants[code] == undefined) {
-        participants[code] = 1;
-      } else {
-          participants[code]++;
-      }
+            //Add a user to users array to keep track of score
+            addUser(socket.id);
 
-      console.log("Participants: ");
-      console.log(participants);
+            if (participants[code] == undefined) {
+              participants[code] = 1;
+              cb();
+            } else {
+                participants[code]++;
+                cb();
+            }
+
+            console.log("Participants: ");
+            console.log(participants);
+        }
+        for (index in users){
+            if (users[index].sockId === socket.id) {
+              return
+            }
+            if (index == users.length - 1){
+                socket.join(code);
+                socket.room = code;
+                console.log("User '" + socket.id + "' joined...");
+                console.log("user is now in : " + socket.room);
+
+                //Add a user to users array to keep track of score
+                addUser(socket.id);
+
+                if (participants[code] == undefined) {
+                  participants[code] = 1;
+                  cb();
+                } else {
+                    participants[code]++;
+                    cb();
+                }
+
+                console.log("Participants: ");
+                console.log(participants);
+            }
+        }
     });
+
+    // // Update loadingNames array
+    socket.on('loadingScreenUpdate', function(loadedName) {
+        console.log("the loaded name is: " + loadedName.name);
+        loadingNames.push(loadedName)
+        io.in(socket.room).emit('loadedUpdate', loadingNames);
+
+    });
+
+    socket.on('updateAll', function(loadedNames){
+        console.log('UPDATED ALL RECEIVED ON SERVER');
+        io.in(socket.room).emit('updatedAll', loadingNames);
+    })
 
     // MARK: Receiving users' selected answer
     socket.on('publish:answer', function(data) {

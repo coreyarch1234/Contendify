@@ -24,7 +24,7 @@ router.post('/', function(req, res) {
   var data = new Game(req.body);
 
   Game.findOne({ code: data.code }).exec(function(error, game) {
-    console.log("***********WHAT IS THE GAME BITCH?*********** : " + game);
+    console.log("***********WHAT IS THE GAME?*********** : " + game);
     console.log("THE CODE IS: " + data.code);
     if (game === undefined || game === null) {
         console.log("++++++++++++ game is going to be created +++++++++")

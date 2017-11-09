@@ -1,92 +1,188 @@
-<head>
-  <!-- Styles -->
-  <link rel="stylesheet" href="/styles/waiting.css">
-</head>
+<html>
+  <head>
+    <!--Meta Content-->
+    <meta charset="utf-8">
+    <meta name="keywords" content="math, science, game, engage, students, education">
+    <meta name="description" content="Contendify is a math and science game that engages students with STEM content.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-<!-- <div class="main-container"> -->
-  <div class="heading-container">
-    <div class="title">
-      <h1>Contendify</h1>
-      <hr class="underline">
-    </div>
-    <div class="subtitle">
-      <h3>Learn by gaming.</h3>
-    </div>
-    <div class="room-code">
-      <!-- <h3>GAME CODE</h3> -->
-      <div class="code-container">
+    <!--OG Information-->
+    <meta property="og:title" content="Contendify">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="Enter URL"> <!--Enter URL Here-->
+    <meta property="og:site_name" content="Enter Site Name"> <!--Enter Site Name Here-->
+    <meta property="og:description" content="Contendify is a math and science game that engages students with STEM content.">
+    <meta property="og:image" content="Enter Image Link" /><!--Enter Image Link Here-->
 
-          <a href="" onClick="onclick="copier()""><h3>YOUR GAME CODE IS</h3></a>
-          <h1 id="myText">{{game.code}}</h1>
+    <!--Twitter-->
+    <meta name="twitter:title" content="Contendify">
+    <meta name="twitter:description" content="Contendify is a math and science game that engages students with STEM content.">
+    <meta name="twitter:image" content="Enter Image for Twitter Card"> <!--Enter Image Link Here-->
+    <meta name="twitter:card" content="Enter Image for Twitter Card"> <!--Enter Image Link Here-->
+
+    <!--Title-->
+    <title>Contendify. Math and Science Education Game.</title>
+
+    <!--Favicon-->
+    <link rel="icon" href="img/favicon.png" type="image/png">
+    <link rel="shortcut icon" href="img/favicon.png" type="img/x-icon">
+
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles/waiting.css">
+
+    <!--Google Fonts-->
+    <link href='http://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,800,900' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700,900" rel="stylesheet">
+
+    <!--FontAwesome-->
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+
+    <!--Get jQuery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <!--Scripts-->
+    <script src="js/modernizr-2.7.1.js"></script>
+
+    <!-- for the loading screen -->
+    <!-- <script type="text/javascript" src="/scripts/games.js"></script> -->
+
+  </head>
+  <body>
+      <script type="text/javascript" src="/scripts/games.js"></script>
+    <!-- <div class="main-container"> -->
+      <div class="heading-container">
+        <div class="title">
+          <h1>Contendify</h1>
+          <hr class="underline">
+        </div>
+        <div class="subtitle">
+          <h3>Learn by gaming.</h3>
+        </div>
+        <div class="room-code">
+          <h3>YOUR GAME CODE IS</h3>
+          <div class="code-container">
+               <h1 id="myText">{{game.code}}</h1>
+          </div>
+        </div>
+        <div class="press-spacebar">
+          <p>Press</p>
+          <div class="spacebar">
+              <a href="start/{{game.code}}"><h3>START GAME</h3></a>
+          </div>
+          <p>to start the game.</p>
+        </div>
       </div>
-    </div>
-    <div class="press-spacebar">
-      <div class="spacebar">
-          <!-- <h3>SPACEBAR</h3> -->
-          <a href="start/{{game.code}}"><h3>START GAME</h3></a>
+      <div class="players-container" >
+        <div class="player-container">
+          <div class="indicator-container-one">
+            <div class="indicator" id="i1"></div>
+          </div>
+          <div class="player-one" id="one">
+            <h1>&nbsp;{{game.name}}</h1>
+          </div>
+        </div>
+        <div class="player-container">
+          <div class="indicator-container-others">
+            <div class="indicator" id="i2"></div>
+          </div>
+          <div class="player-others" id="two">
+          </div>
+        </div>
+        <div class="player-container">
+          <div class="indicator-container-others">
+            <div class="indicator" id="i3"></div>
+          </div>
+          <div class="player-others" id="three">
+          </div>
+        </div>
+        <div class="player-container">
+          <div class="indicator-container-others">
+            <div class="indicator" id="i4"></div>
+          </div>
+          <div class="player-others" id="four">
+            <h1>&nbsp;MARQUAVIOUS</h1>
+          </div>
+        </div>
+        <div class="player-container">
+          <div class="indicator-container-others">
+            <div class="indicator" id="i5"></div>
+          </div>
+          <div class="player-others" id="five">
+            <h1>&nbsp;ALEX</h1>
+          </div>
+        </div>
+        <div class="player-container">
+          <div class="indicator-container-others">
+            <div class="indicator" id="i6"></div>
+          </div>
+          <div class="player-others" id="six">
+            <h1>&nbsp;MADHUR</h1>
+          </div>
+        </div>
+        <div class="player-container">
+          <div class="indicator-container-others">
+            <div class="indicator" id="i7"></div>
+          </div>
+          <div class="player-others" id="seven">
+            <h1>&nbsp;TASSOS</h1>
+          </div>
+        </div>
+        <div class="player-container">
+          <div class="indicator-container-others">
+            <div class="indicator" id="iw"></div>
+          </div>
+          <div class="player-others" id="waiting">
+            <h1><span class="waiting-border">WAITING FOR PLAYER 8</span></h1>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-
-<!-- </div> -->
+    <!-- </div> -->
 
 
 
 
 
 
-<!--Scripts-->
-<script scr="js/main.js" type="text/javascript"></script>
+    <!--Scripts-->
+    <script scr="js/main.js" type="text/javascript"></script>
 
-<!--Smooth Scrolling Script-->
-<script type="text/javascript">
-    $(document).ready(function(){
+    <!-- for the loading screen -->
+    <script type="text/javascript" src="/scripts/games.js"></script>
 
-        $("a").on('click', function(event) {
-            if (this.hash !== "") {
 
-                event.preventDefault();
-                var hash = this.hash;
+    <!--Smooth Scrolling Script-->
+    <script type="text/javascript">
+        $(document).ready(function(){
 
-                $('html, body').animate({
+            $("a").on('click', function(event) {
+                if (this.hash !== "") {
 
-                    scrollTop: $(hash).offset().top
-                    }, 800, function(){
+                    event.preventDefault();
+                    var hash = this.hash;
 
-                        window.location.hash = hash;
+                    $('html, body').animate({
 
-                });
-            }
+                        scrollTop: $(hash).offset().top
+                        }, 800, function(){
+
+                            window.location.hash = hash;
+
+                    });
+                }
+            });
         });
-    });
-</script>
+    </script>
 
-<!--Loading Screen-->
-<script type="text/javascript">
-    var preloader = document.getElementById('preloader');
-    window.addEventListener('load', function(){
-        preloader.style.display = 'none';
-    })
-</script>
-
-<script>
-    function copier(){
-            document.getElementById('myText').select();
-            document.execCommand('copy');
-        }
-</script>
-
-
-<style>
-    a:link {
-        color: #39b54a;
-        background-color: transparent;
-        text-decoration: none;
-    }
-    a:hover {
-        color: #f1f2f2;
-        background-color: transparent;
-    }
-
-
-</style>
+    <!--Loading Screen-->
+    <script type="text/javascript">
+        var preloader = document.getElementById('preloader');
+        window.addEventListener('load', function(){
+            preloader.style.display = 'none';
+        })
+    </script>
+  </body>
+</html>

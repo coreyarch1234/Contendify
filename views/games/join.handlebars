@@ -1,4 +1,8 @@
-<div class="heading-container">
+<!-- Styles -->
+<link rel="stylesheet" href="styles/waiting.css">
+
+
+<div class="heading-container" id="heading-container">
     <div class="title">
       <h1>Contendify</h1>
       <hr class="underline">
@@ -11,6 +15,13 @@
         <!-- <h3>GAME CODE</h3> -->
           <input type="text" id="game-code" name="game-code" placeholder="ENTER GAME CODE" maxlength="4">
       </div>
+
+      <div class="form-input">
+        <!-- Should be a game name, we will eventually generate the code ourselves to avoid collisions -->
+        <!-- <h3>NICKNAME</h3> -->
+        <input type="text" id="join-name" name="join-name" placeholder="NICKNAME" maxlength="20">
+      </div>
+
       <div class="join-button">
         <input type="submit" value="JOIN GAME" id="join-game">
       </div>
@@ -20,7 +31,76 @@
       </div>
       <div class="start-button">
         <!-- <input type="submit" value="CREATE NEW GAME" id="create-game"> -->
+        <!-- <a href="/new">CREATE NEW GAME</a> -->
         <a href="/new">CREATE NEW GAME</a>
       </div>
     </div>
 </div>
+
+<div class="players-container" id="players-container" style="color: #ff0000;">
+  <div class="player-container">
+    <div class="indicator-container-one">
+      <div class="indicator" id="i1"></div>
+    </div>
+    <div class="player-one" id="one">
+      <h1>&nbsp;{{game.name}}</h1>
+    </div>
+  </div>
+  <div class="player-container">
+    <div class="indicator-container-others">
+      <div class="indicator" id="i2"></div>
+    </div>
+    <div class="player-others" id="two">
+    </div>
+  </div>
+  <div class="player-container">
+    <div class="indicator-container-others">
+      <div class="indicator" id="i3"></div>
+    </div>
+    <div class="player-others" id="three">
+    </div>
+  </div>
+  <div class="player-container">
+    <div class="indicator-container-others">
+      <div class="indicator" id="i4"></div>
+    </div>
+    <div class="player-others" id="four">
+      <h1>&nbsp;MARQUAVIOUS</h1>
+    </div>
+  </div>
+  <div class="player-container">
+    <div class="indicator-container-others">
+      <div class="indicator" id="i5"></div>
+    </div>
+    <div class="player-others" id="five">
+      <h1>&nbsp;ALEX</h1>
+    </div>
+  </div>
+  <div class="player-container">
+    <div class="indicator-container-others">
+      <div class="indicator" id="i6"></div>
+    </div>
+    <div class="player-others" id="six">
+      <h1>&nbsp;MADHUR</h1>
+    </div>
+  </div>
+  <div class="player-container">
+    <div class="indicator-container-others">
+      <div class="indicator" id="i7"></div>
+    </div>
+    <div class="player-others" id="seven">
+      <h1>&nbsp;TASSOS</h1>
+    </div>
+  </div>
+  <div class="player-container">
+    <div class="indicator-container-others">
+      <div class="indicator" id="iw"></div>
+    </div>
+    <div class="player-others" id="waiting">
+      <h1><span class="waiting-border">WAITING FOR PLAYER 8</span></h1>
+    </div>
+  </div>
+</div>
+
+<!-- for the loading screen -->
+<script type="text/javascript" src="/scripts/games.js"></script>
