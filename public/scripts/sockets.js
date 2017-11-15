@@ -100,16 +100,17 @@ $(function() {
 
   socket.on('subscribe:is_correct?', function(data, cb) {
     //   console.log("Hit correct")
+    $('#score-display').show();
     if (data.isCorrect) {
         console.log("Hit correct")
         console.log(data.answer)
-        $('#score-display').html("<span style='color: #39b54a;font-size:1.2em;'></span><br> <span style='font-size:0.7em;color: #aaa;padding-top:5px;'></span>  <br><span style='font-size: 3em; color: #39b54a;padding-bottom:5px;'>" + data.score + "</span>")
+        $('#score-display').html("<span class='correct-incorrect' style='color: #39b54a;font-size:1.2em;'>Correct!</span><br><span class='correct-answer'></span><span style='font-size:0.7em;color: #aaa;padding-top:5px;'>YOUR SCORE:</span>  <br><span style='font-size: 3em; color: #39b54a;padding-bottom:5px;'>" + data.score + "</span>")
         // $('#correct-answer-alert').html("<span style='color: #39b54a;font-size:1.2em;'>Correct!</span><br> <span style='font-size:0.7em;color: #aaa;padding-top:5px;'>YOUR SCORE:</span>  <br><span style='font-size: 3em; color: #39b54a;padding-bottom:5px;'>" + data.score + "</span>")
     } else {
         console.log("Hit incorrect")
         console.log(data.answer)
         $('#score-display').text(data.score);
-        $('#score-display').html("<span style='color: #39b54a;font-size:1.2em;'></span><br> <span style='font-size:0.7em;color: #aaa;padding-top:5px;'></span>  <br><span style='font-size: 3em; color: #39b54a;padding-bottom:5px;'>" + data.score + "</span>")
+        $('#score-display').html("<span class='correct-incorrect' style='color: #ff4c4c;font-size:1.2em;'>Incorrect.</span><br> <span class='correct-answer'>The correct answer is <u>" + data.answer + ".</u><br></span> <span style='font-size:0.7em;color: #aaa;padding-top:5px;'>YOUR SCORE:</span> <br><span style='font-size: 3em; color: #39b54a;padding-bottom:5px;'>" + data.score + "</span>")
         // $('#correct-answer-alert').html("<span style='color: #ff4c4c;font-size:1.2em;'>Incorrect.</span><br> The correct answer is <u>" + data.answer + ".</u><br> <span style='font-size:0.7em;color: #aaa;padding-top:5px;'>YOUR SCORE:</span> <br><span style='font-size: 3em; color: #39b54a;padding-bottom:5px;'>" + data.score + "</span>")
     }
     cb();
@@ -138,6 +139,7 @@ $(function() {
 
   socket.on('subscribe:next_question?', function(data) {
     $('.answer-alert-display').show();
+    // $('#score-display').removeClass('extra-margin');
     setTimeout(function() {
         var nextQuestionsSize = $('.current-question').next().length;
         if (nextQuestionsSize == 0) {
@@ -152,27 +154,31 @@ $(function() {
           $('#answer-alert-container').hide();
 
           //Game Summary
-          $('#game-summary').show().html("<span style='color: #39b54a;font-size:1.2em;'></span><br> <span style='font-size:0.7em;color: #aaa;padding-top:5px;'></span>  <br><span style='font-size: 3em; color: #39b54a;padding-bottom:5px;'> Good Job. You completed the game. </span>");
+          $('#game-summary').show().html("<div class='ending-message'> Good Job. You completed the game. </div>");
         //   console.log("THE SCORES ARE: " + data[0].score);
         //   console.log("THE SCORES ARE: " + data[1].score);
           var opponentScores = [];
           for (var i = 0; i < data.length; i++){
               if (data[i].sockId === socket.id) {
                 console.log("YOUR SCORE IS: " + data[i].score);
-                $('#game-summary').append("<span style='color: #39b54a;font-size:1.2em;'></span><br> <span style='font-size:0.7em;color: #aaa;padding-top:5px;'></span>  <br><span style='font-size: 1em; color: #39b54a;padding-bottom:5px;'> You scored " + data[i].score + " points" + "</span>");
+                $('#game-summary').append("<div class='points-players'><span class='points-player'>Your score:</span>&nbsp;&nbsp;&nbsp;<span class='points-score'>" + data[i].score + "</span> points" + "</div>");
             }else{
                 opponentScores.push(data[i].score);
             }
           }
           console.log("the opponent scores are: " + opponentScores);
           for(var x=0; x<opponentScores.length; x++){
-            $('#game-summary').append("<span style='color: #39b54a;font-size:1.2em;'></span><br> <span style='font-size:0.7em;color: #aaa;padding-top:5px;'></span>  <br><span style='font-size: 1em; color: #39b54a;padding-bottom:5px;'> Player " + x + ": " + opponentScores[x] + " points" + "</span>");
+              // "<span class='points-players'> Player " + x+1 + ": " + opponentScores[x] + " points" + "</span>"
+            $('#game-summary').append(`<div class=points-players><span class=points-player>Opponent ${x+1}:</span>&nbsp;&nbsp;&nbsp;<span class=points-score>${opponentScores[x]}</span> points</div>`);
           }
 
           //Option Button to start a new game
           $('#beginning').show();
           // end game
         } else {
+          // $('#score-display').hide();
+          $('.correct-incorrect').hide();
+          $('.correct-answer').hide();
           $('#correct-answer-alert').text('');
 
           $('.current-question').hide()

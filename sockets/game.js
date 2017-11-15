@@ -3,13 +3,13 @@ module.exports = function(io) {
   var participants = {};
   var participantIds = [];
   var excessArray = [];
-  var maxPlayers = 3;
+  var maxPlayers = 6;
 
   //Scoring
   var users = []
 
   //Add a user with a specific ID
-  function addUser(sockId, score = 10) {
+  function addUser(sockId, score = 0) {
      var newUser = {
        sockId: sockId,
        score: score

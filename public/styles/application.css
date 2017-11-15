@@ -4,6 +4,7 @@
 }
 html, body {
 	width: 100%;
+	min-width: 1275px;
 	background-color: #333132;
 	font-family: 'Montserrat';
   font-size: 1.2em;
@@ -174,7 +175,7 @@ html, body {
 .question-container {
   width: 80%;
   position: absolute;
-	top: 5%;
+  top: 5%;
   left: 50%;
   transform: translate(-50%,0%);
 }
@@ -306,6 +307,32 @@ html, body {
 	transform: translate(-50%, -60%);
 	text-align: center;
 }
+.extra-margin {
+	margin-top: 50px;
+}
+.ending-message {
+	font-size: 2.5em;
+	font-weight: 700;
+	color: #fff;
+	text-align: center;
+	margin-bottom: 50px;
+}
+.points-players {
+	text-align: center;
+	margin-top: 10px;
+	color: #aaa;
+}
+.points-player {
+	color: #fff;
+}
+.points-score {
+	color: #39b54a;
+	font-size: 1.8em;
+}
+#home-button {
+	margin-top: 40px;
+}
+
 /*Input Placeholder Text Opacity*/
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
   opacity:  0.5;

@@ -5,12 +5,13 @@
 
 <div class="question-container">
     <!-- Display score throughout game -->
-    <div id="score-display" class="score">
-        <span style='color: #39b54a;font-size:1.2em;'></span>
+    <div id="score-display" class="score extra-margin">
+        <span class="correct-incorrect"style='color: #39b54a;font-size:1.2em;'></span>
         <br>
-        <span style='font-size:0.7em;color: #aaa;padding-top:10px;'></span>
+        <span class='correct-answer'></span>
+        <span style='font-size:0.7em;color: #aaa;padding-top:10px;'>YOUR SCORE:</span>
         <br>
-        <span style='font-size: 3em; color: #39b54a;padding-bottom:5px;'>10</span>
+        <span style='font-size: 3em; color: #39b54a;padding-bottom:5px;'>0</span>
     </div>
     <div id="questions">
         {{#each game.questions}}
@@ -20,9 +21,9 @@
         {{/each}}
     </div>
     <div class="lie" id="answer-input">
-      <input type="text" class="fake-answer" id="fake-answer" name="fake-answer" placeholder="ENTER YOUR LIE">
+      <input type="text" class="fake-answer" id="fake-answer" name="fake-answer" placeholder="ENTER YOUR DISTRACTOR">
       <div class="lie-background"></div><br>
-      <input type="submit" class="submit-lie" value="SUBMIT LIE" id="submit-lie">
+      <input type="submit" class="submit-lie" value="SUBMIT DISTRACTOR" id="submit-lie">
     </div>
 
     <div class="answers" id="answers" style="display:none;">
@@ -31,16 +32,19 @@
         <input class="answer" type="submit" value="B">
         <input class="answer" type="submit" value="C">
         <input class="answer" type="submit" value="C">
+        <input class="answer" type="submit" value="C">
+        <input class="answer" type="submit" value="C">
+        <input class="answer" type="submit" value="C">
     </div>
 
     <!-- Score display -->
     <!-- <h1>Score: </h1> -->
     <div id="game-summary" style="display: block;">
-        <span style='color: #39b54a;font-size:1.2em;'></span>
+        <!-- <span style='color: #39b54a;font-size:1.2em;'></span>
         <br>
         <span style='font-size:0.7em;color: #aaa;padding-top:5px;'></span>
         <br>
-        <span style='font-size: 3em; color: #39b54a;padding-bottom:5px;'></span>
+        <span style='font-size: 3em; color: #39b54a;padding-bottom:5px;'></span> -->
     </div>
     <div id= "beginning" class=start-button style="display: block;">
         <input type=submit value=HOME id=home-button>

@@ -5,7 +5,7 @@ var bodyParser = require('body-parser')
 var http = require('http')
 var httpServer = http.createServer(app)
 var io = require('socket.io')(httpServer)
-var port = 3000
+var port = 8080;
 
 // Middleware
 app.use(bodyParser.json())
