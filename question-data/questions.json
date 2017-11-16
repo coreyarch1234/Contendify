@@ -1,10 +1,21 @@
 {
     "questions": [
         {
-            "text": "The half-life of one isotope of radium is about 1,600 years. In a given sample of this isotope, 15/16th of the radium atoms will decay in a time most nearly equal to?",
-            "answer": "6,400 years"
+            "text": "When traveling in a car, near objects seem to move past you faster than distant objects. This is called?",
+            "answer": "Relative Motion"
+
+        },
+        {
+            "text": "A child has learned to avoid a furry, black cat. However, she still plays with her mother's short-haired tabby. Her response demonstrates?",
+            "answer": "Discrimination"
+
+        },
+        {
+            "text": "A scientific explanation that remains tenative until it has been adequately tested is called a(n)",
+            "answer": "Hypothesis"
 
         }
+
 
     ]
 }
